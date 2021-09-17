@@ -5,11 +5,18 @@ namespace Dispositivos
     public enum Estado { Ocupado, Libre, Reservado, Roto}
     public class Dispositivo
     {
-        string[] id;
+        string id;
         Estado estado;
         double costoFraccion;
 
-        public string[] Id { get => id; set => id = value; }
+        public Dispositivo(string id, Estado estado, double costoFraccion)
+        {
+            this.id = id;
+            this.estado = estado;
+            this.costoFraccion = costoFraccion;
+        }
+
+        public string Id { get => id; set => id = value; }
         public Estado Estado { get => estado; set => estado = value; }
         public double CostoFraccion { 
             get 
