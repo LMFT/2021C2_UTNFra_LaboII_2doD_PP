@@ -9,5 +9,21 @@ namespace Dispositivos
         Estado estado;
         double costoFraccion;
 
+        public string[] Id { get => id; set => id = value; }
+        public Estado Estado { get => estado; set => estado = value; }
+        public double CostoFraccion { 
+            get 
+            {
+                return costoFraccion;
+            }  
+            
+            set 
+            {
+                if (value > 0)
+                {
+                    costoFraccion = value;
+                }
+            }  
+        }
     }
 }

@@ -15,6 +15,10 @@ namespace Dispositivos.Computadora
         List<string> juegos;
         List<string> perifericos;
         Dictionary<string, string> especificaciones;
-        
+
+        public List<string> Software { get => software; set => software = value; }
+        public List<string> Juegos { get => juegos; set => juegos = value; }
+        public List<string> Perifericos { get => perifericos; set => perifericos = value; }
+        public Dictionary<string, string> Especificaciones { get => especificaciones; set => especificaciones = value; }
     }
 }
