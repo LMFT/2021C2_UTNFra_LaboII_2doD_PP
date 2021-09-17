@@ -4,9 +4,10 @@ using Dispositivos;
 
 namespace Dispositivos.Computadora
 {
+    public enum TipoPrograma {Software, Juego}
     public static class Biblioteca
     {
-        static Dictionary<string, string> biblioteca;
+        static Dictionary<string, TipoPrograma> biblioteca;
 
         public static void GenerarBiblioteca()
         {
@@ -15,20 +16,54 @@ namespace Dispositivos.Computadora
             
             foreach(string item in software)
             {
-                biblioteca.Add(item, "software");
+                biblioteca.Add(item, TipoPrograma.Software);
             }
+
             foreach(string item in juegos)
             {
-                biblioteca.Add(item, "juego");
+                biblioteca.Add(item, TipoPrograma.Juego);
             }
         }
 
-        
+        public static Dictionary<string, TipoPrograma> ObtenerProgramas(int cantidad, TipoPrograma tipo)
+        {
+            List<string> listado = FiltrarBiblioteca(tipo);
+            Dictionary<string, TipoPrograma> softwareInstalado = new Dictionary<string, TipoPrograma>();
+            Random rng = new Random();
+            if(cantidad<=listado.Count)
+            {
+                int i = 0;
+                while(i<cantidad)
+                {
+                    int indiceSoftware = rng.Next(0, listado.Count);
+                    string software = listado[indiceSoftware];
+                    if(!softwareInstalado.ContainsKey(software))
+                    {
+                        softwareInstalado.Add(software, tipo);
+                        i++;
+                    }
+                }
+            }
+            return softwareInstalado;
+        }
+
+        private static List<string> FiltrarBiblioteca(TipoPrograma tipo)
+        {
+            List<string> listado = new List<string>();
+            foreach(KeyValuePair<string, TipoPrograma>item in biblioteca)
+            {
+                if(item.Value == tipo)
+                {
+                    listado.Add(item.Key);
+                }
+            }
+            return listado;
+        }
     }
 
     public class Computadora : Dispositivo
     {
-        Dictionary<string, string> softwareInstalado;
+        Dictionary<string, TipoPrograma> softwareInstalado;
         List<string> perifericos;
         Dictionary<string, string> especificaciones;
 
