@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cibercontrol
+namespace Entidades
 {
     public abstract class Dispositivo
     {

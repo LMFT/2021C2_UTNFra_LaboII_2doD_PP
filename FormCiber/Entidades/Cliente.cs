@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cibercontrol
+namespace Entidades
 {
     public enum Necesidad
     {
@@ -115,7 +115,7 @@ namespace Cibercontrol
             }
         }
 
-        private Queue<Cliente> HardcodearClientes()
+        public static Queue<Cliente> HardcodearClientes()
         {
             Queue<Cliente> colaClientes = new Queue<Cliente>();
             string[] nombres = {"Lucas", "Javier", "Marcelo", "Marcos", "Juan", "Gonzalo"};
@@ -132,7 +132,8 @@ namespace Cibercontrol
             }
             return colaClientes;
         }
-            
+
+          
     }
 }
 
