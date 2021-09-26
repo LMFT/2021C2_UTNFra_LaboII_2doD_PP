@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Rng;
+using GeneradorNumeros;
 
 namespace Entidades
 {
@@ -18,10 +18,10 @@ namespace Entidades
         public Computadora(List<string> software, List<string> perifericos, List<string> juegos, Dictionary<string, string> especificaciones)
         {
             SetearId();
-            this.software = software;
-            this.perifericos = perifericos;
-            this.juegos = juegos;
-            this.especificaciones = especificaciones;
+            this.Software = software;
+            this.Perifericos = perifericos;
+            this.Juegos = juegos;
+            this.Especificaciones = especificaciones;
         }
 
         internal List<string> Software
@@ -86,7 +86,7 @@ namespace Entidades
 
         protected override void SetearId()
         {
-            base.Id = String.Format("T{0:00}", siguienteId);
+            base.Id = String.Format("C{0:00}", siguienteId);
             siguienteId++;
         }
 
@@ -96,13 +96,13 @@ namespace Entidades
             List<string> perifericos = new List<string> {"Cámara", "Auriculares", "Micrófono"}; 
             List<string> juegos = new List<string> { "Counter-Strike", "Diablo II", "MU Online", "Lineage II", "Age of Empires II"};
             
-
             for(int i=0;i<10;i++)
             {
-                Computadora computadora = new Computadora  (GeneradorNumeros.SeleccionAleatoria(software, GeneradorNumeros.Generar(0, software.Count)),
-                                                            GeneradorNumeros.SeleccionAleatoria(perifericos, GeneradorNumeros.Generar(0, perifericos.Count)),
-                                                            GeneradorNumeros.SeleccionAleatoria(juegos, GeneradorNumeros.Generar(0, juegos.Count)),
+                Computadora computadora = new Computadora(GeneradorNumero.SeleccionAleatoria(software, GeneradorNumero.Generar(0, software.Count)),
+                                                            GeneradorNumero.SeleccionAleatoria(perifericos, GeneradorNumero.Generar(0, perifericos.Count)),
+                                                            GeneradorNumero.SeleccionAleatoria(juegos, GeneradorNumero.Generar(0, juegos.Count)),
                                                             GenerarEspecificaciones());
+                lista.Add(computadora);
             }
         }
 
@@ -114,14 +114,17 @@ namespace Entidades
             string[] ram = new string[] {"Nanya 256 MB DDR RAM PC-3200 184-pin DIMM","acp-ep memoria 512 MB PC133 168-pin","DELL Dimension 8100 PC800 RDRAM 1 GB" };
             string[] placaVideo = new string[] { "Voodoo I", "nVidia Riva", "GeForce 256"};
             
-            especificaciones.Add("Procesador", procesador[GeneradorNumeros.Generar(0,3)]);
-            especificaciones.Add("Placa base", placaBase[GeneradorNumeros.Generar(0,3)]);
-            especificaciones.Add("Memoria RAM", ram[GeneradorNumeros.Generar(0,3)]);
-            especificaciones.Add("Placa de video", placaVideo[GeneradorNumeros.Generar(0,3)]);
+            especificaciones.Add("Procesador", procesador[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
+            especificaciones.Add("Placa base", placaBase[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
+            especificaciones.Add("Memoria RAM", ram[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
+            especificaciones.Add("Placa de video", placaVideo[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
             
             return especificaciones;
         }
 
-        
+        public override string MostrarDispositivo()
+        {
+            StringBuilder informacion
+        }
     }
 }

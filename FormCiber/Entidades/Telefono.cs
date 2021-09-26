@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using GeneradorNumeros;
 namespace Entidades
 {
     public enum TipoTelefono
@@ -17,12 +17,11 @@ namespace Entidades
         private string marca;
         static private int siguienteId = 1;
 
-        public Telefono(string id, TipoTelefono tipo, string marca)
+        public Telefono(TipoTelefono tipo, string marca)
         {
             SetearId();
-            this.tipo = tipo;
-            this.marca = marca;
-            
+            this.Tipo = tipo;
+            this.Marca = marca;
         }
 
         protected override void SetearId()
@@ -58,5 +57,14 @@ namespace Entidades
             }
         }
 
+        public static void HardcodearTelefonos(List<Dispositivo> listado)
+        {
+            string[] marcas = { "Motorola", "Panacom", "Philips", "Noblex" };
+            for(int i = 0; i < 5; i++)
+            {
+                Telefono telefono = new Telefono((TipoTelefono)GeneradorNumero.Generar(0, 2), marcas[GeneradorNumero.Generar(0,marcas.Length)]);
+                listado.Add(telefono);
+            }
+        }
     }
 }

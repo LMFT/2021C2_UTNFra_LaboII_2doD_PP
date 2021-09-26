@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rng
+namespace GeneradorNumeros
 {
-    public static class GeneradorNumeros
+    public static class GeneradorNumero
     {
         private static Random rng = new Random();
 
@@ -29,7 +29,7 @@ namespace Rng
                 {
                     for (int i = 0; i < cantidadElementos; i++)
                     {
-                        int index = GeneradorNumeros.Generar(0, listado.Count);
+                        int index = GeneradorNumero.Generar(0, listado.Count);
                         elemento = listado.ElementAt(index);
                         /*Si la lista no contiene el elemento, lo añado y continuo a la siguiente iteracion
                          De lo contrario decremento el iterador*/
