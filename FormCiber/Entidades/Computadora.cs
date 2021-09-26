@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeneradorNumeros;
+using Colecciones;
 
 namespace Entidades
 {
@@ -17,11 +18,12 @@ namespace Entidades
         static private int siguienteId = 1;
         public Computadora(List<string> software, List<string> perifericos, List<string> juegos, Dictionary<string, string> especificaciones)
         {
-            SetearId();
+            this.Id = String.Format("C{0:00}", siguienteId++);
             this.Software = software;
             this.Perifericos = perifericos;
             this.Juegos = juegos;
             this.Especificaciones = especificaciones;
+            this.Estado = Estado.Libre;
         }
 
         internal List<string> Software
@@ -84,12 +86,6 @@ namespace Entidades
             }
         }
 
-        protected override void SetearId()
-        {
-            base.Id = String.Format("C{0:00}", siguienteId);
-            siguienteId++;
-        }
-
         public static void HardcodearComputadoras(List<Dispositivo> lista)
         {
             List<string> software = new List<string> { "Office", "Messenger", "ICQ", "Ares" }; 
@@ -124,7 +120,14 @@ namespace Entidades
 
         public override string MostrarDispositivo()
         {
-            StringBuilder informacion
+            StringBuilder informacion = new StringBuilder();
+
+            informacion.AppendLine($"ID Dispositivo: {this.Id}\n");
+            informacion.AppendLine($"Estado: {this.Estado}\n");
+            informacion.AppendLine($"Perifericos: {Coleccion.ObtenerElementosLista(this.Perifericos)}\n");
+            informacion.AppendLine($"Software instalado: {Coleccion.ObtenerElementosLista(this.Software)}\n");
+            informacion.AppendLine($"Juegos instalados: {Coleccion.ObtenerElementosLista(this.Juegos)}\n");
+            return informacion.ToString();
         }
     }
 }

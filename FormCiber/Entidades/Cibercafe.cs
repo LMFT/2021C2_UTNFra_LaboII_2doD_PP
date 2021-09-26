@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class Cibercafe
+    public static class Cibercafe
     {
-        Queue<Cliente> colaClientes;
-        List<Dispositivo> dispositivos;
+        private static Queue<Cliente> colaClientes = Cliente.HardcodearClientes();
+        private static List<Dispositivo> dispositivos = CrearDispositivos();
 
-        public Cibercafe()
-        {
-            this.colaClientes = Cliente.HardcodearClientes();
-            this.dispositivos = CrearDispositivos();
-        }
-
-        private List<Dispositivo> CrearDispositivos()
+        private static List<Dispositivo> CrearDispositivos()
         {
             List<Dispositivo> listado = new List<Dispositivo>();
             Computadora.HardcodearComputadoras(listado);
@@ -25,26 +19,40 @@ namespace Entidades
             return listado;
         }
 
-        internal Queue<Cliente> ColaClientes
+        public static List<Cliente> ObtenerClientesEnEspera()
         {
-            get
+            List<Cliente> lista = new List<Cliente>();
+            foreach(Cliente c in colaClientes)
             {
-                return colaClientes;
+                lista.Add(c);
             }
+            return lista;
         }
 
-        public List<Dispositivo> Dispositivos
+        public static string MostrarDispositivo(string id)
         {
-            get
+            foreach(Dispositivo dispositivo in dispositivos)
             {
-                return dispositivos;
+                if(dispositivo == id)
+                {
+                    return dispositivo.MostrarDispositivo();
+                }
             }
+            return String.Empty;
         }
 
-        public List<Cliente> ObtenerListaClientes()
+        public static Dispositivo ObtenerDispositivo(string id)
         {
-            return ColaClientes.ToList();
+            Dispositivo d = null;
+            foreach(Dispositivo d2 in dispositivos)
+            {
+                if(d2 == id)
+                {
+                    d = d2;
+                    return d;
+                }
+            }
+            return d;
         }
-
     }
 }

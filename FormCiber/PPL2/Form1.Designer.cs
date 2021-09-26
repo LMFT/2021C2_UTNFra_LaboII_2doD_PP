@@ -50,6 +50,8 @@ namespace PPL2
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnClientesEspera = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPc5
@@ -64,6 +66,7 @@ namespace PPL2
             // 
             // rtxtInfoDispositivo
             // 
+            this.rtxtInfoDispositivo.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.rtxtInfoDispositivo.Location = new System.Drawing.Point(12, 45);
             this.rtxtInfoDispositivo.Name = "rtxtInfoDispositivo";
             this.rtxtInfoDispositivo.ReadOnly = true;
@@ -215,6 +218,7 @@ namespace PPL2
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.PeachPuff;
             this.label1.Location = new System.Drawing.Point(276, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(142, 28);
@@ -225,6 +229,7 @@ namespace PPL2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.PeachPuff;
             this.label2.Location = new System.Drawing.Point(437, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 28);
@@ -233,6 +238,7 @@ namespace PPL2
             // 
             // richTextBox1
             // 
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.richTextBox1.Location = new System.Drawing.Point(559, 45);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
@@ -244,6 +250,7 @@ namespace PPL2
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.PeachPuff;
             this.label3.Location = new System.Drawing.Point(12, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 28);
@@ -253,19 +260,43 @@ namespace PPL2
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.DimGray;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.PeachPuff;
             this.label4.Location = new System.Drawing.Point(559, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 28);
             this.label4.TabIndex = 19;
             this.label4.Text = "Info Operador";
             // 
+            // btnClientesEspera
+            // 
+            this.btnClientesEspera.Location = new System.Drawing.Point(12, 296);
+            this.btnClientesEspera.Name = "btnClientesEspera";
+            this.btnClientesEspera.Size = new System.Drawing.Size(213, 34);
+            this.btnClientesEspera.TabIndex = 20;
+            this.btnClientesEspera.Text = "Consultar clientes en espera";
+            this.btnClientesEspera.UseVisualStyleBackColor = true;
+            this.btnClientesEspera.Click += new System.EventHandler(this.btnClientesEspera_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(343, 357);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnClientesEspera);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.richTextBox1);
@@ -321,6 +352,8 @@ namespace PPL2
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnClientesEspera;
+        private System.Windows.Forms.Button button2;
     }
 }
 

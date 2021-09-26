@@ -50,74 +50,42 @@ namespace Entidades
             }
         }
 
-        internal string Nombre
+        public string Nombre
         {
             get
             {
                 return nombre;
             }
-            set
-            {
-                if (value is not null && value != String.Empty)
-                {
-                    nombre = value;
-                }
-            }
         }
 
-        internal string Apellido
+        public string Apellido
         {
             get
             {
                 return apellido;
             }
-            set
-            {
-                if (value is not null && value != String.Empty)
-                {
-                    apellido = value;
-                }
-            }
         }
 
-        internal int Dni
+        public int Dni
         {
             get
             {
                 return dni;
             }
-            set
-            {
-                if (value > 0)
-                {
-                    dni = value;
-                }
-            }
         }
 
-        internal int Edad
+        public int Edad
         {
             get
             {
                 return edad;
             }
-            set
-            {
-                if (value > 0)
-                {
-                    edad = value;
-                }
-            }
         }
-        internal Necesidad Necesidad
+        public Necesidad Necesidad
         {
             get
             {
                 return necesidad;
-            }
-            set
-            {
-                necesidad = value;
             }
         }
 

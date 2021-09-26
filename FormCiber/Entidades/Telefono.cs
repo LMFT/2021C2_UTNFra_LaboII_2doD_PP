@@ -19,16 +19,14 @@ namespace Entidades
 
         public Telefono(TipoTelefono tipo, string marca)
         {
-            SetearId();
+            this.Id = String.Format("T{0:00}", siguienteId++);
             this.Tipo = tipo;
             this.Marca = marca;
+            this.Estado = Estado.Libre;
+            
         }
 
-        protected override void SetearId()
-        {
-            base.Id = String.Format("T{0:00}", siguienteId);
-            siguienteId++;
-        }
+
 
         internal TipoTelefono Tipo
         {
@@ -65,6 +63,16 @@ namespace Entidades
                 Telefono telefono = new Telefono((TipoTelefono)GeneradorNumero.Generar(0, 2), marcas[GeneradorNumero.Generar(0,marcas.Length)]);
                 listado.Add(telefono);
             }
+        }
+
+        public override string MostrarDispositivo()
+        {
+            StringBuilder informacion = new StringBuilder();
+            informacion.AppendLine($"ID Dispositivo: {this.Id}");
+            informacion.AppendLine($"Estado: {this.Estado}");
+            informacion.AppendLine($"Marca: {this.Marca}");
+            informacion.AppendLine($"Tipo de telefono: {this.Tipo}");
+            return informacion.ToString();
         }
     }
 }

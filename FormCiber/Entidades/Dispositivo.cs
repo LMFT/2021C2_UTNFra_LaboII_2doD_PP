@@ -10,9 +10,7 @@ namespace Entidades
     public abstract class Dispositivo
     {
         private string id;
-        Estado estado;
-
-        protected abstract void SetearId();
+        private Estado estado;
 
         protected string Id
         {
@@ -20,10 +18,9 @@ namespace Entidades
             {
                 return id;
             }
-
             set
             {
-                id = value;
+                    id = value;
             }
         }
 
@@ -41,6 +38,11 @@ namespace Entidades
 
         public abstract string MostrarDispositivo();
 
+        public string ObtenerId()
+        {
+            return id;
+        }
+
         public static  bool operator ==(Dispositivo d1, Dispositivo d2)
         {
             return d1.id == d2.id;
@@ -49,6 +51,16 @@ namespace Entidades
         public static bool operator !=(Dispositivo d1, Dispositivo d2)
         {
             return !(d1 == d2);
+        }
+
+        public static bool operator ==(Dispositivo d, string s)
+        {
+            return d.Id == s;
+        }
+
+        public static bool operator !=(Dispositivo d, string s)
+        {
+            return !(d == s);
         }
 
         public override bool Equals(object obj)
