@@ -119,7 +119,8 @@ namespace Entidades
 
         private string GenerarSoftwareNecesario()
         {
-            string[] softwareDisponible = { "Office", "Messenger", "ICQ", "Ares", "Counter-Strike", "Diablo II", "Lineage II", "Warcraft 3", "Age of Empires II" };
+            string[] softwareDisponible = { "Office", "Messenger", "ICQ", "Ares", "Counter-Strike", "Diablo II", "Lineage II",
+                                            "Warcraft 3", "Age of Empires II" };
             return softwareDisponible[GeneradorNumero.Generar(0, softwareDisponible.Length)];
         }
 
@@ -146,6 +147,16 @@ namespace Entidades
         public override int GetHashCode()
         {
             return this.dni.GetHashCode();
+        }
+
+        public void AsignarDispositivo(Dispositivo dispositivo)
+        {
+            this.Dispositivo = dispositivo;
+        }
+
+        public string ObtenerSoftwareNecesario()
+        {
+            return this.softwareNecesario;
         }
     }
 }

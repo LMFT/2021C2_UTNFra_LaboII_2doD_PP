@@ -12,7 +12,7 @@ namespace PPL2
 {
     public partial class FormCiber : Form
     {
-        private Dispositivo dispositivoSeleccionado;
+        private Dispositivo dispositivoSeleccionado = null;
         public FormCiber()
         {
             InitializeComponent();
@@ -122,7 +122,55 @@ namespace PPL2
 
         private void btnAsignar_Click(object sender, EventArgs e)
         {
-            
+            Cliente cliente = Cibercafe.AtenderCliente();
+            if (dispositivoSeleccionado is not null && ValidarDispositivo(cliente))
+            {
+                if(dispositivoSeleccionado as Computadora is not null)
+                {
+                    if(ValidarComputadora(cliente) == false)
+                    {
+                        MessageBox.Show("Error: Esta computadora no cuenta con el software requerido por el cliente");
+                        return;
+                    }
+                    cliente.AsignarDispositivo(dispositivoSeleccionado);
+                }
+            }
+
+        }
+
+        private bool ValidarDispositivo(Cliente cliente)
+        {
+            Computadora c = dispositivoSeleccionado as Computadora;
+            Telefono t = dispositivoSeleccionado as Telefono;
+            if((cliente.Necesidad == Necesidad.Telefono && t is not null) || 
+               (cliente.Necesidad == Necesidad.Computadora && c is not null))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool ValidarComputadora(Cliente cliente)
+        {
+            Computadora computadora = dispositivoSeleccionado as Computadora;
+            if(computadora is not null)
+            {
+                foreach(string software in computadora.ObtenerSoftware())
+                {
+                    if(software == cliente.ObtenerSoftwareNecesario())
+                    {
+                        return true;
+                    }
+                }
+                foreach(string juego in computadora.ObtenerJuegos())
+                {
+                    if(juego == cliente.ObtenerSoftwareNecesario())
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

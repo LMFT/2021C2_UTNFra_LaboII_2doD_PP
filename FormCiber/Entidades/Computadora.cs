@@ -129,5 +129,15 @@ namespace Entidades
             informacion.AppendLine($"Juegos instalados: {Coleccion.ObtenerElementosLista(this.Juegos)}\n");
             return informacion.ToString();
         }
+
+        public List<string> ObtenerSoftware()
+        {
+            return this.Software;
+        }
+
+        public List<string> ObtenerJuegos()
+        {
+            return this.Juegos;
+        }
     }
 }
