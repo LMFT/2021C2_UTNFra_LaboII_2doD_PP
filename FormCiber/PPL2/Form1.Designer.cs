@@ -45,13 +45,17 @@ namespace PPL2
             this.btnT2 = new System.Windows.Forms.Button();
             this.btnT4 = new System.Windows.Forms.Button();
             this.btnT3 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblComputadoras = new System.Windows.Forms.Label();
+            this.lblTelefonos = new System.Windows.Forms.Label();
+            this.rtxtProximoCliente = new System.Windows.Forms.RichTextBox();
+            this.lblDispositivo = new System.Windows.Forms.Label();
+            this.lblProximoCliente = new System.Windows.Forms.Label();
             this.btnClientesEspera = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.stbBarraInformacion = new System.Windows.Forms.StatusStrip();
+            this.tsslOperario = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslFecha = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stbBarraInformacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPc5
@@ -214,60 +218,60 @@ namespace PPL2
             this.btnT3.UseVisualStyleBackColor = true;
             this.btnT3.Click += new System.EventHandler(this.btnT3_Click);
             // 
-            // label1
+            // lblComputadoras
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.PeachPuff;
-            this.label1.Location = new System.Drawing.Point(276, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 28);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Computadoras";
+            this.lblComputadoras.AutoSize = true;
+            this.lblComputadoras.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblComputadoras.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblComputadoras.Location = new System.Drawing.Point(276, 37);
+            this.lblComputadoras.Name = "lblComputadoras";
+            this.lblComputadoras.Size = new System.Drawing.Size(142, 28);
+            this.lblComputadoras.TabIndex = 15;
+            this.lblComputadoras.Text = "Computadoras";
             // 
-            // label2
+            // lblTelefonos
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.PeachPuff;
-            this.label2.Location = new System.Drawing.Point(437, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 28);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Telefonos";
+            this.lblTelefonos.AutoSize = true;
+            this.lblTelefonos.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTelefonos.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblTelefonos.Location = new System.Drawing.Point(437, 37);
+            this.lblTelefonos.Name = "lblTelefonos";
+            this.lblTelefonos.Size = new System.Drawing.Size(94, 28);
+            this.lblTelefonos.TabIndex = 16;
+            this.lblTelefonos.Text = "Telefonos";
             // 
-            // richTextBox1
+            // rtxtProximoCliente
             // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.richTextBox1.Location = new System.Drawing.Point(559, 45);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(213, 228);
-            this.richTextBox1.TabIndex = 17;
-            this.richTextBox1.Text = "";
+            this.rtxtProximoCliente.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.rtxtProximoCliente.Location = new System.Drawing.Point(559, 45);
+            this.rtxtProximoCliente.Name = "rtxtProximoCliente";
+            this.rtxtProximoCliente.ReadOnly = true;
+            this.rtxtProximoCliente.Size = new System.Drawing.Size(213, 228);
+            this.rtxtProximoCliente.TabIndex = 17;
+            this.rtxtProximoCliente.Text = "";
             // 
-            // label3
+            // lblDispositivo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.PeachPuff;
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 28);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Info Dispositivo";
+            this.lblDispositivo.AutoSize = true;
+            this.lblDispositivo.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDispositivo.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblDispositivo.Location = new System.Drawing.Point(12, 9);
+            this.lblDispositivo.Name = "lblDispositivo";
+            this.lblDispositivo.Size = new System.Drawing.Size(149, 28);
+            this.lblDispositivo.TabIndex = 18;
+            this.lblDispositivo.Text = "Info Dispositivo";
             // 
-            // label4
+            // lblProximoCliente
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.DimGray;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.PeachPuff;
-            this.label4.Location = new System.Drawing.Point(559, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 28);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Info Operador";
+            this.lblProximoCliente.AutoSize = true;
+            this.lblProximoCliente.BackColor = System.Drawing.Color.DimGray;
+            this.lblProximoCliente.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblProximoCliente.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblProximoCliente.Location = new System.Drawing.Point(559, 9);
+            this.lblProximoCliente.Name = "lblProximoCliente";
+            this.lblProximoCliente.Size = new System.Drawing.Size(136, 28);
+            this.lblProximoCliente.TabIndex = 19;
+            this.lblProximoCliente.Text = "Info Operador";
             // 
             // btnClientesEspera
             // 
@@ -288,6 +292,31 @@ namespace PPL2
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // stbBarraInformacion
+            // 
+            this.stbBarraInformacion.BackColor = System.Drawing.Color.Gainsboro;
+            this.stbBarraInformacion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslOperario,
+            this.tsslFecha});
+            this.stbBarraInformacion.Location = new System.Drawing.Point(0, 539);
+            this.stbBarraInformacion.Name = "stbBarraInformacion";
+            this.stbBarraInformacion.Size = new System.Drawing.Size(784, 22);
+            this.stbBarraInformacion.TabIndex = 22;
+            this.stbBarraInformacion.Text = "statusStrip1";
+            // 
+            // tsslOperario
+            // 
+            this.tsslOperario.Name = "tsslOperario";
+            this.tsslOperario.Size = new System.Drawing.Size(129, 17);
+            this.tsslOperario.Text = "Operador: Lucas Ferrini";
+            // 
+            // tsslFecha
+            // 
+            this.tsslFecha.Name = "tsslFecha";
+            this.tsslFecha.Padding = new System.Windows.Forms.Padding(0, 0, 500, 0);
+            this.tsslFecha.Size = new System.Drawing.Size(544, 17);
+            this.tsslFecha.Text = "Fecha: ";
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -295,13 +324,14 @@ namespace PPL2
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.stbBarraInformacion);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnClientesEspera);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblProximoCliente);
+            this.Controls.Add(this.lblDispositivo);
+            this.Controls.Add(this.rtxtProximoCliente);
+            this.Controls.Add(this.lblTelefonos);
+            this.Controls.Add(this.lblComputadoras);
             this.Controls.Add(this.btnT1);
             this.Controls.Add(this.btnT5);
             this.Controls.Add(this.btnT2);
@@ -324,6 +354,8 @@ namespace PPL2
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.stbBarraInformacion.ResumeLayout(false);
+            this.stbBarraInformacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,13 +379,16 @@ namespace PPL2
         private System.Windows.Forms.Button btnT2;
         private System.Windows.Forms.Button btnT4;
         private System.Windows.Forms.Button btnT3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblComputadoras;
+        private System.Windows.Forms.Label lblTelefonos;
+        private System.Windows.Forms.RichTextBox rtxtProximoCliente;
+        private System.Windows.Forms.Label lblDispositivo;
+        private System.Windows.Forms.Label lblProximoCliente;
         private System.Windows.Forms.Button btnClientesEspera;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.StatusStrip stbBarraInformacion;
+        private System.Windows.Forms.ToolStripStatusLabel tsslOperario;
+        private System.Windows.Forms.ToolStripStatusLabel tsslFecha;
     }
 }
 

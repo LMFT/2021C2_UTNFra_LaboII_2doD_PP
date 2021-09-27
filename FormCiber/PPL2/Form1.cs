@@ -20,7 +20,7 @@ namespace PPL2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            stbBarraInformacion.Controls["tsslFecha"].Text += DateTime.Today.ToString();
         }
 
         private void btnPc1_Click(object sender, EventArgs e)
@@ -117,9 +117,9 @@ namespace PPL2
         private void btnClientesEspera_Click(object sender, EventArgs e)
         {
             FormListaClientes frm = new FormListaClientes();
-            this.Hide();
             frm.ShowDialog();
-            this.Show();
         }
+
+
     }
 }
