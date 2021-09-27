@@ -51,10 +51,10 @@ namespace PPL2
             this.lblDispositivo = new System.Windows.Forms.Label();
             this.lblProximoCliente = new System.Windows.Forms.Label();
             this.btnClientesEspera = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.stbBarraInformacion = new System.Windows.Forms.StatusStrip();
             this.tsslOperario = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslFecha = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnAsignar = new System.Windows.Forms.Button();
             this.stbBarraInformacion.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -283,15 +283,6 @@ namespace PPL2
             this.btnClientesEspera.UseVisualStyleBackColor = true;
             this.btnClientesEspera.Click += new System.EventHandler(this.btnClientesEspera_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(343, 357);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // stbBarraInformacion
             // 
             this.stbBarraInformacion.BackColor = System.Drawing.Color.Gainsboro;
@@ -317,6 +308,16 @@ namespace PPL2
             this.tsslFecha.Size = new System.Drawing.Size(544, 17);
             this.tsslFecha.Text = "Fecha: ";
             // 
+            // btnAsignar
+            // 
+            this.btnAsignar.Location = new System.Drawing.Point(12, 336);
+            this.btnAsignar.Name = "btnAsignar";
+            this.btnAsignar.Size = new System.Drawing.Size(213, 34);
+            this.btnAsignar.TabIndex = 23;
+            this.btnAsignar.Text = "Asignar Dispositivo";
+            this.btnAsignar.UseVisualStyleBackColor = true;
+            this.btnAsignar.Click += new System.EventHandler(this.btnAsignar_Click);
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -324,8 +325,8 @@ namespace PPL2
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.btnAsignar);
             this.Controls.Add(this.stbBarraInformacion);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnClientesEspera);
             this.Controls.Add(this.lblProximoCliente);
             this.Controls.Add(this.lblDispositivo);
@@ -385,10 +386,10 @@ namespace PPL2
         private System.Windows.Forms.Label lblDispositivo;
         private System.Windows.Forms.Label lblProximoCliente;
         private System.Windows.Forms.Button btnClientesEspera;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.StatusStrip stbBarraInformacion;
         private System.Windows.Forms.ToolStripStatusLabel tsslOperario;
         private System.Windows.Forms.ToolStripStatusLabel tsslFecha;
+        private System.Windows.Forms.Button btnAsignar;
     }
 }
 

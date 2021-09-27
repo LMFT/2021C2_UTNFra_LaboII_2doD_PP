@@ -120,6 +120,9 @@ namespace PPL2
             frm.ShowDialog();
         }
 
-
+        private void btnAsignar_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

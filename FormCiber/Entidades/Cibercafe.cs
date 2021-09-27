@@ -54,5 +54,10 @@ namespace Entidades
             }
             return d;
         }
+
+        public static Cliente AtenderCliente()
+        {
+            return colaClientes.Dequeue();
+        }
     }
 }
