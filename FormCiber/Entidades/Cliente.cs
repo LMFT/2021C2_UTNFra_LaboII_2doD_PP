@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeneradorNumeros;
+using Elementos;
 
 namespace Entidades
 {
@@ -21,6 +22,8 @@ namespace Entidades
         Necesidad necesidad;
         Dispositivo dispositivoAsignado;
         private string softwareNecesario;
+        private string perifericoNecesario;
+
 
         public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad)
         {
@@ -29,10 +32,19 @@ namespace Entidades
             this.dni = dni;
             this.edad = edad;
             this.necesidad = necesidad;
-            if(necesidad == Necesidad.Computadora)
-            {
-                this.softwareNecesario = GenerarSoftwareNecesario();
-            }
+        }
+
+
+        public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad, string software) : 
+            this(nombre, apellido, dni, edad, necesidad)
+        {
+            this.softwareNecesario = software;
+        }
+
+        public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad, string software, string periferico) :
+            this(nombre, apellido, dni, edad, necesidad, software)
+        {
+            this.perifericoNecesario = periferico;
         }
 
         internal Dispositivo Dispositivo
@@ -47,6 +59,14 @@ namespace Entidades
                 {
                     dispositivoAsignado = value;
                 }
+            }
+        }
+
+        public string Periferico
+        {
+            get
+            {
+                return perifericoNecesario;
             }
         }
 
@@ -89,22 +109,19 @@ namespace Entidades
             }
         }
 
-        public static Queue<Cliente> HardcodearClientes()
+        public static Cliente GenerarCliente()
         {
-            Queue<Cliente> colaClientes = new Queue<Cliente>();
-            string[] nombres = {"Jose", "Javier", "Marcelo", "Marcos", "Juan", "Gonzalo"};
-            string[] apellidos = { "Ramirez", "Perez", "Fernandez", "Tapia", "Gonzalez", "Alonso" };
-            int[] documentos = {11111111, 22222222, 12312312, 12312312, 32132132, 27854968 };
-            int[] edades = {28, 40, 35, 21, 50, 47 };
-            Necesidad[] necesidades = { Necesidad.Computadora, Necesidad.Telefono,Necesidad.Computadora, Necesidad.Telefono,
-                                        Necesidad.Computadora, Necesidad.Telefono };
-
-            for(int i=0;i<6;i++)
+            Cliente cliente = new Cliente(Elemento.ObtenerNombre(GeneradorNumero.Generar(0, Elemento.Nombres)),
+                                          Elemento.ObtenerApellido(GeneradorNumero.Generar(0, Elemento.Apellidos)),
+                                          GeneradorNumero.Generar(16000000, 50000000), GeneradorNumero.Generar(13, 80),
+                                          (Necesidad)GeneradorNumero.Generar(0,2));
+            if(cliente.Necesidad == Necesidad.Computadora)
             {
-                Cliente cliente = new Cliente(nombres[i], apellidos[i], documentos[i], edades[i], necesidades[i]);
-                colaClientes.Enqueue(cliente);
+                cliente.softwareNecesario = Elemento.Ob
             }
-            return colaClientes;
+
+
+            return cliente;
         }
 
         public string MostrarCliente()
@@ -117,7 +134,7 @@ namespace Entidades
             return clienteStr.ToString();
         }
 
-        private string GenerarSoftwareNecesario()
+        private static string GenerarSoftwareNecesario()
         {
             string[] softwareDisponible = { "Office", "Messenger", "ICQ", "Ares", "Counter-Strike", "Diablo II", "Lineage II",
                                             "Warcraft 3", "Age of Empires II" };

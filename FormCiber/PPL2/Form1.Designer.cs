@@ -60,12 +60,14 @@ namespace PPL2
             // 
             // btnPc5
             // 
+            this.btnPc5.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc5.Location = new System.Drawing.Point(276, 159);
             this.btnPc5.Name = "btnPc5";
             this.btnPc5.Size = new System.Drawing.Size(53, 23);
             this.btnPc5.TabIndex = 4;
             this.btnPc5.Text = "PC 5";
-            this.btnPc5.UseVisualStyleBackColor = true;
+            this.btnPc5.UseVisualStyleBackColor = false;
             this.btnPc5.Click += new System.EventHandler(this.btnPc5_Click);
             // 
             // rtxtInfoDispositivo
@@ -80,142 +82,170 @@ namespace PPL2
             // 
             // btnPc7
             // 
+            this.btnPc7.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc7.Location = new System.Drawing.Point(276, 198);
             this.btnPc7.Name = "btnPc7";
             this.btnPc7.Size = new System.Drawing.Size(53, 23);
             this.btnPc7.TabIndex = 6;
             this.btnPc7.Text = "PC 7";
-            this.btnPc7.UseVisualStyleBackColor = true;
+            this.btnPc7.UseVisualStyleBackColor = false;
             this.btnPc7.Click += new System.EventHandler(this.btnPc7_Click);
             // 
             // btnPc3
             // 
+            this.btnPc3.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc3.Location = new System.Drawing.Point(276, 118);
             this.btnPc3.Name = "btnPc3";
             this.btnPc3.Size = new System.Drawing.Size(53, 23);
             this.btnPc3.TabIndex = 2;
             this.btnPc3.Text = "PC 3";
-            this.btnPc3.UseVisualStyleBackColor = true;
+            this.btnPc3.UseVisualStyleBackColor = false;
             this.btnPc3.Click += new System.EventHandler(this.btnPc3_Click);
             // 
             // btnPc9
             // 
+            this.btnPc9.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc9.Location = new System.Drawing.Point(276, 239);
             this.btnPc9.Name = "btnPc9";
             this.btnPc9.Size = new System.Drawing.Size(53, 23);
             this.btnPc9.TabIndex = 8;
             this.btnPc9.Text = "PC 9";
-            this.btnPc9.UseVisualStyleBackColor = true;
+            this.btnPc9.UseVisualStyleBackColor = false;
             this.btnPc9.Click += new System.EventHandler(this.btnPc9_Click);
             // 
             // btnPc1
             // 
+            this.btnPc1.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc1.Location = new System.Drawing.Point(276, 78);
             this.btnPc1.Name = "btnPc1";
             this.btnPc1.Size = new System.Drawing.Size(53, 23);
             this.btnPc1.TabIndex = 0;
             this.btnPc1.Text = "PC 1";
-            this.btnPc1.UseVisualStyleBackColor = true;
+            this.btnPc1.UseVisualStyleBackColor = false;
             this.btnPc1.Click += new System.EventHandler(this.btnPc1_Click);
             // 
             // btnPc2
             // 
+            this.btnPc2.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc2.Location = new System.Drawing.Point(356, 78);
             this.btnPc2.Name = "btnPc2";
             this.btnPc2.Size = new System.Drawing.Size(53, 23);
             this.btnPc2.TabIndex = 1;
             this.btnPc2.Text = "PC 2";
-            this.btnPc2.UseVisualStyleBackColor = true;
+            this.btnPc2.UseVisualStyleBackColor = false;
             this.btnPc2.Click += new System.EventHandler(this.btnPc2_Click_1);
             // 
             // btnPc10
             // 
+            this.btnPc10.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc10.Location = new System.Drawing.Point(356, 239);
             this.btnPc10.Name = "btnPc10";
             this.btnPc10.Size = new System.Drawing.Size(53, 23);
             this.btnPc10.TabIndex = 9;
             this.btnPc10.Text = "PC 10";
-            this.btnPc10.UseVisualStyleBackColor = true;
+            this.btnPc10.UseVisualStyleBackColor = false;
             this.btnPc10.Click += new System.EventHandler(this.btnPc10_Click);
             // 
             // btnPc4
             // 
+            this.btnPc4.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc4.Location = new System.Drawing.Point(356, 118);
             this.btnPc4.Name = "btnPc4";
             this.btnPc4.Size = new System.Drawing.Size(53, 23);
             this.btnPc4.TabIndex = 3;
             this.btnPc4.Text = "PC 4";
-            this.btnPc4.UseVisualStyleBackColor = true;
+            this.btnPc4.UseVisualStyleBackColor = false;
             this.btnPc4.Click += new System.EventHandler(this.btnPc4_Click);
             // 
             // btnPc8
             // 
+            this.btnPc8.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc8.Location = new System.Drawing.Point(356, 198);
             this.btnPc8.Name = "btnPc8";
             this.btnPc8.Size = new System.Drawing.Size(53, 23);
             this.btnPc8.TabIndex = 7;
             this.btnPc8.Text = "PC 8";
-            this.btnPc8.UseVisualStyleBackColor = true;
+            this.btnPc8.UseVisualStyleBackColor = false;
             this.btnPc8.Click += new System.EventHandler(this.btnPc8_Click);
             // 
             // btnPc6
             // 
+            this.btnPc6.BackColor = System.Drawing.Color.LightGreen;
+            this.btnPc6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPc6.Location = new System.Drawing.Point(356, 159);
             this.btnPc6.Name = "btnPc6";
             this.btnPc6.Size = new System.Drawing.Size(53, 23);
             this.btnPc6.TabIndex = 5;
             this.btnPc6.Text = "PC 6";
-            this.btnPc6.UseVisualStyleBackColor = true;
+            this.btnPc6.UseVisualStyleBackColor = false;
             this.btnPc6.Click += new System.EventHandler(this.btnPc6_Click);
             // 
             // btnT1
             // 
+            this.btnT1.BackColor = System.Drawing.Color.LightGreen;
+            this.btnT1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnT1.Location = new System.Drawing.Point(455, 78);
             this.btnT1.Name = "btnT1";
             this.btnT1.Size = new System.Drawing.Size(53, 23);
             this.btnT1.TabIndex = 10;
             this.btnT1.Text = "T 1";
-            this.btnT1.UseVisualStyleBackColor = true;
+            this.btnT1.UseVisualStyleBackColor = false;
             this.btnT1.Click += new System.EventHandler(this.btnT1_Click);
             // 
             // btnT5
             // 
+            this.btnT5.BackColor = System.Drawing.Color.LightGreen;
+            this.btnT5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnT5.Location = new System.Drawing.Point(455, 239);
             this.btnT5.Name = "btnT5";
             this.btnT5.Size = new System.Drawing.Size(53, 23);
             this.btnT5.TabIndex = 14;
             this.btnT5.Text = "T 5";
-            this.btnT5.UseVisualStyleBackColor = true;
+            this.btnT5.UseVisualStyleBackColor = false;
             this.btnT5.Click += new System.EventHandler(this.btnT5_Click);
             // 
             // btnT2
             // 
+            this.btnT2.BackColor = System.Drawing.Color.LightGreen;
+            this.btnT2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnT2.Location = new System.Drawing.Point(455, 118);
             this.btnT2.Name = "btnT2";
             this.btnT2.Size = new System.Drawing.Size(53, 23);
             this.btnT2.TabIndex = 11;
             this.btnT2.Text = "T 2";
-            this.btnT2.UseVisualStyleBackColor = true;
+            this.btnT2.UseVisualStyleBackColor = false;
             this.btnT2.Click += new System.EventHandler(this.btnT2_Click);
             // 
             // btnT4
             // 
+            this.btnT4.BackColor = System.Drawing.Color.LightGreen;
+            this.btnT4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnT4.Location = new System.Drawing.Point(455, 198);
             this.btnT4.Name = "btnT4";
             this.btnT4.Size = new System.Drawing.Size(53, 23);
             this.btnT4.TabIndex = 13;
             this.btnT4.Text = "T 4";
-            this.btnT4.UseVisualStyleBackColor = true;
+            this.btnT4.UseVisualStyleBackColor = false;
             this.btnT4.Click += new System.EventHandler(this.btnT4_Click);
             // 
             // btnT3
             // 
+            this.btnT3.BackColor = System.Drawing.Color.LightGreen;
+            this.btnT3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnT3.Location = new System.Drawing.Point(455, 159);
             this.btnT3.Name = "btnT3";
             this.btnT3.Size = new System.Drawing.Size(53, 23);
             this.btnT3.TabIndex = 12;
             this.btnT3.Text = "T3";
-            this.btnT3.UseVisualStyleBackColor = true;
+            this.btnT3.UseVisualStyleBackColor = false;
             this.btnT3.Click += new System.EventHandler(this.btnT3_Click);
             // 
             // lblComputadoras
@@ -269,9 +299,9 @@ namespace PPL2
             this.lblProximoCliente.ForeColor = System.Drawing.Color.PeachPuff;
             this.lblProximoCliente.Location = new System.Drawing.Point(559, 9);
             this.lblProximoCliente.Name = "lblProximoCliente";
-            this.lblProximoCliente.Size = new System.Drawing.Size(136, 28);
+            this.lblProximoCliente.Size = new System.Drawing.Size(145, 28);
             this.lblProximoCliente.TabIndex = 19;
-            this.lblProximoCliente.Text = "Info Operador";
+            this.lblProximoCliente.Text = "Proximo Ciente";
             // 
             // btnClientesEspera
             // 

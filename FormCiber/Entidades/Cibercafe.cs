@@ -59,5 +59,10 @@ namespace Entidades
         {
             return colaClientes.Dequeue();
         }
+
+        public static string MostrarProximoCliente()
+        {
+            return colaClientes.Peek().MostrarCliente();
+        }
     }
 }
