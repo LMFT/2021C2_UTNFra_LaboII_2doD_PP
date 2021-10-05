@@ -3,57 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeneradorNumeros;
 
 namespace Elementos
 {
-    internal static class Elemento
+    internal static class Persona
     {
-        private static List<string> nombres = new List<string>{ "Carolina", "Javier", "Marcelo", "Marcos", "Juan", "Gonzalo", "Mauricio", "Estefania", "Carla", "Milena"};
-        private static List<string> apellidos = new List<string>{ "Ramirez", "Perez", "Fernandez", "Tapia", "Gonzalez", "Alonso", "Steinbrenner"};
-        private static List<string> software = new List<string> { "Office", "Messenger", "ICQ", "Ares" };
-        private static List<string> perifericos = new List<string> { "Cámara", "Auriculares", "Micrófono" };
-        private static List<string> juegos = new List<string> { "Counter-Strike", "Diablo II", "MU Online", 
-                                                                "Lineage II", "Age of Empires II" };
+        private static string[] nombres = {"Lucas","Javier","Carolina", "Guadalupe", "Laura", "Maximiliano", "Bianca", "Violeta", "Martin",
+                               "Facundo", "Diego", "Ezequiel", "Emanuel", "Alan", "Florencia" };
+        private static string[] apellidos = { "Steinbrenner", "Fernandez", "Perez", "Gozalvez", "Martinez", "Scarsi", "Carrizo", "Gonzalez",
+                                   "Albornoz", "Dotta", "Vietti", "Manriquez", "Cech", "Aspen", "Elbetti" };
+
 
         public static int Nombres 
         {
             get 
             { 
-                return nombres.Count; 
+                return nombres.Length; 
             }   
         }
         public static int Apellidos
         {
             get
             {
-                return apellidos.Count;
-            }
-        }
-        public static int Software
-        {
-            get
-            {
-                return software.Count;
-            }
-        }
-        public static int Perifericos
-        {
-            get
-            {
-                return perifericos.Count;
-            }
-        }
-        public static int Juegos
-        {
-            get
-            {
-                return juegos.Count;
+                return apellidos.Length;
             }
         }
 
         internal static string ObtenerNombre(int index)
         {
-            if(index>=0 && index < nombres.Count)
+            if(index>=0 && index < nombres.Length)
             {
                 return nombres[index];
             }
@@ -62,38 +41,33 @@ namespace Elementos
 
         internal static string ObtenerApellido(int index)
         {
-            if (index >= 0 && index < apellidos.Count)
+            if (index >= 0 && index < apellidos.Length)
             {
                 return apellidos[index];
             }
             return String.Empty;
         }
 
-        internal static string ObtenerSoftware(int index)
-        {
-            if (index >= 0 && index < software.Count)
-            {
-                return software[index];
-            }
-            return String.Empty;
-        }
+    }
 
-        internal static string ObtenerPeriferico(int index)
-        {
-            if (index >= 0 && index < perifericos.Count)
-            {
-                return perifericos[index];
-            }
-            return String.Empty;
-        }
+    internal static class Software
+    {
+        static List<string> software = new List<string> {"Office", "Ares", "ICQ", "Messenger",
+            "Counter-Strike", "Diablo II", "MU Online", "Lineage II", "Age of Empires II", "GTA VIce CIty", "Starcraft" };
 
-        internal static string ObtenerJuego(int index)
+        public static string ObtenerSoftware()
         {
-            if (index >= 0 && index < juegos.Count)
-            {
-                return juegos[index];
-            }
-            return String.Empty;
+            return software[GeneradorNumero.Generar(0, software.Count)];
+        }
+    }
+
+    internal static class Periferico
+    {
+        static List<string> perifericos = new List<string> { "Camara", "Auriculares", "Microfono" };
+
+        public static string ObtenerPeriferico()
+        {
+            return perifericos[GeneradorNumero.Generar(0, perifericos.Count)];
         }
     }
 }

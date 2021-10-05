@@ -29,6 +29,7 @@ namespace PPL2
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnPc5 = new System.Windows.Forms.Button();
             this.rtxtInfoDispositivo = new System.Windows.Forms.RichTextBox();
             this.btnPc7 = new System.Windows.Forms.Button();
@@ -55,7 +56,27 @@ namespace PPL2
             this.tsslOperario = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslFecha = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnAsignar = new System.Windows.Forms.Button();
+            this.btnLiberar = new System.Windows.Forms.Button();
+            this.nudCantidadFracciones = new System.Windows.Forms.NumericUpDown();
+            this.rbtnFraccion = new System.Windows.Forms.RadioButton();
+            this.rbtnLibre = new System.Windows.Forms.RadioButton();
+            this.timerPc1 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc2 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc3 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc4 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc5 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc6 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc7 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc8 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc9 = new System.Windows.Forms.Timer(this.components);
+            this.timerPc10 = new System.Windows.Forms.Timer(this.components);
+            this.timerT1 = new System.Windows.Forms.Timer(this.components);
+            this.timerT2 = new System.Windows.Forms.Timer(this.components);
+            this.timerT3 = new System.Windows.Forms.Timer(this.components);
+            this.timerT4 = new System.Windows.Forms.Timer(this.components);
+            this.timerT5 = new System.Windows.Forms.Timer(this.components);
             this.stbBarraInformacion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadFracciones)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPc5
@@ -196,7 +217,7 @@ namespace PPL2
             this.btnT1.Name = "btnT1";
             this.btnT1.Size = new System.Drawing.Size(53, 23);
             this.btnT1.TabIndex = 10;
-            this.btnT1.Text = "T 1";
+            this.btnT1.Text = "Tel 1";
             this.btnT1.UseVisualStyleBackColor = false;
             this.btnT1.Click += new System.EventHandler(this.btnT1_Click);
             // 
@@ -208,7 +229,7 @@ namespace PPL2
             this.btnT5.Name = "btnT5";
             this.btnT5.Size = new System.Drawing.Size(53, 23);
             this.btnT5.TabIndex = 14;
-            this.btnT5.Text = "T 5";
+            this.btnT5.Text = "Tel 5";
             this.btnT5.UseVisualStyleBackColor = false;
             this.btnT5.Click += new System.EventHandler(this.btnT5_Click);
             // 
@@ -220,7 +241,7 @@ namespace PPL2
             this.btnT2.Name = "btnT2";
             this.btnT2.Size = new System.Drawing.Size(53, 23);
             this.btnT2.TabIndex = 11;
-            this.btnT2.Text = "T 2";
+            this.btnT2.Text = "Tel 2";
             this.btnT2.UseVisualStyleBackColor = false;
             this.btnT2.Click += new System.EventHandler(this.btnT2_Click);
             // 
@@ -232,7 +253,7 @@ namespace PPL2
             this.btnT4.Name = "btnT4";
             this.btnT4.Size = new System.Drawing.Size(53, 23);
             this.btnT4.TabIndex = 13;
-            this.btnT4.Text = "T 4";
+            this.btnT4.Text = "Tel 4";
             this.btnT4.UseVisualStyleBackColor = false;
             this.btnT4.Click += new System.EventHandler(this.btnT4_Click);
             // 
@@ -244,7 +265,7 @@ namespace PPL2
             this.btnT3.Name = "btnT3";
             this.btnT3.Size = new System.Drawing.Size(53, 23);
             this.btnT3.TabIndex = 12;
-            this.btnT3.Text = "T3";
+            this.btnT3.Text = "Tel 3";
             this.btnT3.UseVisualStyleBackColor = false;
             this.btnT3.Click += new System.EventHandler(this.btnT3_Click);
             // 
@@ -348,6 +369,122 @@ namespace PPL2
             this.btnAsignar.UseVisualStyleBackColor = true;
             this.btnAsignar.Click += new System.EventHandler(this.btnAsignar_Click);
             // 
+            // btnLiberar
+            // 
+            this.btnLiberar.Location = new System.Drawing.Point(12, 376);
+            this.btnLiberar.Name = "btnLiberar";
+            this.btnLiberar.Size = new System.Drawing.Size(213, 34);
+            this.btnLiberar.TabIndex = 24;
+            this.btnLiberar.Text = "Finalizar Dispositivo";
+            this.btnLiberar.UseVisualStyleBackColor = true;
+            this.btnLiberar.Click += new System.EventHandler(this.btnLiberar_Click);
+            // 
+            // nudCantidadFracciones
+            // 
+            this.nudCantidadFracciones.Location = new System.Drawing.Point(468, 310);
+            this.nudCantidadFracciones.Name = "nudCantidadFracciones";
+            this.nudCantidadFracciones.Size = new System.Drawing.Size(120, 23);
+            this.nudCantidadFracciones.TabIndex = 25;
+            // 
+            // rbtnFraccion
+            // 
+            this.rbtnFraccion.AutoSize = true;
+            this.rbtnFraccion.Location = new System.Drawing.Point(303, 310);
+            this.rbtnFraccion.Name = "rbtnFraccion";
+            this.rbtnFraccion.Size = new System.Drawing.Size(70, 19);
+            this.rbtnFraccion.TabIndex = 26;
+            this.rbtnFraccion.TabStop = true;
+            this.rbtnFraccion.Text = "Fraccion";
+            this.rbtnFraccion.UseVisualStyleBackColor = true;
+            this.rbtnFraccion.CheckedChanged += new System.EventHandler(this.rbtnFraccion_CheckedChanged);
+            // 
+            // rbtnLibre
+            // 
+            this.rbtnLibre.AutoSize = true;
+            this.rbtnLibre.Location = new System.Drawing.Point(303, 362);
+            this.rbtnLibre.Name = "rbtnLibre";
+            this.rbtnLibre.Size = new System.Drawing.Size(51, 19);
+            this.rbtnLibre.TabIndex = 27;
+            this.rbtnLibre.TabStop = true;
+            this.rbtnLibre.Text = "Libre";
+            this.rbtnLibre.UseVisualStyleBackColor = true;
+            this.rbtnLibre.CheckedChanged += new System.EventHandler(this.rbtnLibre_CheckedChanged);
+            // 
+            // timerPc1
+            // 
+            this.timerPc1.Interval = 30000;
+            this.timerPc1.Tick += new System.EventHandler(this.timerPc1_Tick);
+            // 
+            // timerPc2
+            // 
+            this.timerPc2.Interval = 30000;
+            this.timerPc2.Tick += new System.EventHandler(this.timerPc2_Tick);
+            // 
+            // timerPc3
+            // 
+            this.timerPc3.Interval = 30000;
+            this.timerPc3.Tick += new System.EventHandler(this.timerPc3_Tick);
+            // 
+            // timerPc4
+            // 
+            this.timerPc4.Interval = 30000;
+            this.timerPc4.Tick += new System.EventHandler(this.timerPc4_Tick);
+            // 
+            // timerPc5
+            // 
+            this.timerPc5.Interval = 30000;
+            this.timerPc5.Tick += new System.EventHandler(this.timerPc5_Tick);
+            // 
+            // timerPc6
+            // 
+            this.timerPc6.Interval = 30000;
+            this.timerPc6.Tick += new System.EventHandler(this.timerPc6_Tick);
+            // 
+            // timerPc7
+            // 
+            this.timerPc7.Interval = 30000;
+            this.timerPc7.Tick += new System.EventHandler(this.timerPc7_Tick);
+            // 
+            // timerPc8
+            // 
+            this.timerPc8.Interval = 30000;
+            this.timerPc8.Tick += new System.EventHandler(this.timerPc8_Tick);
+            // 
+            // timerPc9
+            // 
+            this.timerPc9.Interval = 30000;
+            this.timerPc9.Tick += new System.EventHandler(this.timerPc9_Tick);
+            // 
+            // timerPc10
+            // 
+            this.timerPc10.Interval = 30000;
+            this.timerPc10.Tick += new System.EventHandler(this.timerPc10_Tick);
+            // 
+            // timerT1
+            // 
+            this.timerT1.Interval = 60000;
+            this.timerT1.Tick += new System.EventHandler(this.timerT1_Tick);
+            // 
+            // timerT2
+            // 
+            this.timerT2.Interval = 60000;
+            this.timerT2.Tick += new System.EventHandler(this.timerT2_Tick);
+            // 
+            // timerT3
+            // 
+            this.timerT3.Interval = 60000;
+            this.timerT3.Tick += new System.EventHandler(this.timerT3_Tick);
+            // 
+            // timerT4
+            // 
+            this.timerT4.Interval = 60000;
+            this.timerT4.Tick += new System.EventHandler(this.timerT4_Tick);
+            // 
+            // timerT5
+            // 
+            this.timerT5.Interval = 60000;
+            this.timerT5.Tick += new System.EventHandler(this.timerT5_Tick);
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -355,6 +492,10 @@ namespace PPL2
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.rbtnLibre);
+            this.Controls.Add(this.rbtnFraccion);
+            this.Controls.Add(this.nudCantidadFracciones);
+            this.Controls.Add(this.btnLiberar);
             this.Controls.Add(this.btnAsignar);
             this.Controls.Add(this.stbBarraInformacion);
             this.Controls.Add(this.btnClientesEspera);
@@ -387,6 +528,7 @@ namespace PPL2
             this.Load += new System.EventHandler(this.Form1_Load);
             this.stbBarraInformacion.ResumeLayout(false);
             this.stbBarraInformacion.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadFracciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,6 +562,25 @@ namespace PPL2
         private System.Windows.Forms.ToolStripStatusLabel tsslOperario;
         private System.Windows.Forms.ToolStripStatusLabel tsslFecha;
         private System.Windows.Forms.Button btnAsignar;
+        private System.Windows.Forms.Button btnLiberar;
+        private System.Windows.Forms.NumericUpDown nudCantidadFracciones;
+        private System.Windows.Forms.RadioButton rbtnFraccion;
+        private System.Windows.Forms.RadioButton rbtnLibre;
+        private System.Windows.Forms.Timer timerPc1;
+        private System.Windows.Forms.Timer timerPc2;
+        private System.Windows.Forms.Timer timerPc3;
+        private System.Windows.Forms.Timer timerPc4;
+        private System.Windows.Forms.Timer timerPc5;
+        private System.Windows.Forms.Timer timerPc6;
+        private System.Windows.Forms.Timer timerPc7;
+        private System.Windows.Forms.Timer timerPc8;
+        private System.Windows.Forms.Timer timerPc9;
+        private System.Windows.Forms.Timer timerPc10;
+        private System.Windows.Forms.Timer timerT1;
+        private System.Windows.Forms.Timer timerT2;
+        private System.Windows.Forms.Timer timerT3;
+        private System.Windows.Forms.Timer timerT4;
+        private System.Windows.Forms.Timer timerT5;
     }
 }
 

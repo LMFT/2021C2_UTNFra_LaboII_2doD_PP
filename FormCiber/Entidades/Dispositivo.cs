@@ -2,15 +2,20 @@
 
 namespace Entidades
 {
-    public enum Estado
-    {
-        Libre,
-        Ocupado
-    }
+    
     public abstract class Dispositivo
     {
         private string id;
         private Estado estado;
+        private Cliente clienteActual;
+        private int fraccionesAsignadas;
+        
+
+        public Dispositivo(string id)
+        {
+            this.estado = Estado.Libre;
+            this.id = id;
+        }
 
         protected string Id
         {
@@ -20,7 +25,10 @@ namespace Entidades
             }
             set
             {
+                if(value is not null && value != String.Empty)
+                {
                     id = value;
+                }
             }
         }
 
@@ -33,6 +41,18 @@ namespace Entidades
             set
             {
                 estado = value;
+            }
+        }
+
+        internal Cliente Cliente
+        {
+            get
+            {
+                return clienteActual;
+            }
+            set 
+            {
+                clienteActual = value;
             }
         }
 
@@ -66,7 +86,7 @@ namespace Entidades
         public override bool Equals(object obj)
         {
             Dispositivo dispositivo = obj as Dispositivo;
-            if(dispositivo is not null && this.Id == dispositivo.Id)
+            if(dispositivo is not null && this == dispositivo)
             {
                 return true;
             }
@@ -78,6 +98,39 @@ namespace Entidades
             return id.GetHashCode();
         }
 
+        internal void CambiarEstado()
+        {
+            if(estado == Estado.Libre)
+            {
+                this.estado = Estado.Ocupado;
+                return;
+            }
+            estado = Estado.Libre;
+        }
 
+        public Estado ObtenerEstado()
+        {
+            return Estado;
+        }
+
+        public int Fracciones
+        {
+            get 
+            {
+                return fraccionesAsignadas;
+            }
+            set
+            {
+                if(value>0)
+                {
+                    fraccionesAsignadas = value;
+                }
+            }
+        }
+
+        public void Liberar()
+        {
+            this.Estado = Estado.Libre;
+        }
     }
 }

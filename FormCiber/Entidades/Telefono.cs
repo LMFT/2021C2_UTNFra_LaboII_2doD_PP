@@ -6,73 +6,69 @@ using System.Threading.Tasks;
 using GeneradorNumeros;
 namespace Entidades
 {
-    public enum TipoTelefono
-    {
-        Disco,
-        Teclado
-    }
+
     public class Telefono : Dispositivo
     {
-        private TipoTelefono tipo;
         private string marca;
-        static private int siguienteId = 1;
-
-        public Telefono(TipoTelefono tipo, string marca)
+        private TipoTelefono tipo;
+        private static int ultimoId;
+        private Llamada llamada;
+        public enum TipoTelefono
         {
-            this.Id = String.Format("T{0:00}", siguienteId++);
-            this.Tipo = tipo;
-            this.Marca = marca;
-            this.Estado = Estado.Libre;
-            
+            Disco,
+            Teclado
+        }
+        public Telefono(string id,string marca, TipoTelefono tipo) : base(id)
+        {
+            this.marca = marca;
+            this.tipo = tipo;
         }
 
-
-
-        internal TipoTelefono Tipo
+        internal Llamada Llamada
         {
             get
             {
-                return tipo;
+                return llamada;
             }
             set
             {
-                tipo = value;
-            }
-        }
-
-        internal string Marca
-        {
-            get
-            {
-                return marca;
-            }
-            set
-            {
-                if(value is not null && value != String.Empty)
+                if (value is not null)
                 {
-                    marca = value;
+                    llamada = value;
                 }
             }
         }
 
-        public static void HardcodearTelefonos(List<Dispositivo> listado)
+        private static string GenerarId()
         {
-            string[] marcas = { "Motorola", "Panacom", "Philips", "Noblex" };
-            for(int i = 0; i < 5; i++)
+            return String.Format("T{0;00}", ++ultimoId);
+        }
+
+        internal static void HardcodearTelefonos(List<Dispositivo> lista)
+        {
+            string[] marca = { "Panasonic", "Telecom", "Alcatel", "T&T", "Entel" };
+            TipoTelefono[] tipo = { TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado, 
+                                    TipoTelefono.Disco, };
+            if(lista is not null)
             {
-                Telefono telefono = new Telefono((TipoTelefono)GeneradorNumero.Generar(0, 2), marcas[GeneradorNumero.Generar(0,marcas.Length)]);
-                listado.Add(telefono);
+                for(int i=0;i<5;i++)
+                {
+                    Telefono t = new Telefono(GenerarId(), marca[i], tipo[i]);
+                    lista.Add(t);
+                }
             }
         }
 
         public override string MostrarDispositivo()
         {
-            StringBuilder informacion = new StringBuilder();
-            informacion.AppendLine($"ID Dispositivo: {this.Id}");
-            informacion.AppendLine($"Estado: {this.Estado}");
-            informacion.AppendLine($"Marca: {this.Marca}");
-            informacion.AppendLine($"Tipo de telefono: {this.Tipo}");
-            return informacion.ToString();
+            StringBuilder telefonoStr = new StringBuilder();
+
+            telefonoStr.AppendLine($"ID: {Id}");
+            telefonoStr.AppendLine($"Marca: {marca}");
+            telefonoStr.AppendLine($"Tipo de telefono: {tipo}");
+            return telefonoStr.ToString();
         }
+
+        
     }
 }

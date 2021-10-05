@@ -8,51 +8,41 @@ namespace Entidades
 {
     public static class Cibercafe
     {
-        private static Queue<Cliente> colaClientes = Cliente.HardcodearClientes();
-        private static List<Dispositivo> dispositivos = CrearDispositivos();
+        private static Queue<Cliente> colaClientes;
+        private static CajaRegistradora caja;
+        private static List<Dispositivo> dispositivos;
+        private static List<Operacion> historial;
 
-        private static List<Dispositivo> CrearDispositivos()
+        static Cibercafe()
         {
-            List<Dispositivo> listado = new List<Dispositivo>();
-            Computadora.HardcodearComputadoras(listado);
-            Telefono.HardcodearTelefonos(listado);
-            return listado;
+            colaClientes = Cliente.HardcodearClientes();
+            dispositivos = GenerarDispositivos();
         }
 
-        public static List<Cliente> ObtenerClientesEnEspera()
+        static List<Dispositivo> GenerarDispositivos()
         {
-            List<Cliente> lista = new List<Cliente>();
-            foreach(Cliente c in colaClientes)
-            {
-                lista.Add(c);
-            }
+            List<Dispositivo> lista = new List<Dispositivo>();
+            Computadora.HardcodearComputadoras(lista);
+            Telefono.HardcodearTelefonos(lista);
             return lista;
         }
-
-        public static string MostrarDispositivo(string id)
-        {
-            foreach(Dispositivo dispositivo in dispositivos)
-            {
-                if(dispositivo == id)
-                {
-                    return dispositivo.MostrarDispositivo();
-                }
-            }
-            return String.Empty;
-        }
-
+        
         public static Dispositivo ObtenerDispositivo(string id)
         {
-            Dispositivo d = null;
-            foreach(Dispositivo d2 in dispositivos)
+            foreach(Dispositivo d in dispositivos)
             {
-                if(d2 == id)
+                if(d == id)
                 {
-                    d = d2;
+
                     return d;
                 }
             }
-            return d;
+            return null;
+        }
+
+        public static string VerProximoCliente()
+        {
+            return colaClientes.Peek().ToString();
         }
 
         public static Cliente AtenderCliente()
@@ -60,9 +50,73 @@ namespace Entidades
             return colaClientes.Dequeue();
         }
 
-        public static string MostrarProximoCliente()
+        public static bool AgregarCliente()
         {
-            return colaClientes.Peek().MostrarCliente();
+            Cliente c = Cliente.GenerarCliente();
+            if(c is not null)
+            {
+                colaClientes.Enqueue(c);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool AgregarCliente(Cliente c)
+        {
+            if(c is not null)
+            {
+                colaClientes.Enqueue(c);
+                return true;
+            }
+            return false;
+        }
+
+        public static Queue<Cliente> Clientes
+        {
+            get
+            {
+                return colaClientes;
+            }
+        }
+        internal static List<Dispositivo> Dispositivos
+        {
+            get
+            {
+                return dispositivos;
+            }
+        }
+
+        public static void AgregarOperacionAHistorial(Operacion operacion)
+        {
+            historial.Add(operacion);
+        }
+
+        public static Cliente ObtenerClientePorDispositivo(Dispositivo dispositivo)
+        {
+            foreach(Dispositivo d in dispositivos)
+            {
+                if (d.Cliente == dispositivo.Cliente)
+                {
+                    return d.Cliente;
+                }
+            }
+            return null;
+        }
+
+        public static Cliente ObtenerClientePorDispositivo(string id)
+        {
+            Dispositivo d = Cibercafe.ObtenerDispositivo(id);
+            return ObtenerClientePorDispositivo(d);
+        }
+
+        public static double Cobrar(Cliente cliente)
+        {
+            if(cliente is not null && cliente.Dispositivo.Estado == Estado.Ocupado)
+            {
+                cliente.Dispositivo.CambiarEstado();
+                return caja.Cobrar(cliente);
+            }
+            return 0;
         }
     }
 }

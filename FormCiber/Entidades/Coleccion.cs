@@ -10,12 +10,22 @@ namespace Colecciones
     {
         public static string ObtenerElementosLista(List<string> lista)
         {
-            string str = new string("\n");
+            StringBuilder str = new StringBuilder("\n");
             foreach(string s in lista)
             {
-                str += $"{s}\n";
+                str.AppendLine(s);
             }
-            return str;
+            return str.ToString();
+        }
+
+        public static string ObtenerElementosDiccionario(Dictionary<string, string> diccionario)
+        {
+            StringBuilder str = new StringBuilder();
+            foreach(KeyValuePair<string, string> k in diccionario)
+            {
+                str.AppendLine($"{k.Key}: {k.Value}");
+            }
+            return str.ToString();
         }
         
 

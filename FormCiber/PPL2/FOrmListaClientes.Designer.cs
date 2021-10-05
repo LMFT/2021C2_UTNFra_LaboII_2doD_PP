@@ -31,6 +31,7 @@ namespace PPL2
         {
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Necesidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,38 +44,49 @@ namespace PPL2
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
+            this.Necesidad,
             this.Apellido,
             this.DNI,
             this.Edad});
-            this.dgvClientes.Location = new System.Drawing.Point(36, 12);
+            this.dgvClientes.Location = new System.Drawing.Point(12, 12);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.RowTemplate.Height = 25;
-            this.dgvClientes.Size = new System.Drawing.Size(441, 210);
+            this.dgvClientes.Size = new System.Drawing.Size(544, 210);
             this.dgvClientes.TabIndex = 0;
             // 
             // Nombre
             // 
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Necesidad
+            // 
+            this.Necesidad.HeaderText = "Necesidad";
+            this.Necesidad.Name = "Necesidad";
+            this.Necesidad.ReadOnly = true;
             // 
             // Apellido
             // 
             this.Apellido.HeaderText = "Apellido";
             this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
             // 
             // DNI
             // 
             this.DNI.HeaderText = "DNI";
             this.DNI.Name = "DNI";
+            this.DNI.ReadOnly = true;
             // 
             // Edad
             // 
             this.Edad.HeaderText = "Edad";
             this.Edad.Name = "Edad";
+            this.Edad.ReadOnly = true;
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(141, 263);
+            this.btnCerrar.Location = new System.Drawing.Point(165, 260);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(227, 37);
             this.btnCerrar.TabIndex = 1;
@@ -82,14 +94,14 @@ namespace PPL2
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // FormListaClientes
+            // FormHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 338);
+            this.ClientSize = new System.Drawing.Size(572, 338);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.dgvClientes);
-            this.Name = "FormListaClientes";
+            this.Name = "FormHistorial";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
@@ -100,10 +112,11 @@ namespace PPL2
         #endregion
 
         private System.Windows.Forms.DataGridView dgvClientes;
+        private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Necesidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Edad;
-        private System.Windows.Forms.Button btnCerrar;
     }
 }

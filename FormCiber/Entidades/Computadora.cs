@@ -10,20 +10,29 @@ namespace Entidades
 {
     public class Computadora : Dispositivo
     {
-        public static Random rng = new Random(0);
-        private List<string> software; //(office, messenger, icq, ares).
-        private List<string> perifericos; //(cámara, auriculares, micrófono).
-        private List<string> juegos; //(Counter Strike, Diablo II, Mu Online, Lineage II, Warcraft III, Age of Empires II)
-        private Dictionary<string, string> especificaciones; //(procesador, ram, placa de video, etc).*/
-        static private int siguienteId = 1;
-        public Computadora(List<string> software, List<string> perifericos, List<string> juegos, Dictionary<string, string> especificaciones)
+        private List<string> software;
+        private List<string> perifericos;
+        private List<string> juegos;
+        private Dictionary<string, string> especificaciones;
+        private static int ultimoId;
+        public Computadora(string id, List<string> perifericos, Dictionary<string, string> especificaciones) : base(id)
         {
-            this.Id = String.Format("C{0:00}", siguienteId++);
-            this.Software = software;
-            this.Perifericos = perifericos;
-            this.Juegos = juegos;
-            this.Especificaciones = especificaciones;
-            this.Estado = Estado.Libre;
+            this.perifericos = perifericos;
+        }
+        public Computadora(string id, List<string> perifericos, List<string> software, Dictionary<string, string> especificaciones)
+            : this(id, perifericos, especificaciones)
+        {
+            this.software = software;
+        }
+        public Computadora(List<string> perifericos, string id, List<string> juegos, Dictionary<string, string> especificaciones) :
+            this(id, perifericos, especificaciones)
+        {
+            this.juegos = juegos;
+        }
+        public Computadora(string id, List<string> software, List<string> perifericos, List<string> juegos,
+                          Dictionary<string, string> especificaciones) : this(id, perifericos, software, especificaciones)
+        {
+            this.juegos = juegos;
         }
 
         internal List<string> Software
@@ -31,28 +40,6 @@ namespace Entidades
             get
             {
                 return software;
-            }
-            set
-            {
-                if(value is not null)
-                {
-                    software = value;
-                }
-            }
-        }
-
-        internal List<string> Perifericos
-        {
-            get
-            {
-                return perifericos;
-            }
-            set
-            {
-                if(value is not null)
-                {
-                    perifericos = value;
-                }
             }
         }
 
@@ -62,82 +49,100 @@ namespace Entidades
             {
                 return juegos;
             }
-            set
-            {
-                if (value is not null)
-                {
-                    juegos = value;
-                }
-            }
         }
 
-        internal Dictionary<string, string> Especificaciones
+        internal List<string> Perifericos
         {
             get
             {
-                return especificaciones;
-            }
-            set
-            {
-                if (value is not null)
-                {
-                    especificaciones = value;
-                }
+                return perifericos;
             }
         }
 
-        public static void HardcodearComputadoras(List<Dispositivo> lista)
+
+        public override string MostrarDispositivo()
         {
-            List<string> software = new List<string> { "Office", "Messenger", "ICQ", "Ares" }; 
-            List<string> perifericos = new List<string> {"Cámara", "Auriculares", "Micrófono"}; 
-            List<string> juegos = new List<string> { "Counter-Strike", "Diablo II", "MU Online", "Lineage II", "Age of Empires II"};
-            
-            for(int i=0;i<10;i++)
+            StringBuilder pcStr = new StringBuilder();
+            pcStr.AppendLine($"ID Dispositivo: {Id}\n");
+            pcStr.AppendLine($"Perifericos: {Coleccion.ObtenerElementosLista(perifericos)}");
+            pcStr.AppendLine($"Especificaciones: {Coleccion.ObtenerElementosDiccionario(especificaciones)}");
+            pcStr.AppendLine($"Software: {Coleccion.ObtenerElementosLista(software)}");
+            pcStr.AppendLine($"Juegos: {Coleccion.ObtenerElementosLista(juegos)}");
+            return pcStr.ToString();
+        }
+
+        private static string GenerarId()
+        {
+            return String.Format("C{0:00}", ++ultimoId);
+        }
+
+        internal static void HardcodearComputadoras(List<Dispositivo> listado)
+        {
+            #region Listado Software
+            /* "Office", "Messenger", "ICQ", "Ares", "eMule", */
+            List<string>[] listadoSoftware = new List<string>[] {       new List<string> { "Office", "Ares"},
+                                                                        new List<string> { "Messenger", "eMule", "Office"},
+                                                                        new List<string> (),
+                                                                        new List<string> { "Office", "Ares", "Messenger"},
+                                                                        new List<string>(), 
+                                                                        new List<string> { "Office"},
+                                                                        new List<string> { "ICQ", "Messenger", "Office"},
+                                                                        new List<string> { "Office", "Ares", "ICQ"},
+                                                                        new List<string> { "eMule", "Ares"},
+                                                                        new List<string> ()};
+            #endregion
+            #region Listado Perifericos
+            /*"Cámara", "Auriculares", "Micrófono"*/
+            List<string>[] listadoPerifericos = new List<string>[] {    new List<string> { "Auriculares", "Microfono"},
+                                                                        new List<string> { "Auriculares"},
+                                                                        new List<string> {"Auriculares", "Microfono" },
+                                                                        new List<string> { "Camara"},
+                                                                        new List<string>{"Auriculares", "Microfono"}, 
+                                                                        new List<string> { "Camara"},
+                                                                        new List<string> { "Camara", "Microfono", "Auriculares"},
+                                                                        new List<string> {"Auriculares"},
+                                                                        new List<string> { "Camara", "Microfono"},
+                                                                        new List<string> {"Auriculares"} };
+            #endregion
+            #region Listado Juegos
+            /* "Counter-Strike", "Diablo II", "MU Online","Lineage II", "Age of Empires II", "GTA VIce CIty", "Starcraft"*/
+            List<string>[] listadoJuegos = new List<string>[] {         new List<string> { "GTA Vice City", "Warcraft 3", "Counter-strike"},
+                                                                        new List<string> { "Counter Strike", "Age of Empires II",},
+                                                                        new List<string> {"Diablo II", "MU Online", "Lineage II"},
+                                                                        new List<string> (),
+                                                                        new List<string> { "Office"},
+                                                                        new List<string>(),
+                                                                        new List<string> { "MU Online", "Lineage II"},
+                                                                        new List<string> (),
+                                                                        new List<string> { "Counter-Strike", "Diablo II", "GTA Vice City"},
+                                                                        new List<string> { "Starcraft", "Age of Empires II", "Diablo II"}};
+            #endregion
+            if (listado is not null)
             {
-                Computadora computadora = new Computadora(GeneradorNumero.SeleccionAleatoria(software, GeneradorNumero.Generar(0, software.Count)),
-                                                            GeneradorNumero.SeleccionAleatoria(perifericos, GeneradorNumero.Generar(0, perifericos.Count)),
-                                                            GeneradorNumero.SeleccionAleatoria(juegos, GeneradorNumero.Generar(0, juegos.Count)),
-                                                            GenerarEspecificaciones());
-                lista.Add(computadora);
+                for(int i=0;i<10;i++)
+                {
+                    Computadora pc = new Computadora(GenerarId(), listadoSoftware[i], listadoPerifericos[i],listadoJuegos[i], 
+                                        GenerarEspecificaciones());
+                    listado.Add(pc);
+                }
             }
         }
 
         private static Dictionary<string, string> GenerarEspecificaciones()
         {
             Dictionary<string, string> especificaciones = new Dictionary<string, string>();
-            string[] procesador = new string[]{"Pentium II", "Pentium III", "Pentium 4"};
+            string[] procesador = new string[] { "Pentium II", "Pentium III", "Pentium 4" };
             string[] placaBase = new string[] { "Abit VP6", "Iwill PIILD P2LD", "Asus P4T" };
-            string[] ram = new string[] {"Nanya 256 MB DDR RAM PC-3200 184-pin DIMM","acp-ep memoria 512 MB PC133 168-pin","DELL Dimension 8100 PC800 RDRAM 1 GB" };
-            string[] placaVideo = new string[] { "Voodoo I", "nVidia Riva", "GeForce 256"};
-            
-            especificaciones.Add("Procesador", procesador[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
-            especificaciones.Add("Placa base", placaBase[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
-            especificaciones.Add("Memoria RAM", ram[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
-            especificaciones.Add("Placa de video", placaVideo[GeneradorNumeros.GeneradorNumero.Generar(0,3)]);
-            
+            string[] ram = new string[] { "Nanya 256 MB DDR RAM PC-3200 184-pin DIMM", "acp-ep memoria 512 MB PC133 168-pin", "DELL Dimension 8100 PC800 RDRAM 1 GB" };
+            string[] placaVideo = new string[] { "Voodoo I", "nVidia Riva", "GeForce 256" };
+
+            especificaciones.Add("Procesador", procesador[GeneradorNumeros.GeneradorNumero.Generar(0, 3)]);
+            especificaciones.Add("Placa base", placaBase[GeneradorNumeros.GeneradorNumero.Generar(0, 3)]);
+            especificaciones.Add("Memoria RAM", ram[GeneradorNumeros.GeneradorNumero.Generar(0, 3)]);
+            especificaciones.Add("Placa de video", placaVideo[GeneradorNumeros.GeneradorNumero.Generar(0, 3)]);
+
             return especificaciones;
         }
 
-        public override string MostrarDispositivo()
-        {
-            StringBuilder informacion = new StringBuilder();
-
-            informacion.AppendLine($"ID Dispositivo: {this.Id}\n");
-            informacion.AppendLine($"Estado: {this.Estado}\n");
-            informacion.AppendLine($"Perifericos: {Coleccion.ObtenerElementosLista(this.Perifericos)}\n");
-            informacion.AppendLine($"Software instalado: {Coleccion.ObtenerElementosLista(this.Software)}\n");
-            informacion.AppendLine($"Juegos instalados: {Coleccion.ObtenerElementosLista(this.Juegos)}\n");
-            return informacion.ToString();
-        }
-
-        public List<string> ObtenerSoftware()
-        {
-            return this.Software;
-        }
-
-        public List<string> ObtenerJuegos()
-        {
-            return this.Juegos;
-        }
     }
 }

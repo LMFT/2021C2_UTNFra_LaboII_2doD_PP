@@ -19,13 +19,13 @@ namespace PPL2
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            List<Cliente> clientes = Cibercafe.ObtenerClientesEnEspera();
-            
-            for(int i=0;i<clientes.Count;i++)
+            int i = 0;
+            foreach(Cliente cliente in Cibercafe.Clientes)
             {
                 dgvClientes.Rows.Add();
                 DataGridViewRow fila = dgvClientes.Rows[i];
-                fila.SetValues(clientes[i].Nombre, clientes[i].Apellido, clientes[i].Dni, clientes[i].Edad);
+                fila.SetValues(cliente.Nombre, cliente.Apellido, cliente.Dni, cliente.Edad, cliente.Necesidad);
+                i++;
             }
         }
 

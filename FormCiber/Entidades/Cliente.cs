@@ -8,11 +8,6 @@ using Elementos;
 
 namespace Entidades
 {
-    public enum Necesidad
-    {
-        Telefono,
-        Computadora
-    }
     public class Cliente
     {
         private string nombre;
@@ -23,51 +18,24 @@ namespace Entidades
         Dispositivo dispositivoAsignado;
         private string softwareNecesario;
         private string perifericoNecesario;
+        private DateTime horaInicio;
 
-
-        public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad)
+        public Cliente(string nombre, string apellido, Necesidad necesidad,int dni)
         {
             this.nombre = nombre;
             this.apellido = apellido;
-            this.dni = dni;
-            this.edad = edad;
             this.necesidad = necesidad;
-        }
-
-
-        public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad, string software) : 
-            this(nombre, apellido, dni, edad, necesidad)
-        {
-            this.softwareNecesario = software;
-        }
-
-        public Cliente(string nombre, string apellido, int dni, int edad, Necesidad necesidad, string software, string periferico) :
-            this(nombre, apellido, dni, edad, necesidad, software)
-        {
-            this.perifericoNecesario = periferico;
-        }
-
-        internal Dispositivo Dispositivo
-        {
-            get
+            this.dni = dni;
+            if (necesidad == Necesidad.Computadora)
             {
-                return dispositivoAsignado;
-            }
-            set
-            {
-                if (value is not null)
-                {
-                    dispositivoAsignado = value;
-                }
+                GenerarPerifericoNecesario();
+                GenerarSoftwareNecesario();
             }
         }
-
-        public string Periferico
+        public Cliente(string nombre, string apellido, Necesidad necesidad, int dni, int edad) : this(nombre, apellido, necesidad,dni)
         {
-            get
-            {
-                return perifericoNecesario;
-            }
+            this.edad = edad;
+            
         }
 
         public string Nombre
@@ -77,7 +45,6 @@ namespace Entidades
                 return nombre;
             }
         }
-
         public string Apellido
         {
             get
@@ -85,7 +52,6 @@ namespace Entidades
                 return apellido;
             }
         }
-
         public int Dni
         {
             get
@@ -93,7 +59,6 @@ namespace Entidades
                 return dni;
             }
         }
-
         public int Edad
         {
             get
@@ -109,38 +74,20 @@ namespace Entidades
             }
         }
 
-        public static Cliente GenerarCliente()
+        public DateTime HoraInicio
         {
-            Cliente cliente = new Cliente(Elemento.ObtenerNombre(GeneradorNumero.Generar(0, Elemento.Nombres)),
-                                          Elemento.ObtenerApellido(GeneradorNumero.Generar(0, Elemento.Apellidos)),
-                                          GeneradorNumero.Generar(16000000, 50000000), GeneradorNumero.Generar(13, 80),
-                                          (Necesidad)GeneradorNumero.Generar(0,2));
-            if(cliente.Necesidad == Necesidad.Computadora)
+            get
             {
-                cliente.softwareNecesario = Elemento.Ob
+                return horaInicio;
             }
-
-
-            return cliente;
         }
-
-        public string MostrarCliente()
+        public Dispositivo Dispositivo
         {
-            StringBuilder clienteStr = new StringBuilder();
-            clienteStr.AppendLine($"Nombre: {this.Nombre}");
-            clienteStr.AppendLine($"Apellido: {this.Apellido}");
-            clienteStr.AppendLine($"Dni: {this.Dni}");
-            clienteStr.AppendLine($"Edad: {this.Edad}");
-            return clienteStr.ToString();
+            get
+            {
+                return dispositivoAsignado;
+            }
         }
-
-        private static string GenerarSoftwareNecesario()
-        {
-            string[] softwareDisponible = { "Office", "Messenger", "ICQ", "Ares", "Counter-Strike", "Diablo II", "Lineage II",
-                                            "Warcraft 3", "Age of Empires II" };
-            return softwareDisponible[GeneradorNumero.Generar(0, softwareDisponible.Length)];
-        }
-
         public static bool operator ==(Cliente c1, Cliente c2)
         {
             return c1.dni == c2.dni;
@@ -151,10 +98,52 @@ namespace Entidades
             return !(c1 == c2);
         }
 
+        public static bool operator ==(Cliente cliente, Queue<Cliente> cola)
+        {
+            foreach(Cliente c in cola)
+            {
+                if(c == cliente)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool operator !=(Cliente cliente, Computadora pc)
+        {
+            return !(cliente == pc);
+        }
+
+        public static bool operator ==(Cliente cliente, Computadora pc)
+        {
+            if((pc.Juegos.Contains<string>(cliente.softwareNecesario) || pc.Software.Contains<string>(cliente.softwareNecesario)) &&
+                pc.Perifericos.Contains<string>(cliente.perifericoNecesario))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool operator !=(Cliente cliente, Queue<Cliente> cola)
+        {
+            return !(cliente == cola);
+        }
+
+        public static bool operator +(Cliente cliente, Queue<Cliente> cola)
+        {
+            if(cliente != cola)
+            {
+                cola.Enqueue(cliente);
+                return true;
+            }
+            return false;
+        }
+
         public override bool Equals(object obj)
         {
             Cliente c = obj as Cliente;
-            if(c is not null && this.dni == c.dni)
+            if(c is not null && c==this)
             {
                 return true;
             }
@@ -163,17 +152,74 @@ namespace Entidades
 
         public override int GetHashCode()
         {
-            return this.dni.GetHashCode();
+            return dni.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            StringBuilder clienteStr = new StringBuilder();
+            clienteStr.AppendLine($"Nombre: {Nombre}");
+            clienteStr.AppendLine($"Apellido: {Apellido}");
+            clienteStr.AppendLine($"DNI: {Dni}");
+            clienteStr.AppendLine($"Edad: {Edad}");
+            clienteStr.AppendLine($"Necesidad: {necesidad}");
+            return clienteStr.ToString();
+        }
+        public static Queue<Cliente> HardcodearClientes()
+        {
+            Queue<Cliente> cola = new Queue<Cliente>();
+            string[] nombres = {"Lucas","Javier","Carolina", "Guadalupe", "Laura", "Maximiliano", "Bianca", "Violeta", "Martin",
+                               "Facundo", "Diego", "Ezequiel", "Emanuel", "Alan", "Florencia" };
+            string[] apellidos = { "Steinbrenner", "Fernandez", "Perez", "Gozalvez", "Martinez", "Scarsi", "Carrizo", "Gonzalez",
+                                   "Albornoz", "Dotta", "Vietti", "Manriquez", "Cech", "Aspen", "Elbetti" };
+            int[] dni = { 12345678, 34521654, 34579157, 37789546, 26847591, 38859610, 42150369, 29684578, 35589214, 36458974, 30258965, 
+                40259036, 25099681, 26509856,  42567345};
+            int[] edades = { 29, 35, 49, 18, 16, 20, 21, 50, 30, 28, 45, 48, 49, 32, 15};
+            Necesidad[] necesidades = { Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
+                                        Necesidad.Telefono, Necesidad.Telefono, Necesidad.Computadora, Necesidad.Telefono, 
+                                        Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
+                                        Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora};
+
+            for(int i=0;i<15;i++)
+            {
+                Cliente cliente = new Cliente(nombres[i], apellidos[i], necesidades[i], dni[i], edades[i]);
+                cola.Enqueue(cliente);
+            }
+            return cola;
+        }
+        
         public void AsignarDispositivo(Dispositivo dispositivo)
         {
-            this.Dispositivo = dispositivo;
+            this.dispositivoAsignado = dispositivo;
+            this.horaInicio = DateTime.Now;
+            dispositivo.CambiarEstado();
+            dispositivo.Cliente = this;
         }
 
-        public string ObtenerSoftwareNecesario()
+        private void GenerarSoftwareNecesario()
         {
-            return this.softwareNecesario;
+            this.softwareNecesario = Software.ObtenerSoftware();
+        }
+
+        private void GenerarPerifericoNecesario()
+        {
+            this.perifericoNecesario = Periferico.ObtenerPeriferico();
+        }
+
+        internal static Cliente GenerarCliente()
+        {
+            Cliente cliente =  new Cliente(Persona.ObtenerNombre(GeneradorNumero.Generar(0, Persona.Nombres)),
+                               Persona.ObtenerApellido(GeneradorNumero.Generar(0, Persona.Apellidos)),
+                               (Necesidad)GeneradorNumero.Generar(0, 2), GeneradorNumero.Generar(15000000, 50000000));
+            cliente.horaInicio = GenerarFechaAleatoria();
+            return cliente;
+        }
+
+        private static DateTime GenerarFechaAleatoria()
+        {
+                DateTime inicio = new DateTime(2021, 08, 17,16,45,23);
+                int rango = (DateTime.Today - inicio).Minutes;
+                return inicio.AddMinutes(GeneradorNumero.Generar(0, rango));
         }
     }
 }
