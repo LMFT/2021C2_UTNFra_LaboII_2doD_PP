@@ -18,6 +18,7 @@ namespace Entidades
         public Computadora(string id, List<string> perifericos, Dictionary<string, string> especificaciones) : base(id)
         {
             this.perifericos = perifericos;
+            this.especificaciones = especificaciones;
         }
         public Computadora(string id, List<string> perifericos, List<string> software, Dictionary<string, string> especificaciones)
             : this(id, perifericos, especificaciones)
@@ -35,7 +36,7 @@ namespace Entidades
             this.juegos = juegos;
         }
 
-        internal List<string> Software
+        public List<string> Software
         {
             get
             {
@@ -65,9 +66,10 @@ namespace Entidades
             StringBuilder pcStr = new StringBuilder();
             pcStr.AppendLine($"ID Dispositivo: {Id}\n");
             pcStr.AppendLine($"Perifericos: {Coleccion.ObtenerElementosLista(perifericos)}");
-            pcStr.AppendLine($"Especificaciones: {Coleccion.ObtenerElementosDiccionario(especificaciones)}");
             pcStr.AppendLine($"Software: {Coleccion.ObtenerElementosLista(software)}");
             pcStr.AppendLine($"Juegos: {Coleccion.ObtenerElementosLista(juegos)}");
+            pcStr.AppendLine($"Estado: {Estado}");
+            pcStr.AppendLine($"\n\nEspecificaciones: {Coleccion.ObtenerElementosDiccionario(especificaciones)}");
             return pcStr.ToString();
         }
 

@@ -75,7 +75,7 @@ namespace Entidades
 
         public static bool operator ==(Dispositivo d, string s)
         {
-            return d.Id == s;
+            return d.id == s;
         }
 
         public static bool operator !=(Dispositivo d, string s)

@@ -18,12 +18,13 @@ namespace PPL2
         {
             InitializeComponent();
             dispositivoSeleccionado = null;
-            
+            rbtnLibre.Checked = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             SetearFecha();
+            rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
         }
 
         private void btnPc1_Click(object sender, EventArgs e)
@@ -187,14 +188,31 @@ namespace PPL2
         {
             if(dispositivoSeleccionado is not null && dispositivoSeleccionado.ObtenerEstado() == Estado.Libre)
             {
-                Cliente cliente = Cibercafe.AtenderCliente();
+                Cliente cliente = Cibercafe.VerProximoCliente();
                 if(ValidarDispositivo(cliente))
                 {
+                    if(ValidarComputadora(cliente) == false)
+                    {
+                        MessageBox.Show("Esta computadora no cuenta con el software o perifericos requeridos por el cliente", 
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    cliente = Cibercafe.AtenderCliente();
                     Asignar(cliente);
-                    rtxtProximoCliente.Text = Cibercafe.VerProximoCliente();
+                    rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                    rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
                     CambiarColorBoton(botonSeleccionado);
-                    
                 }
+                else
+                {
+                    MessageBox.Show("El cliente no requiere este tipo de dispositivo","Error", 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este dispositivo se encuentra ocupado o no se ha seleccionado ningun dispositivo",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -207,11 +225,22 @@ namespace PPL2
             }
         }
 
+        private bool ValidarComputadora(Cliente cliente)
+        {
+            if(dispositivoSeleccionado.GetType() == typeof(Computadora))
+            {
+                return cliente == dispositivoSeleccionado;
+            }
+            return true;
+        }
+
         private bool ValidarDispositivo(Cliente cliente)
         {
-            return cliente.Necesidad == Necesidad.Computadora && dispositivoSeleccionado.GetType() == typeof(Computadora) ||
-                   cliente.Necesidad == Necesidad.Telefono && dispositivoSeleccionado.GetType() == typeof(Telefono);
+            return (cliente.Necesidad == Necesidad.Computadora && dispositivoSeleccionado.GetType() == typeof(Computadora)) ||
+            (cliente.Necesidad == Necesidad.Telefono && dispositivoSeleccionado.GetType() == typeof(Telefono));
         }
+
+        
 
         private void SetearFecha()
         {
@@ -243,9 +272,18 @@ namespace PPL2
         private void btnLiberar_Click(object sender, EventArgs e)
         {
             Cliente cliente = Cibercafe.ObtenerClientePorDispositivo(dispositivoSeleccionado);
-            double monto = Cibercafe.Cobrar(cliente);
-            Operacion operacion = new Operacion(cliente, monto);
-            Cibercafe.AgregarOperacionAHistorial(operacion);
+            if(cliente is not null)
+            {
+                double monto = Cibercafe.Cobrar(cliente);
+                Operacion operacion = new Operacion(cliente, monto);
+                Cibercafe.AgregarOperacionAHistorial(operacion);
+                CambiarColorBoton(botonSeleccionado);
+                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+            }
+            else
+            {
+                MessageBox.Show("Este dispositivo ya se encuentra libre", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         private void rbtnLibre_CheckedChanged(object sender, EventArgs e)
@@ -387,6 +425,12 @@ namespace PPL2
             {
                 VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T05"), timerT5.Interval);
             }
+        }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            FormHistorial frm = new FormHistorial();
+            frm.ShowDialog();
         }
     }
 }

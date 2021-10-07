@@ -75,6 +75,7 @@ namespace PPL2
             this.timerT3 = new System.Windows.Forms.Timer(this.components);
             this.timerT4 = new System.Windows.Forms.Timer(this.components);
             this.timerT5 = new System.Windows.Forms.Timer(this.components);
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.stbBarraInformacion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadFracciones)).BeginInit();
             this.SuspendLayout();
@@ -485,6 +486,16 @@ namespace PPL2
             this.timerT5.Interval = 60000;
             this.timerT5.Tick += new System.EventHandler(this.timerT5_Tick);
             // 
+            // btnHistorial
+            // 
+            this.btnHistorial.Location = new System.Drawing.Point(12, 416);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(213, 34);
+            this.btnHistorial.TabIndex = 28;
+            this.btnHistorial.Text = "Historial";
+            this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -492,6 +503,7 @@ namespace PPL2
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.btnHistorial);
             this.Controls.Add(this.rbtnLibre);
             this.Controls.Add(this.rbtnFraccion);
             this.Controls.Add(this.nudCantidadFracciones);
@@ -581,6 +593,7 @@ namespace PPL2
         private System.Windows.Forms.Timer timerT3;
         private System.Windows.Forms.Timer timerT4;
         private System.Windows.Forms.Timer timerT5;
+        private System.Windows.Forms.Button btnHistorial;
     }
 }
 

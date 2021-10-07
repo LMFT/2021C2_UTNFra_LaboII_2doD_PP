@@ -11,7 +11,7 @@ namespace Entidades
     {
         private string marca;
         private TipoTelefono tipo;
-        private static int ultimoId;
+        private static int ultimoId = 1;
         private Llamada llamada;
         public enum TipoTelefono
         {
@@ -41,7 +41,9 @@ namespace Entidades
 
         private static string GenerarId()
         {
-            return String.Format("T{0;00}", ++ultimoId);
+            string str = new string(string.Format("T{0:00}", ultimoId));
+            ultimoId++;
+            return str;
         }
 
         internal static void HardcodearTelefonos(List<Dispositivo> lista)
@@ -58,7 +60,6 @@ namespace Entidades
                 }
             }
         }
-
         public override string MostrarDispositivo()
         {
             StringBuilder telefonoStr = new StringBuilder();
@@ -66,7 +67,13 @@ namespace Entidades
             telefonoStr.AppendLine($"ID: {Id}");
             telefonoStr.AppendLine($"Marca: {marca}");
             telefonoStr.AppendLine($"Tipo de telefono: {tipo}");
+            telefonoStr.AppendLine($"Estado: {Estado}");
             return telefonoStr.ToString();
+        }
+
+        public Llamada GetLlamada()
+        {
+            return llamada;
         }
 
         

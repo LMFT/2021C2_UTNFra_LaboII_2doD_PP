@@ -17,6 +17,8 @@ namespace Entidades
         {
             colaClientes = Cliente.HardcodearClientes();
             dispositivos = GenerarDispositivos();
+            historial = new List<Operacion>();
+            caja = CajaRegistradora.InicializarCaja(10);
         }
 
         static List<Dispositivo> GenerarDispositivos()
@@ -40,9 +42,42 @@ namespace Entidades
             return null;
         }
 
-        public static string VerProximoCliente()
+        public static List<Operacion> GetHistorial()
         {
-            return colaClientes.Peek().ToString();
+            return historial;
+        }
+
+        public static List<Computadora> FiltrarComputadoras()
+        {
+            List<Computadora> listaFiltrada = new List<Computadora>();
+            foreach (Dispositivo dispositivo in dispositivos)
+            {
+                if (dispositivo.ObtenerId().StartsWith("C"))
+                {
+                    listaFiltrada.Add(dispositivo as Computadora);
+                }
+            }
+
+            return listaFiltrada;
+        }
+
+        public static List<Telefono> FiltrarTelefonos()
+        {
+            List<Telefono> listaFiltrada = new List<Telefono>();
+            foreach (Dispositivo dispositivo in dispositivos)
+            {
+                if (dispositivo.ObtenerId().StartsWith("T"))
+                {
+                    listaFiltrada.Add(dispositivo as Telefono);
+                }
+            }
+
+            return listaFiltrada;
+        }
+
+        public static Cliente VerProximoCliente()
+        {
+            return colaClientes.Peek();
         }
 
         public static Cliente AtenderCliente()
@@ -53,12 +88,7 @@ namespace Entidades
         public static bool AgregarCliente()
         {
             Cliente c = Cliente.GenerarCliente();
-            if(c is not null)
-            {
-                colaClientes.Enqueue(c);
-                return true;
-            }
-            return false;
+            return AgregarCliente(c);
         }
 
         public static bool AgregarCliente(Cliente c)
@@ -95,7 +125,7 @@ namespace Entidades
         {
             foreach(Dispositivo d in dispositivos)
             {
-                if (d.Cliente == dispositivo.Cliente)
+                if (d.Cliente is not null && d.Cliente == dispositivo.Cliente)
                 {
                     return d.Cliente;
                 }
@@ -111,9 +141,10 @@ namespace Entidades
 
         public static double Cobrar(Cliente cliente)
         {
-            if(cliente is not null && cliente.Dispositivo.Estado == Estado.Ocupado)
+            if(cliente is not null && cliente.Dispositivo is not null && cliente.Dispositivo.Estado == Estado.Ocupado)
             {
                 cliente.Dispositivo.CambiarEstado();
+                cliente.AsignarDispositivo(null);
                 return caja.Cobrar(cliente);
             }
             return 0;

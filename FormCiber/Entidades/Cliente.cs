@@ -88,6 +88,22 @@ namespace Entidades
                 return dispositivoAsignado;
             }
         }
+
+        public string SoftwareNecesario
+        {
+            get
+            {
+                return softwareNecesario;
+            }
+        }
+
+        public string PerifericoNecesario
+        {
+            get
+            {
+                return perifericoNecesario;
+            }
+        }
         public static bool operator ==(Cliente c1, Cliente c2)
         {
             return c1.dni == c2.dni;
@@ -163,6 +179,11 @@ namespace Entidades
             clienteStr.AppendLine($"DNI: {Dni}");
             clienteStr.AppendLine($"Edad: {Edad}");
             clienteStr.AppendLine($"Necesidad: {necesidad}");
+            if(this.necesidad == Necesidad.Computadora)
+            {
+                clienteStr.AppendLine($"Software Necesario: {softwareNecesario}");
+                clienteStr.AppendLine($"Perifericos necesarios: {perifericoNecesario}");
+            }
             return clienteStr.ToString();
         }
         public static Queue<Cliente> HardcodearClientes()
@@ -194,6 +215,11 @@ namespace Entidades
             this.horaInicio = DateTime.Now;
             dispositivo.CambiarEstado();
             dispositivo.Cliente = this;
+            if(dispositivo.GetType() == typeof(Telefono))
+            {
+                Telefono tel = dispositivo as Telefono;
+                tel.Llamada = Llamada.GenerarLlamada();
+            }
         }
 
         private void GenerarSoftwareNecesario()
@@ -208,19 +234,85 @@ namespace Entidades
 
         internal static Cliente GenerarCliente()
         {
-            Cliente cliente =  new Cliente(Persona.ObtenerNombre(GeneradorNumero.Generar(0, Persona.Nombres)),
-                               Persona.ObtenerApellido(GeneradorNumero.Generar(0, Persona.Apellidos)),
-                               (Necesidad)GeneradorNumero.Generar(0, 2), GeneradorNumero.Generar(15000000, 50000000));
-            cliente.horaInicio = GenerarFechaAleatoria();
+            return new Cliente(GenerarNombre(), GenerarApellido(), GenerarNecesidad(), GenerarDni(), GenerarEdad());
+        }
+
+        internal static Cliente GenerarCliente(DateTime horaInicio)
+        {
+            Cliente cliente = GenerarCliente();
+            cliente.horaInicio = horaInicio;
             return cliente;
         }
 
-        private static DateTime GenerarFechaAleatoria()
+        internal static Cliente GenerarCliente(DateTime horaInicio, string software)
+        {
+            Cliente cliente = GenerarCliente(horaInicio);
+            if(software is not null && software != string.Empty)
+            {
+                cliente.softwareNecesario = software;
+            }
+            return cliente;
+        }
+
+        internal static Cliente GenerarCliente(DateTime horaInicio, string software, string periferico)
+        {
+            Cliente cliente = GenerarCliente(horaInicio, software);
+            if (periferico is not null && periferico != string.Empty)
+            {
+                cliente.perifericoNecesario = periferico;
+            }
+            return cliente;
+        }
+
+        internal static DateTime GenerarFechaAleatoria()
         {
                 DateTime inicio = new DateTime(2021, 08, 17,16,45,23);
                 int rango = (DateTime.Today - inicio).Minutes;
                 return inicio.AddMinutes(GeneradorNumero.Generar(0, rango));
         }
+
+        private static string GenerarNombre()
+        {
+            return Persona.ObtenerNombre(GeneradorNumero.Generar(0, Persona.Nombres));
+        }
+
+        private static string GenerarApellido()
+        {
+            return Persona.ObtenerApellido(GeneradorNumero.Generar(0, Persona.Apellidos));
+        }
+
+        internal static int GenerarDni()
+        {
+            return GeneradorNumero.Generar(15000000, 50000000);
+        }
+
+        private static int GenerarEdad()
+        {
+            return GeneradorNumero.Generar(15, 75);
+        }
+
+        private static Necesidad GenerarNecesidad()
+        {
+            return (Necesidad)GeneradorNumero.Generar(0, 2);
+        }
+
+        public static bool operator ==(Cliente c, Dispositivo d)
+        {
+            Computadora pc = d as Computadora;
+            if(pc is not null && (  pc.Software.Contains<string>(c.softwareNecesario) || 
+                                    pc.Juegos.Contains<string>(c.softwareNecesario)) && 
+                                    pc.Perifericos.Contains<string>(c.perifericoNecesario))
+            {
+                return true; 
+            }
+            return false;
+        }
+
+        public static bool operator !=(Cliente c, Dispositivo d)
+        {
+            return !(c == d);
+        }
+
     }
 }
 

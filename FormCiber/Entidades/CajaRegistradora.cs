@@ -22,7 +22,7 @@ namespace Entidades
             this.efectivo = efectivo;
         }
 
-        internal CajaRegistradora InicializarCaja(int cantidadClientes)
+        internal static CajaRegistradora InicializarCaja(int cantidadClientes)
         {
             CajaRegistradora caja = new CajaRegistradora();
             double monto;
@@ -32,7 +32,7 @@ namespace Entidades
                 for(int i=0;i<cantidadClientes;i++)
                 {
                     Cliente cliente = Cliente.GenerarCliente();
-                    monto = Cobrar(cliente);
+                    monto = Cibercafe.Cobrar(cliente);
                     Operacion operacion = new Operacion(cliente, monto);
                     Cibercafe.AgregarOperacionAHistorial(operacion);
                 }

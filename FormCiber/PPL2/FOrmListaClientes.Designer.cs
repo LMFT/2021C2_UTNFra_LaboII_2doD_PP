@@ -31,10 +31,10 @@ namespace PPL2
         {
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Necesidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Necesidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
@@ -44,10 +44,10 @@ namespace PPL2
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
-            this.Necesidad,
             this.Apellido,
             this.DNI,
-            this.Edad});
+            this.Edad,
+            this.Necesidad});
             this.dgvClientes.Location = new System.Drawing.Point(12, 12);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.RowTemplate.Height = 25;
@@ -59,12 +59,6 @@ namespace PPL2
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
-            // 
-            // Necesidad
-            // 
-            this.Necesidad.HeaderText = "Necesidad";
-            this.Necesidad.Name = "Necesidad";
-            this.Necesidad.ReadOnly = true;
             // 
             // Apellido
             // 
@@ -84,24 +78,30 @@ namespace PPL2
             this.Edad.Name = "Edad";
             this.Edad.ReadOnly = true;
             // 
+            // Necesidad
+            // 
+            this.Necesidad.HeaderText = "Necesidad";
+            this.Necesidad.Name = "Necesidad";
+            this.Necesidad.ReadOnly = true;
+            // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(165, 260);
+            this.btnCerrar.Location = new System.Drawing.Point(147, 262);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(227, 37);
+            this.btnCerrar.Size = new System.Drawing.Size(264, 37);
             this.btnCerrar.TabIndex = 1;
             this.btnCerrar.Text = "Volver";
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // FormHistorial
+            // FormListaClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 338);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.dgvClientes);
-            this.Name = "FormHistorial";
+            this.Name = "FormListaClientes";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
@@ -114,9 +114,9 @@ namespace PPL2
         private System.Windows.Forms.DataGridView dgvClientes;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Necesidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Edad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Necesidad;
     }
 }

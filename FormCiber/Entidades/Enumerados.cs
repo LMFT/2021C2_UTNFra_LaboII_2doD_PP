@@ -8,8 +8,8 @@ namespace Entidades
 {
     public enum Necesidad
     {
-        Telefono = 0,
-        Computadora = 1
+        Telefono,
+        Computadora
     }
     public enum Estado
     {
