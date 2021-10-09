@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GeneradorNumeros;
+using Generadores;
 using Elementos;
 
 namespace Entidades
@@ -81,27 +81,45 @@ namespace Entidades
                 return horaInicio;
             }
         }
-        public Dispositivo Dispositivo
+        internal Dispositivo Dispositivo
         {
             get
             {
                 return dispositivoAsignado;
             }
+            set
+            {
+                dispositivoAsignado = value;
+            }
         }
 
-        public string SoftwareNecesario
+        internal string SoftwareNecesario
         {
             get
             {
                 return softwareNecesario;
             }
+            set
+            {
+                if(value is not null && value != string.Empty)
+                {
+                    softwareNecesario = value;
+                }
+            }
         }
 
-        public string PerifericoNecesario
+        internal string PerifericoNecesario
         {
             get
             {
                 return perifericoNecesario;
+            }
+            set
+            {
+                if(value is not null && value != string.Empty)
+                {
+                    perifericoNecesario = value;
+                }
             }
         }
         public static bool operator ==(Cliente c1, Cliente c2)
@@ -154,6 +172,18 @@ namespace Entidades
                 return true;
             }
             return false;
+        }
+
+        public static bool operator ==(Cliente c, Dispositivo d)
+        {
+            Telefono t = d as Telefono;
+            Computadora pc = d as Computadora;
+            return (t is not null && c.Necesidad == Necesidad.Telefono) || (pc is not null && c == pc);
+        }
+
+        public static bool operator !=(Cliente c, Dispositivo d)
+        {
+            return !(c == d);
         }
 
         public override bool Equals(object obj)
@@ -222,6 +252,18 @@ namespace Entidades
             }
         }
 
+        internal void AsignarDispositivo(string id)
+        {
+            Dispositivo dispositivo = Cibercafe.ObtenerDispositivo(id);
+            this.dispositivoAsignado = dispositivo;
+            
+            if (dispositivo.GetType() == typeof(Telefono))
+            {
+                Telefono tel = dispositivo as Telefono;
+                tel.Llamada = Llamada.GenerarLlamada();
+            }
+        }
+
         private void GenerarSoftwareNecesario()
         {
             this.softwareNecesario = Software.ObtenerSoftware();
@@ -264,6 +306,26 @@ namespace Entidades
             return cliente;
         }
 
+        internal static Cliente GenerarCliente( string software)
+        {
+            Cliente cliente = GenerarCliente();
+            if (software is not null && software != string.Empty)
+            {
+                cliente.softwareNecesario = software;
+            }
+            return cliente;
+        }
+
+        internal static Cliente GenerarCliente(string software, string periferico)
+        {
+            Cliente cliente = GenerarCliente(software);
+            if (periferico is not null && periferico != string.Empty)
+            {
+                cliente.perifericoNecesario = periferico;
+            }
+            return cliente;
+        }
+
         internal static DateTime GenerarFechaAleatoria()
         {
                 DateTime inicio = new DateTime(2021, 08, 17,16,45,23);
@@ -296,23 +358,20 @@ namespace Entidades
             return (Necesidad)GeneradorNumero.Generar(0, 2);
         }
 
-        public static bool operator ==(Cliente c, Dispositivo d)
+        public string GetSoftwareNecesario()
         {
-            Computadora pc = d as Computadora;
-            if(pc is not null && (  pc.Software.Contains<string>(c.softwareNecesario) || 
-                                    pc.Juegos.Contains<string>(c.softwareNecesario)) && 
-                                    pc.Perifericos.Contains<string>(c.perifericoNecesario))
-            {
-                return true; 
-            }
-            return false;
+            return softwareNecesario;
         }
 
-        public static bool operator !=(Cliente c, Dispositivo d)
+        public string GetPerifericoNecesario()
         {
-            return !(c == d);
+            return perifericoNecesario;
         }
 
+        public Dispositivo GetDispositivo()
+        {
+            return dispositivoAsignado;
+        }
     }
 }
 

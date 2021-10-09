@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Generadores;
 
 namespace Entidades
 {
@@ -26,6 +27,7 @@ namespace Entidades
             List<Dispositivo> lista = new List<Dispositivo>();
             Computadora.HardcodearComputadoras(lista);
             Telefono.HardcodearTelefonos(lista);
+            caja = new CajaRegistradora();
             return lista;
         }
         
@@ -139,15 +141,34 @@ namespace Entidades
             return ObtenerClientePorDispositivo(d);
         }
 
-        public static double Cobrar(Cliente cliente)
+        internal static double Cobrar(Cliente cliente, DateTime horaInicio)
         {
             if(cliente is not null && cliente.Dispositivo is not null && cliente.Dispositivo.Estado == Estado.Ocupado)
             {
                 cliente.Dispositivo.CambiarEstado();
-                cliente.AsignarDispositivo(null);
-                return caja.Cobrar(cliente);
+                return caja.Cobrar(cliente, horaInicio);
             }
             return 0;
+        }
+
+        public static double Cobrar(Cliente cliente)
+        {
+            return Cobrar(cliente, DateTime.Now);
+        }
+
+        public static void AsignarDispositivoAleatorio(Cliente cliente)
+        {
+            if(cliente.Necesidad == Necesidad.Computadora)
+            {
+                List<Computadora> lista = FiltrarComputadoras();
+                cliente.AsignarDispositivo(lista.ElementAt(GeneradorNumero.Generar(0, lista.Count)));
+            }
+            else
+            {
+                List<Telefono> lista = FiltrarTelefonos();
+                cliente.AsignarDispositivo(lista.ElementAt(GeneradorNumero.Generar(0, lista.Count)));
+            }
+            
         }
     }
 }

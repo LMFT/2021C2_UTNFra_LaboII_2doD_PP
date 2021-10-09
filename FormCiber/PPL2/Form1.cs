@@ -20,9 +20,11 @@ namespace PPL2
         private void FormHistorial_Load(object sender, EventArgs e)
         {
             DesactivarDataGrids();
+            lblGanancias.Text += $" {CalcularGananciasTotales()}";
+            ClasificarGanancias(out double pc, out double telefono);
+            lblComputadoras.Text += $" {pc}";
+            lblTelefonos.Text += $" {telefono}";
         }
-
-        
         
         //Lista de computadoras ordenadas por minutos de uso de forma descendente.
         private void ListarComputadorasPorTiempoDeUso(List<Operacion> historial)
@@ -36,7 +38,7 @@ namespace PPL2
             {
                 AgregarDispositivoADataGrid(computadoras[i], tiempoUso[i]);
             }
-            dgvDispositivos.Enabled = true;
+            dgvDispositivos.Show();
         }
 
         private void AgregarDispositivoADataGrid(Dispositivo dispositivo, double tiempoUso)
@@ -48,9 +50,9 @@ namespace PPL2
 
         private void DesactivarDataGrids()
         {
-            foreach(DataGridView dgv in this.Controls)
+            foreach(DataGridView dgv in this.Controls.OfType<DataGridView>())
             {
-                dgv.Enabled = false;
+                dgv.Hide();
             }
         }
 
@@ -60,7 +62,7 @@ namespace PPL2
             Computadora pcCliente;
             foreach (Operacion operacion in historial)
             {
-                pcCliente = operacion.Cliente.Dispositivo as Computadora;
+                pcCliente = operacion.Cliente.GetDispositivo() as Computadora;
                 if(pcCliente is not null)
                 {
                     tiempoUso[lista.IndexOf(pcCliente)] += operacion.GetTiempoUso();
@@ -103,7 +105,7 @@ namespace PPL2
             {
                 AgregarDispositivoADataGrid(telefonos[i], tiempoUso[i]);
             }
-            dgvDispositivos.Enabled = true;
+            dgvDispositivos.Show();
         }
 
         
@@ -114,7 +116,7 @@ namespace PPL2
             Telefono telefono;
             foreach (Operacion operacion in historial)
             {
-                telefono = operacion.Cliente.Dispositivo as Telefono;
+                telefono = operacion.Cliente.GetDispositivo() as Telefono;
                 if (telefono is not null)
                 {
                     tiempoUso[lista.IndexOf(telefono)] += operacion.GetTiempoUso();
@@ -162,7 +164,7 @@ namespace PPL2
             
             foreach(Operacion operacion in Cibercafe.GetHistorial())
             {
-                if(operacion.Cliente.Dispositivo.GetType() == typeof(Computadora))
+                if(operacion.Cliente.GetDispositivo().GetType() == typeof(Computadora))
                 {
                     gananciaPc += operacion.Monto;
                 }
@@ -186,7 +188,7 @@ namespace PPL2
             {
                 AgregarLlamadaADataGridView(horasTotales[i], minutosTotales[i], recaudaciones[i]);
             }
-            dgvTipoLlamada.Enabled = true;
+            dgvTipoLlamada.Show();
         }
 
         private void AgregarLlamadaADataGridView(double horasTotales, double minutosTotales, double recaudaciones)
@@ -201,7 +203,7 @@ namespace PPL2
             Telefono telefono;
             foreach (Operacion operacion in Cibercafe.GetHistorial())
             {
-                telefono = operacion.Cliente.Dispositivo as Telefono;
+                telefono = operacion.Cliente.GetDispositivo() as Telefono;
                 if (telefono is not null)
                 {
                     int index = (int)telefono.GetLlamada().Tipo;
@@ -225,10 +227,10 @@ namespace PPL2
 
             foreach(Operacion operacion in Cibercafe.GetHistorial())
             {
-                pc = operacion.Cliente.Dispositivo as Computadora;
+                pc = operacion.Cliente.GetDispositivo() as Computadora;
                 if(pc is not null)
                 {
-                    software = operacion.Cliente.SoftwareNecesario;
+                    software = operacion.Cliente.GetSoftwareNecesario();
                     if(!softwareMasPedido.Contains<string>(software))
                     {
                         softwareMasPedido.Add(software);
@@ -252,10 +254,10 @@ namespace PPL2
 
             foreach (Operacion operacion in Cibercafe.GetHistorial())
             {
-                pc = operacion.Cliente.Dispositivo as Computadora;
+                pc = operacion.Cliente.GetDispositivo() as Computadora;
                 if (pc is not null)
                 {
-                    periferico = operacion.Cliente.PerifericoNecesario;
+                    periferico = operacion.Cliente.GetPerifericoNecesario();
                     if (!perifericoMasPedido.Contains<string>(periferico))
                     {
                         perifericoMasPedido.Add(periferico);
@@ -279,10 +281,10 @@ namespace PPL2
 
             foreach (Operacion operacion in Cibercafe.GetHistorial())
             {
-                pc = operacion.Cliente.Dispositivo as Computadora;
+                pc = operacion.Cliente.GetDispositivo() as Computadora;
                 if (pc is not null)
                 {
-                    juego = operacion.Cliente.SoftwareNecesario;
+                    juego = operacion.Cliente.GetSoftwareNecesario();
                     if (!juegoMasPedido.Contains<string>(juego))
                     {
                         juegoMasPedido.Add(juego);
@@ -297,6 +299,29 @@ namespace PPL2
             return juegoMasPedido[peticiones.IndexOf(peticiones.Max())];
         }
 
+        private void btnMostrar_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void btnListarComputadora_Click(object sender, EventArgs e)
+        {
+            ListarComputadorasPorTiempoDeUso(Cibercafe.GetHistorial());
+        }
+
+        private void btnListarTelefono_Click(object sender, EventArgs e)
+        {
+            ListarTelefonosPorTiempoDeUso(Cibercafe.GetHistorial());
+        }
+
+        private void btnLlamadas_Click(object sender, EventArgs e)
+        {
+            MostrarInformacionLlamadas();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

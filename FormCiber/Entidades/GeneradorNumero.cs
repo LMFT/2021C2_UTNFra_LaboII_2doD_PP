@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneradorNumeros
+namespace Generadores
 {
     public static class GeneradorNumero
     {
@@ -44,5 +44,48 @@ namespace GeneradorNumeros
             }
             return listadoFiltrado;
         }
+    }
+
+    public static class GeneradorFecha
+    {
+        private static int dia;
+        private static int mes;
+        private static int anio;
+        private static int hora;
+        private static int minuto;
+        private static int segundo;
+
+        public static string Generar()
+        {
+            anio = 2021;
+            mes = GeneradorNumero.Generar(0, 13);
+            do
+            {
+                dia = GeneradorNumero.Generar(0, 32);
+            } while ((mes == 2 && dia > 28) || ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30));
+            hora = GeneradorNumero.Generar(9, 21);
+            minuto = GeneradorNumero.Generar(0, 61);
+            segundo = GeneradorNumero.Generar(0, 61);
+            return $"{dia}/{mes}/{anio} {hora}:{minuto}:{segundo}";
+        }
+
+        public static string Generar(DateTime horaInicio)
+        {
+            hora = horaInicio.Hour;
+            minuto = horaInicio.Minute +  GeneradorNumero.Generar(0, 5);
+            if(minuto >= 60)
+            {
+                minuto -= 60;
+                hora++;
+            }
+            segundo = horaInicio.Second + GeneradorNumero.Generar(0, 61);
+            if(segundo >= 60)
+            {
+                segundo -= 60;
+                minuto++;
+            }
+            return $"{horaInicio.Day}/{horaInicio.Month}/{horaInicio.Year} {hora}:{minuto}:{segundo}";
+        }
+
     }
 }

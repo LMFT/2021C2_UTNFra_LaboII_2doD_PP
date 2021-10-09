@@ -9,7 +9,6 @@ namespace Entidades
         private Estado estado;
         private Cliente clienteActual;
         private int fraccionesAsignadas;
-        
 
         public Dispositivo(string id)
         {
@@ -127,10 +126,10 @@ namespace Entidades
                 }
             }
         }
-
         public void Liberar()
         {
             this.Estado = Estado.Libre;
+            this.Cliente = null;
         }
     }
 }

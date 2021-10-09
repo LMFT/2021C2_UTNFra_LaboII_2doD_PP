@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Elementos;
+using Generadores;
 
 namespace Entidades
 {
     public class CajaRegistradora
     {
-        private double efectivo;
         private const double costoFraccionPc = 0.5;
         private const double tiempoFraccionPc = 30;
         private const double tiempoFraccionTelefono = 60;
@@ -17,10 +18,6 @@ namespace Entidades
         private const double costoLlamadaInternacional = 5;
 
         public CajaRegistradora() { }
-        public CajaRegistradora(double efectivo)
-        {
-            this.efectivo = efectivo;
-        }
 
         internal static CajaRegistradora InicializarCaja(int cantidadClientes)
         {
@@ -31,8 +28,17 @@ namespace Entidades
             {
                 for(int i=0;i<cantidadClientes;i++)
                 {
-                    Cliente cliente = Cliente.GenerarCliente();
-                    monto = Cibercafe.Cobrar(cliente);
+                    DateTime horaInicio = DateTime.Parse(GeneradorFecha.Generar());
+                    
+                    Cliente cliente = Cliente.GenerarCliente(horaInicio);
+                    if(cliente.Necesidad == Necesidad.Computadora)
+                    {
+                        cliente.SoftwareNecesario = Software.ObtenerSoftware();
+                        cliente.PerifericoNecesario = Periferico.ObtenerPeriferico();
+                    }
+                    Cibercafe.AsignarDispositivoAleatorio(cliente);
+                    monto = Cibercafe.Cobrar(cliente, horaInicio);
+                    
                     Operacion operacion = new Operacion(cliente, monto);
                     Cibercafe.AgregarOperacionAHistorial(operacion);
                 }
@@ -40,9 +46,8 @@ namespace Entidades
             return caja;
         }
 
-        public double Cobrar(Cliente cliente)
+        internal double Cobrar(Cliente cliente, DateTime horaFinalizacion)
         {
-            DateTime horaFinalizacion = DateTime.Now;
             TimeSpan tiempoUso;
             double fraccionesTotales;
             double monto = 0;
@@ -59,9 +64,13 @@ namespace Entidades
                     fraccionesTotales = Math.Ceiling(tiempoUso.TotalSeconds / tiempoFraccionTelefono);
                     monto += CalcularCostoLlamada(cliente, fraccionesTotales);
                 }
-                efectivo += monto;
             }
             return monto;
+        }
+
+        public double Cobrar(Cliente cliente)
+        {
+            return Cobrar(cliente, DateTime.Now);
         }
 
         private double CalcularCostoLlamada(Cliente cliente, double fraccionesTotales)

@@ -14,6 +14,7 @@ namespace PPL2
     {
         private Dispositivo dispositivoSeleccionado;
         private Button botonSeleccionado;
+        Dictionary<Button, string> botonera;
         public FormCiber()
         {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace PPL2
         {
             SetearFecha();
             rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
+            botonera = InicializarBotones();
+            CambiarColorBotones(Cibercafe.VerProximoCliente());
         }
 
         private void btnPc1_Click(object sender, EventArgs e)
@@ -200,8 +203,10 @@ namespace PPL2
                     cliente = Cibercafe.AtenderCliente();
                     Asignar(cliente);
                     rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                    cliente = Cibercafe.VerProximoCliente();
+                    MessageBox.Show("El dispositivo se asignó correctamente");
                     rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
-                    CambiarColorBoton(botonSeleccionado);
+                    CambiarColorBotones(cliente);
                 }
                 else
                 {
@@ -221,7 +226,47 @@ namespace PPL2
             cliente.AsignarDispositivo(dispositivoSeleccionado);
             if(rbtnFraccion.Checked)
             {
+                Timer timer = GetTimer(dispositivoSeleccionado);
+                timer.Start();
                 dispositivoSeleccionado.Fracciones = (int)nudCantidadFracciones.Value;
+            }
+            dispositivoSeleccionado.Fracciones = -1;
+        }
+
+        public Timer GetTimer(Dispositivo dispositivo)
+        {
+            switch(dispositivo.ObtenerId())
+            {
+                case "C01":
+                    return timerPc1;
+                case "C02":
+                    return timerPc2;
+                case "C03":
+                    return timerPc3;
+                case "C04":
+                    return timerPc4;
+                case "C05":
+                    return timerPc5;
+                case "C06":
+                    return timerPc6;
+                case "C07":
+                    return timerPc7;
+                case "C08":
+                    return timerPc8;
+                case "C09":
+                    return timerPc9;
+                case "C10":
+                    return timerPc10;
+                case "T01":
+                    return timerT1;
+                case "T02":
+                    return timerT2;
+                case "T03":
+                    return timerT3;
+                case "T04":
+                    return timerT4;
+                default:
+                    return timerT5;
             }
         }
 
@@ -257,15 +302,81 @@ namespace PPL2
             }
         }
 
-        private void CambiarColorBoton(Button btn)
+        private Dictionary<Button, string> InicializarBotones()
         {
-            if(btn.BackColor == Color.LightGreen)
+            Dictionary<Button, string> botonera = new Dictionary<Button, string>();
+            List<Computadora> listaComputadoras = Cibercafe.FiltrarComputadoras();
+            List<Telefono> listaTelefonos = Cibercafe.FiltrarTelefonos();
+            CargarBotonesComputadoras(botonera, listaComputadoras);
+            CargarBotonesTelefonos(botonera, listaTelefonos);
+            return botonera;
+        }
+
+        private void CargarBotonesComputadoras(Dictionary<Button, string> botonera, List<Computadora> lista)
+        {
+            string id = new string(string.Empty);
+            for (int i = 0; i < lista.Count;i++)
             {
-                btn.BackColor = Color.IndianRed;
+                id = lista[i].ObtenerId();
+                foreach (Button btn in gpbComputadoras.Controls)
+                {
+                    if (btn.Text.EndsWith(id.Remove(0, 1)))
+                    {
+                        botonera.Add(btn, id);
+                        break;
+                    }
+                }
             }
-            else
+        }
+
+        private void CargarBotonesTelefonos(Dictionary<Button, string> botonera, List<Telefono> lista)
+        {
+            string id;
+            for (int i = 0; i < lista.Count;i++)
             {
-                btn.BackColor = Color.LightGreen;
+                id = lista[i].ObtenerId();
+                foreach (Button btn in gpbTelefonos.Controls)
+                {
+                    if (btn.Text.EndsWith(id.Remove(0, 1)))
+                    {
+                        botonera.Add(btn, id);
+                    }
+                }
+            }
+        }
+
+        private void CambiarColorBotones(Cliente cliente)
+        {
+            
+            foreach(Button btn in botonera.Keys)
+            {
+                if(botonera.TryGetValue(btn, out string id))
+                {
+                    Dispositivo dispositivo = Cibercafe.ObtenerDispositivo(id);
+                    if(cliente == dispositivo && dispositivo.ObtenerEstado() == Estado.Libre)
+                    {
+                        btn.BackColor = Color.LightGreen;
+
+                    }
+                    else
+                    {
+                        if(dispositivo.ObtenerEstado() == Estado.Libre)
+                        {
+                            btn.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            if(dispositivo.ObtenerEstado() == Estado.Ocupado && cliente == dispositivo)
+                            {
+                                btn.BackColor = Color.Orange;
+                            }
+                            else
+                            {
+                                btn.BackColor = Color.IndianRed;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -276,8 +387,10 @@ namespace PPL2
             {
                 double monto = Cibercafe.Cobrar(cliente);
                 Operacion operacion = new Operacion(cliente, monto);
+                MessageBox.Show($"Se finalizó el uso del dispositivo despues de {operacion.GetTiempoUso()} minutos. El total a cobrar" +
+                    $" es de {operacion.Monto}");
                 Cibercafe.AgregarOperacionAHistorial(operacion);
-                CambiarColorBoton(botonSeleccionado);
+                CambiarColorBotones(cliente);
                 rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
             }
             else
@@ -297,140 +410,136 @@ namespace PPL2
             nudCantidadFracciones.Enabled = true;
         }
 
-        private void VerificarFraccion(Cliente cliente, int intervalo)
+        private void RevisarTimer(Timer timer)
         {
-            double fraccionActual = (DateTime.Now - cliente.HoraInicio).TotalSeconds/intervalo;
-            if(cliente.Dispositivo.Fracciones >= fraccionActual)
+
+        }
+
+        private static void VerificarFraccion(Cliente cliente, Timer timer)
+        {
+            if(cliente.GetDispositivo().Fracciones == 0)
             {
-                cliente.Dispositivo.Liberar();
+                cliente.GetDispositivo().Liberar();
+                timer.Stop();
             }
+            Dispositivo dispositivo = cliente.GetDispositivo();
+            dispositivo.Fracciones--;
         }
 
         private void timerPc1_Tick(object sender, EventArgs e)
         {
-            if(timerPc1.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C01"), timerPc1.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C01"), timerPc1);
         }
 
         private void timerPc2_Tick(object sender, EventArgs e)
         {
-            if (timerPc2.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C02"), timerPc2.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C02"), timerPc2);
         }
 
         private void timerPc3_Tick(object sender, EventArgs e)
         {
-            if (timerPc3.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc3.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc3);
         }
 
         private void timerPc4_Tick(object sender, EventArgs e)
         {
-            if (timerPc4.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C04"), timerPc4.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C04"), timerPc4);
         }
 
         private void timerPc5_Tick(object sender, EventArgs e)
         {
-            if (timerPc5.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C05"), timerPc5.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C05"), timerPc5);
         }
 
         private void timerPc6_Tick(object sender, EventArgs e)
         {
-            if (timerPc6.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C06"), timerPc6.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C06"), timerPc6);
         }
 
         private void timerPc7_Tick(object sender, EventArgs e)
         {
-            if (timerPc7.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc1.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc1);
         }
 
         private void timerPc8_Tick(object sender, EventArgs e)
         {
-            if (timerPc8.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C08"), timerPc8.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C08"), timerPc8);
         }
 
         private void timerPc9_Tick(object sender, EventArgs e)
         {
-            if (timerPc9.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C09"), timerPc9.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C09"), timerPc9);
         }
 
         private void timerPc10_Tick(object sender, EventArgs e)
         {
-            if (timerPc10.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C10"), timerPc10.Interval);
-            }
+
+                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C10"), timerPc10);
+
 
         }
 
         private void timerT1_Tick(object sender, EventArgs e)
         {
-            if (timerT1.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T01"), timerT1.Interval);
-            }
+            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T01"), timerT1);
         }
 
         private void timerT2_Tick(object sender, EventArgs e)
         {
-            if (timerT2.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T02"), timerT2.Interval);
-            }
+                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T02"), timerT2);
         }
 
         private void timerT3_Tick(object sender, EventArgs e)
         {
-            if (timerT3.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T03"), timerT3.Interval);
-            }
+                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T03"), timerT3);
         }
 
         private void timerT4_Tick(object sender, EventArgs e)
         {
-            if (timerT4.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T04"), timerT4.Interval);
-            }
+                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T04"), timerT4);
         }
 
         private void timerT5_Tick(object sender, EventArgs e)
         {
-            if (timerT5.Enabled == true)
-            {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T05"), timerT5.Interval);
-            }
+                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T05"), timerT5);
         }
 
         private void btnHistorial_Click(object sender, EventArgs e)
         {
             FormHistorial frm = new FormHistorial();
             frm.ShowDialog();
+        }
+
+        private void btnTerminarPrograma_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            MessageBoxButtons botones = MessageBoxButtons.YesNo;
+            DialogResult respuesta = MessageBox.Show("Esta seguro que desea salirdel programa?", "Salir?", botones);
+            if (respuesta == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            string mensaje = new string(string.Empty);
+            #region Seteo de mensaje de Ayuda
+            mensaje = "Instrucciones de uso:\nEl programa identifica mediante un código de colores los dispositivos válidos segun la" +
+                "necesidad actual del cliente. Seleccione un dispositivo válido y presione el boton Asignar para asignar dicho dispositivo" +
+                "al cliente. \n\nCodigo de colores: \n\n-Verde: Dispositivo válido \n -Amarillo: El dispositivo se encuentra libre, pero" +
+                "no posee los requisitos del cliente.\n-Naranja: El dispositivo posee los requerimientos actuales del cliente, pero" +
+                "se encuentra actualmente ocupado. \n -Rojo: El dispositivo no cumple los requisitos del cliente y se encuentra ocupado." +
+                "\n\nPara finalizar el uso de un dispositivo, seleccione el dispositivo a finalizar y presione el boton Finalizar." +
+                "\n En todo momento puede consultarel listado de clientes pendientes utilizando el boton de consultas, o revisar el" +
+                "historial de operaciones utilizando el boton Ver Historial";
+            #endregion
+            FormAyuda frm = new FormAyuda(mensaje);
+            frm.Show();
         }
     }
 }
