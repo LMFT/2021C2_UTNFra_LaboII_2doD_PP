@@ -8,12 +8,14 @@ namespace Entidades
         private string id;
         private Estado estado;
         private Cliente clienteActual;
+        private int tiempoFraccion;
         private int fraccionesAsignadas;
 
-        public Dispositivo(string id)
+        public Dispositivo(string id, int tiempoFraccion)
         {
             this.estado = Estado.Libre;
             this.id = id;
+            this.tiempoFraccion = tiempoFraccion;
         }
 
         protected string Id
@@ -43,6 +45,13 @@ namespace Entidades
             }
         }
 
+        public int TiempoFraccion
+        {
+            get
+            {
+                return tiempoFraccion;
+            }
+        }
         internal Cliente Cliente
         {
             get
@@ -120,7 +129,7 @@ namespace Entidades
             }
             set
             {
-                if(value>0)
+                if(value>=0)
                 {
                     fraccionesAsignadas = value;
                 }
@@ -130,6 +139,20 @@ namespace Entidades
         {
             this.Estado = Estado.Libre;
             this.Cliente = null;
+        }
+
+        public int TiempoUso()
+        {
+            return this.Fracciones * this.TiempoFraccion;
+        }
+
+        public static bool EsTelefono(Dispositivo d)
+        {
+            if(typeof(Telefono) == d.GetType())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

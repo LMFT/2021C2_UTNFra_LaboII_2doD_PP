@@ -4,97 +4,117 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Elementos;
-using Generadores;
+using Utilidades;
 
 namespace Entidades
 {
+    /// <summary>
+    /// Contiene métodos y constantes relacionados al cobro por los dispositivos alquilados
+    /// </summary>
     public class CajaRegistradora
     {
+        private const double iva = 1.21;
         private const double costoFraccionPc = 0.5;
-        private const double tiempoFraccionPc = 30;
-        private const double tiempoFraccionTelefono = 60;
         private const double costoLlamadaLocal = 1;
         private const double costoLlamadaLargaDistancia = 2.5;
         private const double costoLlamadaInternacional = 5;
 
-        public CajaRegistradora() { }
-
-        internal static CajaRegistradora InicializarCaja(int cantidadClientes)
+        /// <summary>
+        /// Genera una nueva instancia del objeto y genera operaciones aleatorias para simular usos previos en base a la cantidad de clientes pasados por
+        /// parametro
+        /// </summary>
+        /// <param name="cantidadOperaciones">Cantidad de operaciones a añadir al historial </param>
+        /// <returns>Instancia inicializada de la caja registradora</returns>
+        internal static CajaRegistradora InicializarCaja(int cantidadOperaciones)
         {
             CajaRegistradora caja = new CajaRegistradora();
             double monto;
             
             if(caja is not null)
             {
-                for(int i=0;i<cantidadClientes;i++)
+                for(int i=0;i<cantidadOperaciones;i++)
                 {
-                    DateTime horaInicio = DateTime.Parse(GeneradorFecha.Generar());
-                    
-                    Cliente cliente = Cliente.GenerarCliente(horaInicio);
-                    if(cliente.Necesidad == Necesidad.Computadora)
                     {
-                        cliente.SoftwareNecesario = Software.ObtenerSoftware();
-                        cliente.PerifericoNecesario = Periferico.ObtenerPeriferico();
+                        Cliente cliente = Cibercafe.GenerarOperacionPrevia();
+                        DateTime horaFinalizacion = cliente.HoraInicio.AgregarTiempo(Dispositivo.EsTelefono(cliente.Dispositivo));
+                        monto = Cibercafe.Cobrar(cliente, horaFinalizacion);
+                        Cibercafe.AgregarOperacionAHistorial(cliente, monto);
                     }
-                    Cibercafe.AsignarDispositivoAleatorio(cliente);
-                    monto = Cibercafe.Cobrar(cliente, horaInicio);
-                    
-                    Operacion operacion = new Operacion(cliente, monto);
-                    Cibercafe.AgregarOperacionAHistorial(operacion);
                 }
             }
             return caja;
         }
-
-        internal double Cobrar(Cliente cliente, DateTime horaFinalizacion)
+        /// <summary>
+        /// Calcula el monto bruto a cobrar en base al tiempo de uso del dispositivo asignado al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente al cual cobrar el monto</param>
+        /// <param name="horaFinalizacion">Hora en la cual terminó el uso del dispositivo</param>
+        /// <returns>El monto bruto a cobrar por el dispositivo asignado</returns>
+        internal double CalcularMontoBruto(Cliente cliente)
         {
-            TimeSpan tiempoUso;
+            double tiempoUso;
             double fraccionesTotales;
-            double monto = 0;
+            double montoBruto = -1;
             if (cliente is not null)
             {
-                tiempoUso = horaFinalizacion - cliente.HoraInicio;
+                tiempoUso = cliente.TiempoUso();
+                fraccionesTotales = Math.Ceiling(tiempoUso / cliente.Dispositivo.TiempoFraccion);
                 if(cliente.Dispositivo.GetType() == typeof(Computadora))
                 {
-                    fraccionesTotales = Math.Ceiling(tiempoUso.TotalSeconds / tiempoFraccionPc);
-                    monto += fraccionesTotales * costoFraccionPc;
+                    montoBruto = fraccionesTotales * costoFraccionPc;
                 }
                 else
                 {
-                    fraccionesTotales = Math.Ceiling(tiempoUso.TotalSeconds / tiempoFraccionTelefono);
-                    monto += CalcularCostoLlamada(cliente, fraccionesTotales);
+                    
+                    montoBruto = CalcularCostoLlamada(cliente);
                 }
             }
-            return monto;
+            return montoBruto;
         }
-
-        public double Cobrar(Cliente cliente)
+        /// <summary>
+        /// Setea el valor del atributo horaFinaliacion del cliente y retorna el monto bruto a cobrar por los servicios prestados
+        /// </summary>
+        /// <param name="cliente">Cliente al cual cobrar por el servicio</param>
+        /// <param name="horaFinalizacion">Hora de finalizacion del servicio</param>
+        /// <returns>El monto bruto a cobrar por el dispositivo asignado</returns>
+        internal double Cobrar(Cliente cliente, DateTime horaFinalizacion)
         {
-            return Cobrar(cliente, DateTime.Now);
+            cliente.SetHoraFinalizacion(horaFinalizacion);
+            return CalcularMontoBruto(cliente);
         }
-
-        private double CalcularCostoLlamada(Cliente cliente, double fraccionesTotales)
+        /// <summary>
+        /// Calcula el costo de la llamada telefónica realizada por el cliente
+        /// </summary>
+        /// <param name="cliente">Cliente que realizó la llamada</param>
+        /// <returns>Costo total de la lamada</returns>
+        private double CalcularCostoLlamada(Cliente cliente)
         {
             double total = 0;
+            double fraccionesTotales = Math.Ceiling(cliente.TiempoUso() / cliente.Dispositivo.TiempoFraccion);
             Telefono tel = cliente.Dispositivo as Telefono;
-            if (tel is not null)
+            switch (tel.Llamada.Tipo)
             {
-                switch (tel.Llamada.Tipo)
-                {
-                    case TipoLlamada.Local:
-                        total = fraccionesTotales * costoLlamadaLocal;
-                        break;
-                    case TipoLlamada.LargaDistancia:
-                        total = fraccionesTotales * costoLlamadaLargaDistancia;
-                        break;
-                    case TipoLlamada.Internacional:
-                        total = fraccionesTotales * costoLlamadaInternacional;
-                        break;
-                }
+                case TipoLlamada.Local:
+                    total = fraccionesTotales * costoLlamadaLocal;
+                    break;
+                case TipoLlamada.LargaDistancia:
+                    total = fraccionesTotales * costoLlamadaLargaDistancia;
+                    break;
+                case TipoLlamada.Internacional:
+                    total = fraccionesTotales * costoLlamadaInternacional;
+                    break;
             }
+
             return total;
         }
-
-
+        /// <summary>
+        /// Aplica el cálculo de IVA al monto recibido como parámetro
+        /// </summary>
+        /// <param name="monto">Monto sobre el cual aplicar iva</param>
+        /// <returns></returns>
+        public static double AplicarIva(double monto)
+        {
+            return monto * iva;
+        }
     }
 }

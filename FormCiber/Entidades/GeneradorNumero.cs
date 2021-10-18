@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Generadores
+namespace Utilidades
 {
     public static class GeneradorNumero
     {
@@ -46,46 +46,31 @@ namespace Generadores
         }
     }
 
-    public static class GeneradorFecha
+    
+    public static class Extension
     {
-        private static int dia;
-        private static int mes;
-        private static int anio;
-        private static int hora;
-        private static int minuto;
-        private static int segundo;
-
-        public static string Generar()
+        public static DateTime RestarTiempo(this DateTime horaInicio)
         {
-            anio = 2021;
-            mes = GeneradorNumero.Generar(0, 13);
-            do
-            {
-                dia = GeneradorNumero.Generar(0, 32);
-            } while ((mes == 2 && dia > 28) || ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30));
-            hora = GeneradorNumero.Generar(9, 21);
-            minuto = GeneradorNumero.Generar(0, 61);
-            segundo = GeneradorNumero.Generar(0, 61);
-            return $"{dia}/{mes}/{anio} {hora}:{minuto}:{segundo}";
+            horaInicio = horaInicio.AddDays(GeneradorNumero.Generar(-10, 0));
+            horaInicio = horaInicio.AddHours(GeneradorNumero.Generar(-24, 0));
+            horaInicio = horaInicio.AddMinutes(GeneradorNumero.Generar(-60, 0));
+            horaInicio = horaInicio.AddSeconds(GeneradorNumero.Generar(-60, 0));
+            return horaInicio;
         }
 
-        public static string Generar(DateTime horaInicio)
+        public static DateTime AgregarTiempo(this DateTime horaInicio, bool esTelefono)
         {
-            hora = horaInicio.Hour;
-            minuto = horaInicio.Minute +  GeneradorNumero.Generar(0, 5);
-            if(minuto >= 60)
+            if(esTelefono) 
             {
-                minuto -= 60;
-                hora++;
+                horaInicio = horaInicio.AddSeconds(GeneradorNumero.Generar(0, 5));
             }
-            segundo = horaInicio.Second + GeneradorNumero.Generar(0, 61);
-            if(segundo >= 60)
+            else
             {
-                segundo -= 60;
-                minuto++;
+                horaInicio = horaInicio.AddMinutes(GeneradorNumero.Generar(0, 6));
+                horaInicio = horaInicio.AddSeconds(GeneradorNumero.Generar(0, 60));
             }
-            return $"{horaInicio.Day}/{horaInicio.Month}/{horaInicio.Year} {hora}:{minuto}:{segundo}";
+            return horaInicio;
         }
-
     }
 }
+

@@ -20,10 +20,19 @@ namespace PPL2
         private void FormHistorial_Load(object sender, EventArgs e)
         {
             DesactivarDataGrids();
+            InicializarDataGrids();
             lblGanancias.Text += $" {CalcularGananciasTotales()}";
             ClasificarGanancias(out double pc, out double telefono);
             lblComputadoras.Text += $" {pc}";
             lblTelefonos.Text += $" {telefono}";
+        }
+
+        private void InicializarDataGrids()
+        {
+            foreach(DataGridView dgv in this.Controls.OfType<DataGridView>())
+            {
+                dgv.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+            }
         }
         
         //Lista de computadoras ordenadas por minutos de uso de forma descendente.
@@ -65,7 +74,7 @@ namespace PPL2
                 pcCliente = operacion.Cliente.GetDispositivo() as Computadora;
                 if(pcCliente is not null)
                 {
-                    tiempoUso[lista.IndexOf(pcCliente)] += operacion.GetTiempoUso();
+                    tiempoUso[lista.IndexOf(pcCliente)] += operacion.Cliente.TiempoUso();
                 }
             }
             return tiempoUso;
@@ -119,7 +128,7 @@ namespace PPL2
                 telefono = operacion.Cliente.GetDispositivo() as Telefono;
                 if (telefono is not null)
                 {
-                    tiempoUso[lista.IndexOf(telefono)] += operacion.GetTiempoUso();
+                    tiempoUso[lista.IndexOf(telefono)] += operacion.Cliente.TiempoUso();
                 }
             }
             return tiempoUso;
@@ -207,7 +216,7 @@ namespace PPL2
                 if (telefono is not null)
                 {
                     int index = (int)telefono.GetLlamada().Tipo;
-                    minutosTotales[index] += operacion.GetTiempoUso();
+                    minutosTotales[index] += operacion.Cliente.TiempoUso();
                     if(minutosTotales[index] >= 60)
                     {
                         horasTotales[index]++;
@@ -299,9 +308,29 @@ namespace PPL2
             return juegoMasPedido[peticiones.IndexOf(peticiones.Max())];
         }
 
+        
+
         private void btnMostrar_Click(object sender, EventArgs e)
         {
+            DesactivarDataGrids();
+            dgvOperaciones.Show();
+            string horaInicio;
+            string horaFin;
+            foreach(Operacion operacion in Cibercafe.GetHistorial())
+            {
+                horaInicio = ParsearHora(operacion.Cliente.HoraInicio);
+                horaFin = ParsearHora(operacion.Cliente.HoraFinalizacion);
+                DataGridViewRow fila = dgvOperaciones.Rows[dgvOperaciones.Rows.Add()];
+                fila.SetValues(operacion.Cliente.GetDispositivo().ObtenerId(), $"{operacion.Cliente.Nombre} " + operacion.Cliente.Apellido,
+                                horaInicio, horaFin, operacion.Monto);
+            }
+        }
 
+        private string ParsearHora(DateTime hora)
+        {
+            string horaStr;
+            horaStr = string.Format("{0:00}:{1:00}:{2:00}", hora.Hour, hora.Minute, hora.Second);
+            return horaStr;
         }
 
         private void btnListarComputadora_Click(object sender, EventArgs e)

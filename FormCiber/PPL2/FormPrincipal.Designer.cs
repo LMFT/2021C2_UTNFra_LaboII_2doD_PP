@@ -29,7 +29,6 @@ namespace PPL2
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnPc5 = new System.Windows.Forms.Button();
             this.rtxtInfoDispositivo = new System.Windows.Forms.RichTextBox();
             this.btnPc7 = new System.Windows.Forms.Button();
@@ -58,21 +57,6 @@ namespace PPL2
             this.nudCantidadFracciones = new System.Windows.Forms.NumericUpDown();
             this.rbtnFraccion = new System.Windows.Forms.RadioButton();
             this.rbtnLibre = new System.Windows.Forms.RadioButton();
-            this.timerPc1 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc2 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc3 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc4 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc5 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc6 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc7 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc8 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc9 = new System.Windows.Forms.Timer(this.components);
-            this.timerPc10 = new System.Windows.Forms.Timer(this.components);
-            this.timerT1 = new System.Windows.Forms.Timer(this.components);
-            this.timerT2 = new System.Windows.Forms.Timer(this.components);
-            this.timerT3 = new System.Windows.Forms.Timer(this.components);
-            this.timerT4 = new System.Windows.Forms.Timer(this.components);
-            this.timerT5 = new System.Windows.Forms.Timer(this.components);
             this.btnHistorial = new System.Windows.Forms.Button();
             this.btnTerminarPrograma = new System.Windows.Forms.Button();
             this.gpbDispositivos = new System.Windows.Forms.GroupBox();
@@ -366,7 +350,8 @@ namespace PPL2
             // 
             // nudCantidadFracciones
             // 
-            this.nudCantidadFracciones.Location = new System.Drawing.Point(514, 303);
+            this.nudCantidadFracciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudCantidadFracciones.Location = new System.Drawing.Point(547, 332);
             this.nudCantidadFracciones.Minimum = new decimal(new int[] {
             1,
             0,
@@ -383,8 +368,9 @@ namespace PPL2
             // 
             // rbtnFraccion
             // 
+            this.rbtnFraccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnFraccion.AutoSize = true;
-            this.rbtnFraccion.Location = new System.Drawing.Point(394, 303);
+            this.rbtnFraccion.Location = new System.Drawing.Point(460, 332);
             this.rbtnFraccion.Name = "rbtnFraccion";
             this.rbtnFraccion.Size = new System.Drawing.Size(70, 19);
             this.rbtnFraccion.TabIndex = 26;
@@ -395,8 +381,9 @@ namespace PPL2
             // 
             // rbtnLibre
             // 
+            this.rbtnLibre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnLibre.AutoSize = true;
-            this.rbtnLibre.Location = new System.Drawing.Point(394, 355);
+            this.rbtnLibre.Location = new System.Drawing.Point(460, 384);
             this.rbtnLibre.Name = "rbtnLibre";
             this.rbtnLibre.Size = new System.Drawing.Size(51, 19);
             this.rbtnLibre.TabIndex = 27;
@@ -404,81 +391,6 @@ namespace PPL2
             this.rbtnLibre.Text = "Libre";
             this.rbtnLibre.UseVisualStyleBackColor = true;
             this.rbtnLibre.CheckedChanged += new System.EventHandler(this.rbtnLibre_CheckedChanged);
-            // 
-            // timerPc1
-            // 
-            this.timerPc1.Interval = 30000;
-            this.timerPc1.Tick += new System.EventHandler(this.timerPc1_Tick);
-            // 
-            // timerPc2
-            // 
-            this.timerPc2.Interval = 30000;
-            this.timerPc2.Tick += new System.EventHandler(this.timerPc2_Tick);
-            // 
-            // timerPc3
-            // 
-            this.timerPc3.Interval = 30000;
-            this.timerPc3.Tick += new System.EventHandler(this.timerPc3_Tick);
-            // 
-            // timerPc4
-            // 
-            this.timerPc4.Interval = 30000;
-            this.timerPc4.Tick += new System.EventHandler(this.timerPc4_Tick);
-            // 
-            // timerPc5
-            // 
-            this.timerPc5.Interval = 30000;
-            this.timerPc5.Tick += new System.EventHandler(this.timerPc5_Tick);
-            // 
-            // timerPc6
-            // 
-            this.timerPc6.Interval = 30000;
-            this.timerPc6.Tick += new System.EventHandler(this.timerPc6_Tick);
-            // 
-            // timerPc7
-            // 
-            this.timerPc7.Interval = 30000;
-            this.timerPc7.Tick += new System.EventHandler(this.timerPc7_Tick);
-            // 
-            // timerPc8
-            // 
-            this.timerPc8.Interval = 30000;
-            this.timerPc8.Tick += new System.EventHandler(this.timerPc8_Tick);
-            // 
-            // timerPc9
-            // 
-            this.timerPc9.Interval = 30000;
-            this.timerPc9.Tick += new System.EventHandler(this.timerPc9_Tick);
-            // 
-            // timerPc10
-            // 
-            this.timerPc10.Interval = 30000;
-            this.timerPc10.Tick += new System.EventHandler(this.timerPc10_Tick);
-            // 
-            // timerT1
-            // 
-            this.timerT1.Interval = 60000;
-            this.timerT1.Tick += new System.EventHandler(this.timerT1_Tick);
-            // 
-            // timerT2
-            // 
-            this.timerT2.Interval = 60000;
-            this.timerT2.Tick += new System.EventHandler(this.timerT2_Tick);
-            // 
-            // timerT3
-            // 
-            this.timerT3.Interval = 60000;
-            this.timerT3.Tick += new System.EventHandler(this.timerT3_Tick);
-            // 
-            // timerT4
-            // 
-            this.timerT4.Interval = 60000;
-            this.timerT4.Tick += new System.EventHandler(this.timerT4_Tick);
-            // 
-            // timerT5
-            // 
-            this.timerT5.Interval = 60000;
-            this.timerT5.Tick += new System.EventHandler(this.timerT5_Tick);
             // 
             // btnHistorial
             // 
@@ -546,6 +458,7 @@ namespace PPL2
             // 
             // btnAyuda
             // 
+            this.btnAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAyuda.Location = new System.Drawing.Point(629, 452);
             this.btnAyuda.Name = "btnAyuda";
             this.btnAyuda.Size = new System.Drawing.Size(135, 33);
@@ -622,21 +535,6 @@ namespace PPL2
         private System.Windows.Forms.NumericUpDown nudCantidadFracciones;
         private System.Windows.Forms.RadioButton rbtnFraccion;
         private System.Windows.Forms.RadioButton rbtnLibre;
-        private System.Windows.Forms.Timer timerPc1;
-        private System.Windows.Forms.Timer timerPc2;
-        private System.Windows.Forms.Timer timerPc3;
-        private System.Windows.Forms.Timer timerPc4;
-        private System.Windows.Forms.Timer timerPc5;
-        private System.Windows.Forms.Timer timerPc6;
-        private System.Windows.Forms.Timer timerPc7;
-        private System.Windows.Forms.Timer timerPc8;
-        private System.Windows.Forms.Timer timerPc9;
-        private System.Windows.Forms.Timer timerPc10;
-        private System.Windows.Forms.Timer timerT1;
-        private System.Windows.Forms.Timer timerT2;
-        private System.Windows.Forms.Timer timerT3;
-        private System.Windows.Forms.Timer timerT4;
-        private System.Windows.Forms.Timer timerT5;
         private System.Windows.Forms.Button btnHistorial;
         private System.Windows.Forms.Button btnTerminarPrograma;
         private System.Windows.Forms.GroupBox gpbDispositivos;

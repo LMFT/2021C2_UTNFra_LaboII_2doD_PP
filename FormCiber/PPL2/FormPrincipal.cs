@@ -12,13 +12,13 @@ namespace PPL2
 {
     public partial class FormCiber : Form
     {
-        private Dispositivo dispositivoSeleccionado;
+        private Dispositivo dispositivoActual;
         private Button botonSeleccionado;
         Dictionary<Button, string> botonera;
         public FormCiber()
         {
             InitializeComponent();
-            dispositivoSeleccionado = null;
+            dispositivoActual = null;
             rbtnLibre.Checked = true;
         }
 
@@ -32,10 +32,10 @@ namespace PPL2
 
         private void btnPc1_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C01");
-            if(dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C01");
+            if(dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc1;
             }
             
@@ -43,140 +43,140 @@ namespace PPL2
 
         private void btnPc2_Click_1(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C02");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C02");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc2;
             }
         }
 
         private void btnPc3_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C03");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C03");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc3;
             }
         }
 
         private void btnPc4_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C04");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C04");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc4;
             }
         }
 
         private void btnPc5_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C05");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C05");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc5;
             }
         }
 
         private void btnPc6_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C06");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C06");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc6;
             }
         }
 
         private void btnPc7_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C07");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C07");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc7;
             }
         }
 
         private void btnPc8_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C08");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C08");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc8;
             }
         }
 
         private void btnPc9_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C09");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C09");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc9;
             }
         }
 
         private void btnPc10_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("C10");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("C10");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnPc10;
             }
         }
 
         private void btnT1_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("T01");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("T01");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnT1;
             }
         }
 
         private void btnT2_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("T02");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("T02");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnT2;
             }
         }
 
         private void btnT3_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("T03");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("T03");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnT3;
             }
         }
 
         private void btnT4_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("T04");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("T04");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnT4;
             }
         }
 
         private void btnT5_Click(object sender, EventArgs e)
         {
-            dispositivoSeleccionado = Cibercafe.ObtenerDispositivo("T05");
-            if (dispositivoSeleccionado is not null)
+            dispositivoActual = Cibercafe.ObtenerDispositivo("T05");
+            if (dispositivoActual is not null)
             {
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
                 botonSeleccionado = btnT5;
             }
         }
@@ -189,7 +189,7 @@ namespace PPL2
 
         private void btnAsignar_Click(object sender, EventArgs e)
         {
-            if(dispositivoSeleccionado is not null && dispositivoSeleccionado.ObtenerEstado() == Estado.Libre)
+            if(dispositivoActual is not null && dispositivoActual.ObtenerEstado() == Estado.Libre)
             {
                 Cliente cliente = Cibercafe.VerProximoCliente();
                 if(ValidarDispositivo(cliente))
@@ -202,11 +202,11 @@ namespace PPL2
                     }
                     cliente = Cibercafe.AtenderCliente();
                     Asignar(cliente);
-                    rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
-                    cliente = Cibercafe.VerProximoCliente();
+                    rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
+                    Cliente proximoCliente = Cibercafe.VerProximoCliente();
                     MessageBox.Show("El dispositivo se asignó correctamente");
                     rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
-                    CambiarColorBotones(cliente);
+                    CambiarColorBotones(proximoCliente);
                 }
                 else
                 {
@@ -223,66 +223,32 @@ namespace PPL2
 
         private void Asignar(Cliente cliente)
         {
-            cliente.AsignarDispositivo(dispositivoSeleccionado);
+            cliente.AsignarDispositivo(dispositivoActual);
             if(rbtnFraccion.Checked)
             {
-                Timer timer = GetTimer(dispositivoSeleccionado);
-                timer.Start();
-                dispositivoSeleccionado.Fracciones = (int)nudCantidadFracciones.Value;
+                DateTime horaFinalizacion = DateTime.Now;
+                dispositivoActual.Fracciones = (int)nudCantidadFracciones.Value;
+                horaFinalizacion.AddSeconds(dispositivoActual.TiempoUso());
+                double monto = Cibercafe.Cobrar(cliente, horaFinalizacion);
+                Cibercafe.AgregarOperacionAHistorial(cliente, monto);
+                return;
             }
-            dispositivoSeleccionado.Fracciones = -1;
-        }
-
-        public Timer GetTimer(Dispositivo dispositivo)
-        {
-            switch(dispositivo.ObtenerId())
-            {
-                case "C01":
-                    return timerPc1;
-                case "C02":
-                    return timerPc2;
-                case "C03":
-                    return timerPc3;
-                case "C04":
-                    return timerPc4;
-                case "C05":
-                    return timerPc5;
-                case "C06":
-                    return timerPc6;
-                case "C07":
-                    return timerPc7;
-                case "C08":
-                    return timerPc8;
-                case "C09":
-                    return timerPc9;
-                case "C10":
-                    return timerPc10;
-                case "T01":
-                    return timerT1;
-                case "T02":
-                    return timerT2;
-                case "T03":
-                    return timerT3;
-                case "T04":
-                    return timerT4;
-                default:
-                    return timerT5;
-            }
+            dispositivoActual.Fracciones = 0;
         }
 
         private bool ValidarComputadora(Cliente cliente)
         {
-            if(dispositivoSeleccionado.GetType() == typeof(Computadora))
+            if(dispositivoActual.GetType() == typeof(Computadora))
             {
-                return cliente == dispositivoSeleccionado;
+                return cliente == dispositivoActual;
             }
             return true;
         }
 
         private bool ValidarDispositivo(Cliente cliente)
         {
-            return (cliente.Necesidad == Necesidad.Computadora && dispositivoSeleccionado.GetType() == typeof(Computadora)) ||
-            (cliente.Necesidad == Necesidad.Telefono && dispositivoSeleccionado.GetType() == typeof(Telefono));
+            return (cliente.Necesidad == Necesidad.Computadora && dispositivoActual.GetType() == typeof(Computadora)) ||
+            (cliente.Necesidad == Necesidad.Telefono && dispositivoActual.GetType() == typeof(Telefono));
         }
 
         
@@ -382,21 +348,68 @@ namespace PPL2
 
         private void btnLiberar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = Cibercafe.ObtenerClientePorDispositivo(dispositivoSeleccionado);
+            Cliente cliente = Cibercafe.ObtenerClientePorDispositivo(dispositivoActual);
+            string mensajeExtendido = null;
+
             if(cliente is not null)
             {
-                double monto = Cibercafe.Cobrar(cliente);
-                Operacion operacion = new Operacion(cliente, monto);
-                MessageBox.Show($"Se finalizó el uso del dispositivo despues de {operacion.GetTiempoUso()} minutos. El total a cobrar" +
-                    $" es de {operacion.Monto}");
-                Cibercafe.AgregarOperacionAHistorial(operacion);
-                CambiarColorBotones(cliente);
-                rtxtInfoDispositivo.Text = dispositivoSeleccionado.MostrarDispositivo();
+                if(VerificarFraccion())
+                {
+                    if(TiempoLibre())
+                    {
+                        double monto = Cibercafe.Cobrar(cliente);
+                        Cibercafe.AgregarOperacionAHistorial(cliente, monto);
+                        mensajeExtendido = String.Format(" El monto bruto a cobrar es de ${0:0.00} y el costo neto a cobrar"+
+                            "es de ${1:0.00}", monto, CajaRegistradora.AplicarIva(monto));
+                    }
+                    else
+                    {
+                        dispositivoActual.Liberar();
+                    }
+                    string mensaje = $"Se ha finalizado el uso del dispositivo despues de {Math.Round(cliente.TiempoUso())} minutos.";
+                    MostrarMensaje(mensaje, mensajeExtendido);
+                    CambiarColorBotones(Cibercafe.VerProximoCliente());
+                    rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
+                }
+                else
+                {
+                    MessageBox.Show($"Este dispositivo todavia tiene {cliente.TiempoRestante()} minutos disponibles");
+                }
             }
             else
             {
                 MessageBox.Show("Este dispositivo ya se encuentra libre", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+        }
+        private void MostrarMensaje(string mensaje, string mensajeExtendido)
+        {
+            if(mensajeExtendido is null)
+            {
+                MessageBox.Show(mensaje);
+            }
+            else
+            {
+                MessageBox.Show(mensaje + mensajeExtendido);
+            }
+        }
+
+        private bool TiempoLibre()
+        {
+            if(dispositivoActual.Fracciones == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool VerificarFraccion()
+        {
+            double tiempoUso = Cibercafe.ObtenerClientePorDispositivo(dispositivoActual).TiempoUso();
+            if(dispositivoActual.Fracciones == 0 || tiempoUso/dispositivoActual.TiempoFraccion >= dispositivoActual.Fracciones)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void rbtnLibre_CheckedChanged(object sender, EventArgs e)
@@ -410,100 +423,6 @@ namespace PPL2
             nudCantidadFracciones.Enabled = true;
         }
 
-        private void RevisarTimer(Timer timer)
-        {
-
-        }
-
-        private static void VerificarFraccion(Cliente cliente, Timer timer)
-        {
-            if(cliente.GetDispositivo().Fracciones == 0)
-            {
-                cliente.GetDispositivo().Liberar();
-                timer.Stop();
-            }
-            Dispositivo dispositivo = cliente.GetDispositivo();
-            dispositivo.Fracciones--;
-        }
-
-        private void timerPc1_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C01"), timerPc1);
-        }
-
-        private void timerPc2_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C02"), timerPc2);
-        }
-
-        private void timerPc3_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc3);
-        }
-
-        private void timerPc4_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C04"), timerPc4);
-        }
-
-        private void timerPc5_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C05"), timerPc5);
-        }
-
-        private void timerPc6_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C06"), timerPc6);
-        }
-
-        private void timerPc7_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C03"), timerPc1);
-        }
-
-        private void timerPc8_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C08"), timerPc8);
-        }
-
-        private void timerPc9_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C09"), timerPc9);
-        }
-
-        private void timerPc10_Tick(object sender, EventArgs e)
-        {
-
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("C10"), timerPc10);
-
-
-        }
-
-        private void timerT1_Tick(object sender, EventArgs e)
-        {
-            VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T01"), timerT1);
-        }
-
-        private void timerT2_Tick(object sender, EventArgs e)
-        {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T02"), timerT2);
-        }
-
-        private void timerT3_Tick(object sender, EventArgs e)
-        {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T03"), timerT3);
-        }
-
-        private void timerT4_Tick(object sender, EventArgs e)
-        {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T04"), timerT4);
-        }
-
-        private void timerT5_Tick(object sender, EventArgs e)
-        {
-                VerificarFraccion(Cibercafe.ObtenerClientePorDispositivo("T05"), timerT5);
-        }
-
         private void btnHistorial_Click(object sender, EventArgs e)
         {
             FormHistorial frm = new FormHistorial();
@@ -512,7 +431,7 @@ namespace PPL2
 
         private void btnTerminarPrograma_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

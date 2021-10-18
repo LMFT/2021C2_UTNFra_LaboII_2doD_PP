@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Generadores;
+using Utilidades;
 using Elementos;
 
 namespace Entidades
 {
     public class Cliente
     {
-        private string nombre;
-        private string apellido;
         private int dni;
         private int edad;
+        private string apellido;
+        private string nombre;
+        private string perifericoNecesario;
+        private string softwareNecesario;
         Necesidad necesidad;
         Dispositivo dispositivoAsignado;
-        private string softwareNecesario;
-        private string perifericoNecesario;
         private DateTime horaInicio;
+        private DateTime horaFinalizacion;
 
         public Cliente(string nombre, string apellido, Necesidad necesidad,int dni)
         {
@@ -122,16 +123,48 @@ namespace Entidades
                 }
             }
         }
+
+        public DateTime HoraFinalizacion
+        {
+            get
+            {
+                return horaFinalizacion;
+            }
+        }
+        /// <summary>
+        /// Setea la hora de finalizacion del dispositivo
+        /// </summary>
+        /// <param name="horaFinalizacion">Valor de la hora de finalizacion a setear</param>
+        public void SetHoraFinalizacion(DateTime horaFinalizacion)
+        {
+            this.horaFinalizacion = horaFinalizacion;
+        }
+        /// <summary>
+        /// Establece un criterio de igualdad para dos clientes en base a su numero de DNI
+        /// </summary>
+        /// <param name="c1">Primer cliente</param>
+        /// <param name="c2">Segundo cliente</param>
+        /// <returns>Retorna true si los numeros de DNI coinciden, de lo contrario false</returns>
         public static bool operator ==(Cliente c1, Cliente c2)
         {
             return c1.dni == c2.dni;
         }
-
+        /// <summary>
+        /// Establece un criterio de desigualdad para dos clientes en base a su numero de DNI
+        /// </summary>
+        /// <param name="c1">Primer cliente</param>
+        /// <param name="c2">Segundo cliente</param>
+        /// <returns>Retorna false si los numeros de DNI coinciden, de lo contrario true</returns>
         public static bool operator !=(Cliente c1, Cliente c2)
         {
             return !(c1 == c2);
         }
-
+        /// <summary>
+        /// Establece un criterio de igualdad para un cliente y una queue de clientes, analizando si el mismo se encuentra en la queue
+        /// </summary>
+        /// <param name="cliente">Cliente a analizar si se encuentra en cola</param>
+        /// <param name="cola">Cola de clientes</param>
+        /// <returns>Retornará true si el cliente se encuentra en la queue, de lo contrario false</returns>
         public static bool operator ==(Cliente cliente, Queue<Cliente> cola)
         {
             foreach(Cliente c in cola)
@@ -143,12 +176,34 @@ namespace Entidades
             }
             return false;
         }
-
+        /// <summary>
+        /// Establece un criterio de desigualdad para un cliente y una queue de clientes, analizando si el mismo se encuentra en la queue
+        /// </summary>
+        /// <param name="cliente">Cliente a analizar si se encuentra en cola</param>
+        /// <param name="cola">Cola de clientes</param>
+        /// <returns>Retornará false si el cliente se encuentra en la queue, de lo contrario true</returns>
+        public static bool operator !=(Cliente cliente, Queue<Cliente> cola)
+        {
+            return !(cliente == cola);
+        }
+        /// <summary>
+        /// Establece un criterio de desigualdad para un cliente y una computadora, verificando si la misma posee o no el software/juego
+        /// necesario para el cliente, asi como cualquier periferico necesario
+        /// </summary>
+        /// <param name="cliente">Cliente a analizar</param>
+        /// <param name="cola">Computadora a analizar</param>
+        /// <returns>Retornará false si la computadora cuenta con los requisitos del cliente, de lo contrario true</returns>
         public static bool operator !=(Cliente cliente, Computadora pc)
         {
             return !(cliente == pc);
         }
-
+        /// <summary>
+        /// Establece un criterio de igualdad para un cliente y una computadora, verificando si la misma posee o no el software/juego
+        /// necesario para el cliente, asi como cualquier periferico necesario
+        /// </summary>
+        /// <param name="cliente">Cliente a analizar</param>
+        /// <param name="cola">Computadora a analizar</param>
+        /// <returns>Retornará true si la computadora cuenta con los requisitos del cliente, de lo contrario false</returns>
         public static bool operator ==(Cliente cliente, Computadora pc)
         {
             if((pc.Juegos.Contains<string>(cliente.softwareNecesario) || pc.Software.Contains<string>(cliente.softwareNecesario)) &&
@@ -159,19 +214,19 @@ namespace Entidades
             return false;
         }
 
-        public static bool operator !=(Cliente cliente, Queue<Cliente> cola)
-        {
-            return !(cliente == cola);
-        }
 
-        public static bool operator +(Cliente cliente, Queue<Cliente> cola)
+        public static Queue<Cliente> operator +(Cliente cliente, Queue<Cliente> cola)
         {
             if(cliente != cola)
             {
                 cola.Enqueue(cliente);
-                return true;
             }
-            return false;
+            return cola;
+        }
+
+        public static Queue<Cliente> operator +(Queue<Cliente> cola, Cliente cliente)
+        {
+            return cliente + cola;
         }
 
         public static bool operator ==(Cliente c, Dispositivo d)
@@ -239,10 +294,10 @@ namespace Entidades
             return cola;
         }
         
-        public void AsignarDispositivo(Dispositivo dispositivo)
+        public void AsignarDispositivo(Dispositivo dispositivo, DateTime horaInicio)
         {
             this.dispositivoAsignado = dispositivo;
-            this.horaInicio = DateTime.Now;
+            this.horaInicio = horaInicio;
             dispositivo.CambiarEstado();
             dispositivo.Cliente = this;
             if(dispositivo.GetType() == typeof(Telefono))
@@ -250,6 +305,11 @@ namespace Entidades
                 Telefono tel = dispositivo as Telefono;
                 tel.Llamada = Llamada.GenerarLlamada();
             }
+        }
+
+        public void AsignarDispositivo(Dispositivo dispositivo)
+        {
+            AsignarDispositivo(dispositivo, DateTime.Now);
         }
 
         internal void AsignarDispositivo(string id)
@@ -276,7 +336,9 @@ namespace Entidades
 
         internal static Cliente GenerarCliente()
         {
-            return new Cliente(GenerarNombre(), GenerarApellido(), GenerarNecesidad(), GenerarDni(), GenerarEdad());
+            Cliente c = new Cliente(GenerarNombre(), GenerarApellido(), GenerarNecesidad(), GenerarDni(), GenerarEdad());
+            c.GenerarSoftwareYPerifericos();
+            return c;
         }
 
         internal static Cliente GenerarCliente(DateTime horaInicio)
@@ -330,32 +392,32 @@ namespace Entidades
         {
                 DateTime inicio = new DateTime(2021, 08, 17,16,45,23);
                 int rango = (DateTime.Today - inicio).Minutes;
-                return inicio.AddMinutes(GeneradorNumero.Generar(0, rango));
+                return inicio.AddMinutes(Utilidades.GeneradorNumero.Generar(0, rango));
         }
 
         private static string GenerarNombre()
         {
-            return Persona.ObtenerNombre(GeneradorNumero.Generar(0, Persona.Nombres));
+            return Persona.ObtenerNombre(Utilidades.GeneradorNumero.Generar(0, Persona.Nombres));
         }
 
         private static string GenerarApellido()
         {
-            return Persona.ObtenerApellido(GeneradorNumero.Generar(0, Persona.Apellidos));
+            return Persona.ObtenerApellido(Utilidades.GeneradorNumero.Generar(0, Persona.Apellidos));
         }
 
         internal static int GenerarDni()
         {
-            return GeneradorNumero.Generar(15000000, 50000000);
+            return Utilidades.GeneradorNumero.Generar(15000000, 50000000);
         }
 
         private static int GenerarEdad()
         {
-            return GeneradorNumero.Generar(15, 75);
+            return Utilidades.GeneradorNumero.Generar(15, 75);
         }
 
         private static Necesidad GenerarNecesidad()
         {
-            return (Necesidad)GeneradorNumero.Generar(0, 2);
+            return (Necesidad)Utilidades.GeneradorNumero.Generar(0, 2);
         }
 
         public string GetSoftwareNecesario()
@@ -372,6 +434,26 @@ namespace Entidades
         {
             return dispositivoAsignado;
         }
+
+        public double TiempoUso()
+        {
+            return (horaFinalizacion - horaInicio).TotalSeconds;
+        }
+
+        public double TiempoRestante()
+        {
+            return (horaFinalizacion - DateTime.Now).TotalSeconds;
+        }
+
+        internal void GenerarSoftwareYPerifericos()
+        {
+            if (Necesidad == Necesidad.Computadora)
+            {
+                SoftwareNecesario = Software.ObtenerSoftware();
+                PerifericoNecesario = Periferico.ObtenerPeriferico();
+            }
+        }
+
     }
 }
 

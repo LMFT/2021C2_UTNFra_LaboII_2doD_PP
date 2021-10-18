@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Generadores;
+using Utilidades;
 
 namespace Entidades
 {
@@ -67,26 +67,26 @@ namespace Entidades
 
         public static Llamada GenerarLlamada()
         {
-            int numero = GeneradorNumero.Generar(10000000, 99999999);
+            int numero = Utilidades.GeneradorNumero.Generar(10000000, 99999999);
             int codigoArea;
             int codigoPais;
 
-            if(GeneradorNumero.Generar(0, 10) <8)
+            if(Utilidades.GeneradorNumero.Generar(0, 10) <8)
             {
                 codigoPais = 54;
-                if(GeneradorNumero.Generar(0,10)<6)
+                if(Utilidades.GeneradorNumero.Generar(0,10)<6)
                 {
                     codigoArea = 11;
                 }
                 else
                 {
-                    codigoArea = GeneradorNumero.Generar(1, 2966);
+                    codigoArea = Utilidades.GeneradorNumero.Generar(1, 2966);
                 }
             }
             else
             {
-                codigoPais = GeneradorNumero.Generar(1, 1000);
-                codigoArea = GeneradorNumero.Generar(1, 9999);
+                codigoPais = Utilidades.GeneradorNumero.Generar(1, 1000);
+                codigoArea = Utilidades.GeneradorNumero.Generar(1, 9999);
             }
             Llamada llamada = new Llamada(numero, codigoArea, codigoPais);
             llamada.SetTipoLlamada();

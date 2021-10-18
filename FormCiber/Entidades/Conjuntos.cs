@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Generadores;
+using Utilidades;
 
 namespace Elementos
 {
@@ -53,11 +53,11 @@ namespace Elementos
     internal static class Software
     {
         static List<string> software = new List<string> {"Office", "Ares", "ICQ", "Messenger",
-            "Counter-Strike", "Diablo II", "MU Online", "Lineage II", "Age of Empires II", "GTA VIce CIty", "Starcraft" };
+            "Counter Strike", "Diablo II", "MU Online", "Lineage II", "Age of Empires II", "GTA VIce CIty", "Starcraft" };
 
         public static string ObtenerSoftware()
         {
-            return software[GeneradorNumero.Generar(0, software.Count)];
+            return software[Utilidades.GeneradorNumero.Generar(0, software.Count)];
         }
     }
 
@@ -67,7 +67,7 @@ namespace Elementos
 
         public static string ObtenerPeriferico()
         {
-            return perifericos[GeneradorNumero.Generar(0, perifericos.Count)];
+            return perifericos[Utilidades.GeneradorNumero.Generar(0, perifericos.Count)];
         }
     }
 }

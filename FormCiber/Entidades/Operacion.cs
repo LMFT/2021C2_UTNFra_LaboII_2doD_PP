@@ -10,19 +10,17 @@ namespace Entidades
     {
         private int id;
         private Cliente cliente;
-        private DateTime horaFinalizacion;
+        
         private double montoPercibido;
         private static int ultimoId = 1;
 
-        public Operacion (Cliente cliente, DateTime horaFinalizacion, double montoPercibido)
+        public Operacion(Cliente cliente, double montoPercibido)
         {
             id = ultimoId;
             ultimoId++;
             this.cliente = cliente;
-            this.horaFinalizacion = horaFinalizacion;
             this.montoPercibido = montoPercibido;
         }
-        public Operacion (Cliente cliente, double montoPercibido) : this(cliente, DateTime.Now, montoPercibido) { }
 
         public Cliente Cliente
         {
@@ -48,20 +46,17 @@ namespace Entidades
             }
         }
 
+        
+
         public override string ToString()
         {
             StringBuilder operacion = new StringBuilder();
 
             operacion.AppendLine($"Operacion Nº {id}");
             operacion.AppendLine($"Datos del cliente: \n{cliente}");
-            operacion.AppendLine($"Fecha de la operacion: {horaFinalizacion}");
+            operacion.AppendLine($"Fecha de la operacion: {cliente.HoraFinalizacion}");
             operacion.AppendLine($"Monto: {montoPercibido}");
             return operacion.ToString();
-        }
-
-        public double GetTiempoUso()
-        {
-            return (horaFinalizacion - cliente.HoraInicio).TotalSeconds;
         }
     }
 }

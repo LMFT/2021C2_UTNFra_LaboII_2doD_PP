@@ -46,9 +46,16 @@ namespace PPL2
             this.lblTelefonos = new System.Windows.Forms.Label();
             this.lblComputadoras = new System.Windows.Forms.Label();
             this.lblGanancias = new System.Windows.Forms.Label();
+            this.dgvOperaciones = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombreCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDispositivos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoLlamada)).BeginInit();
             this.gpbCajaDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOperaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvDispositivos
@@ -173,7 +180,9 @@ namespace PPL2
             // 
             // gpbCajaDatos
             // 
-            this.gpbCajaDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpbCajaDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpbCajaDatos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.gpbCajaDatos.Controls.Add(this.lblTelefonos);
             this.gpbCajaDatos.Controls.Add(this.lblComputadoras);
             this.gpbCajaDatos.Controls.Add(this.lblGanancias);
@@ -211,11 +220,60 @@ namespace PPL2
             this.lblGanancias.TabIndex = 0;
             this.lblGanancias.Text = "Ganancias totales:";
             // 
+            // dgvOperaciones
+            // 
+            this.dgvOperaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOperaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOperaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.nombreCliente,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dgvOperaciones.Location = new System.Drawing.Point(300, 12);
+            this.dgvOperaciones.Name = "dgvOperaciones";
+            this.dgvOperaciones.RowTemplate.Height = 25;
+            this.dgvOperaciones.Size = new System.Drawing.Size(443, 229);
+            this.dgvOperaciones.TabIndex = 8;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID Dispositivo";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // nombreCliente
+            // 
+            this.nombreCliente.HeaderText = "Cliente";
+            this.nombreCliente.Name = "nombreCliente";
+            this.nombreCliente.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Hora Inicio";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Hora Finalizacion";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Monto";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
             // FormHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 412);
+            this.Controls.Add(this.dgvOperaciones);
             this.Controls.Add(this.gpbCajaDatos);
             this.Controls.Add(this.btnMostrar);
             this.Controls.Add(this.btnVolver);
@@ -232,6 +290,7 @@ namespace PPL2
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoLlamada)).EndInit();
             this.gpbCajaDatos.ResumeLayout(false);
             this.gpbCajaDatos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOperaciones)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,5 +314,11 @@ namespace PPL2
         private System.Windows.Forms.Label lblGanancias;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDispositivo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoUso;
+        private System.Windows.Forms.DataGridView dgvOperaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombreCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }

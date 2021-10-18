@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Generadores;
+using Utilidades;
 namespace Entidades
 {
 
@@ -18,7 +18,7 @@ namespace Entidades
             Disco,
             Teclado
         }
-        public Telefono(string id,string marca, TipoTelefono tipo) : base(id)
+        public Telefono(string id,string marca, TipoTelefono tipo) : base(id, 1)
         {
             this.marca = marca;
             this.tipo = tipo;
