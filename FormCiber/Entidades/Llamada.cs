@@ -7,6 +7,9 @@ using Utilidades;
 
 namespace Entidades
 {
+    /// <summary>
+    /// Contiene datos sobre una llamada
+    /// </summary>
     public class Llamada
     {
         private int codigoPais;
@@ -64,27 +67,34 @@ namespace Entidades
                 }
             }
         }
-
+        /// <summary>
+        /// Genera una llamada a un numero telefonico de forma aleatoria
+        /// </summary>
+        /// <returns></returns>
         public static Llamada GenerarLlamada()
         {
             int numero = Utilidades.GeneradorNumero.Generar(10000000, 99999999);
             int codigoArea;
             int codigoPais;
-
-            if(Utilidades.GeneradorNumero.Generar(0, 10) <8)
+            //Cada llamada tiene un 85% de posibilidades tener un destino dentro del pais
+            if(Utilidades.GeneradorNumero.Generar(1, 101) <85)
             {
                 codigoPais = 54;
-                if(Utilidades.GeneradorNumero.Generar(0,10)<6)
+                //A su vez, cada llamada tiene un 70% de probabilidades de ser una llamada local
+                if(Utilidades.GeneradorNumero.Generar(1,101)<70)
                 {
                     codigoArea = 11;
                 }
                 else
                 {
-                    codigoArea = Utilidades.GeneradorNumero.Generar(1, 2966);
+                    /*Si la llamada no es local, genero un codigo de area aleatorio entre 220 y 3984 (maximo y minimo codigo de area
+                    para llamadas locales*/
+                    codigoArea = Utilidades.GeneradorNumero.Generar(220, 3894);
                 }
             }
             else
             {
+                //Si la llamada no tiene un destino en Argentina genero datos para una llamada internacional
                 codigoPais = Utilidades.GeneradorNumero.Generar(1, 1000);
                 codigoArea = Utilidades.GeneradorNumero.Generar(1, 9999);
             }
@@ -100,7 +110,9 @@ namespace Entidades
                 return tipo;
             }
         }
-
+        /// <summary>
+        /// Setea el tipo de llamada en base a codigo de area y de pais
+        /// </summary>
         private void SetTipoLlamada()
         {
             if(codigoPais == 54)

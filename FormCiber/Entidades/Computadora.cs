@@ -15,6 +15,11 @@ namespace Entidades
         private List<string> juegos;
         private Dictionary<string, string> especificaciones;
         private static int ultimoId;
+
+        static Computadora()
+        {
+            ultimoId = 0;
+        }
         public Computadora(string id, List<string> perifericos, Dictionary<string, string> especificaciones) : base(id, 30)
         {
             this.perifericos = perifericos;
@@ -59,25 +64,33 @@ namespace Entidades
                 return perifericos;
             }
         }
-
-
+        /// <summary>
+        /// Muestra informacion sobre una computadora
+        /// </summary>
+        /// <returns>Un string que contiene infrmacion sobre una computadora determinada</returns>
         public override string MostrarDispositivo()
         {
             StringBuilder pcStr = new StringBuilder();
             pcStr.AppendLine($"ID Dispositivo: {Id}\n");
-            pcStr.AppendLine($"Perifericos: {Coleccion.ObtenerElementosLista(perifericos)}");
-            pcStr.AppendLine($"Software: {Coleccion.ObtenerElementosLista(software)}");
-            pcStr.AppendLine($"Juegos: {Coleccion.ObtenerElementosLista(juegos)}");
+            pcStr.AppendLine($"Perifericos: {Coleccion.MostrarLista(perifericos)}");
+            pcStr.AppendLine($"Software: {Coleccion.MostrarLista(software)}");
+            pcStr.AppendLine($"Juegos: {Coleccion.MostrarLista(juegos)}");
             pcStr.AppendLine($"Estado: {Estado}");
-            pcStr.AppendLine($"\n\nEspecificaciones: {Coleccion.ObtenerElementosDiccionario(especificaciones)}");
+            pcStr.AppendLine($"\nEspecificaciones: {Coleccion.MostrarDiccionario(especificaciones)}");
             return pcStr.ToString();
         }
-
+        /// <summary>
+        /// Genera un ID autoincremental y lo retorna
+        /// </summary>
+        /// <returns>Nuevo ID autoincremental</returns>
         private static string GenerarId()
         {
             return String.Format("C{0:00}", ++ultimoId);
         }
-
+        /// <summary>
+        /// Instancia y añade computadoras hardcodeadas al liostado de dispositivos pasado como parametro
+        /// </summary>
+        /// <param name="listado">Listado al cual añadir las nuevas computadoras</param>
         internal static void HardcodearComputadoras(List<Dispositivo> listado)
         {
             #region Listado Software
@@ -129,15 +142,19 @@ namespace Entidades
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private static Dictionary<string, string> GenerarEspecificaciones()
         {
             Dictionary<string, string> especificaciones = new Dictionary<string, string>();
+            #region Listados de componentes
             string[] procesador = new string[] { "Pentium II", "Pentium III", "Pentium 4" };
             string[] placaBase = new string[] { "Abit VP6", "Iwill PIILD P2LD", "Asus P4T" };
             string[] ram = new string[] { "Nanya 256 MB DDR RAM PC-3200 184-pin DIMM", "acp-ep memoria 512 MB PC133 168-pin", "DELL Dimension 8100 PC800 RDRAM 1 GB" };
             string[] placaVideo = new string[] { "Voodoo I", "nVidia Riva", "GeForce 256" };
-
+            #endregion
             especificaciones.Add("Procesador", procesador[Utilidades.GeneradorNumero.Generar(0, 3)]);
             especificaciones.Add("Placa base", placaBase[Utilidades.GeneradorNumero.Generar(0, 3)]);
             especificaciones.Add("Memoria RAM", ram[Utilidades.GeneradorNumero.Generar(0, 3)]);
@@ -145,6 +162,5 @@ namespace Entidades
 
             return especificaciones;
         }
-
     }
 }

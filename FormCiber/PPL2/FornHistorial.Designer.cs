@@ -52,6 +52,9 @@ namespace PPL2
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblJuegos = new System.Windows.Forms.Label();
+            this.lblSoftware = new System.Windows.Forms.Label();
+            this.lblPeriferico = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDispositivos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoLlamada)).BeginInit();
             this.gpbCajaDatos.SuspendLayout();
@@ -176,19 +179,22 @@ namespace PPL2
             this.btnMostrar.TabIndex = 6;
             this.btnMostrar.Text = "Mostrar todas las operaciones";
             this.btnMostrar.UseVisualStyleBackColor = true;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
+            this.btnMostrar.Click += new System.EventHandler(this.btnMostrarOperaciones_Click);
             // 
             // gpbCajaDatos
             // 
             this.gpbCajaDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gpbCajaDatos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.gpbCajaDatos.Controls.Add(this.lblPeriferico);
+            this.gpbCajaDatos.Controls.Add(this.lblSoftware);
+            this.gpbCajaDatos.Controls.Add(this.lblJuegos);
             this.gpbCajaDatos.Controls.Add(this.lblTelefonos);
             this.gpbCajaDatos.Controls.Add(this.lblComputadoras);
             this.gpbCajaDatos.Controls.Add(this.lblGanancias);
-            this.gpbCajaDatos.Location = new System.Drawing.Point(301, 269);
+            this.gpbCajaDatos.Location = new System.Drawing.Point(301, 260);
             this.gpbCajaDatos.Name = "gpbCajaDatos";
-            this.gpbCajaDatos.Size = new System.Drawing.Size(384, 107);
+            this.gpbCajaDatos.Size = new System.Drawing.Size(442, 116);
             this.gpbCajaDatos.TabIndex = 7;
             this.gpbCajaDatos.TabStop = false;
             this.gpbCajaDatos.Text = "Otros datos:";
@@ -268,6 +274,33 @@ namespace PPL2
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
+            // lblJuegos
+            // 
+            this.lblJuegos.AutoSize = true;
+            this.lblJuegos.Location = new System.Drawing.Point(203, 30);
+            this.lblJuegos.Name = "lblJuegos";
+            this.lblJuegos.Size = new System.Drawing.Size(106, 15);
+            this.lblJuegos.TabIndex = 3;
+            this.lblJuegos.Text = "Juego mas pedido:";
+            // 
+            // lblSoftware
+            // 
+            this.lblSoftware.AutoSize = true;
+            this.lblSoftware.Location = new System.Drawing.Point(203, 56);
+            this.lblSoftware.Name = "lblSoftware";
+            this.lblSoftware.Size = new System.Drawing.Size(121, 15);
+            this.lblSoftware.TabIndex = 4;
+            this.lblSoftware.Text = "Software mas pedido:";
+            // 
+            // lblPeriferico
+            // 
+            this.lblPeriferico.AutoSize = true;
+            this.lblPeriferico.Location = new System.Drawing.Point(203, 82);
+            this.lblPeriferico.Name = "lblPeriferico";
+            this.lblPeriferico.Size = new System.Drawing.Size(125, 15);
+            this.lblPeriferico.TabIndex = 5;
+            this.lblPeriferico.Text = "Periferico mas pedido:";
+            // 
             // FormHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -320,5 +353,8 @@ namespace PPL2
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Label lblSoftware;
+        private System.Windows.Forms.Label lblJuegos;
+        private System.Windows.Forms.Label lblPeriferico;
     }
 }

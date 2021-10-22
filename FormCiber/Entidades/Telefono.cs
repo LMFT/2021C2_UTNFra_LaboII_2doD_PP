@@ -38,14 +38,20 @@ namespace Entidades
                 }
             }
         }
-
+        /// <summary>
+        /// Genera un ID autoincremental para  la instancia actual de telefono
+        /// </summary>
+        /// <returns>Nuevo ID generado en formato string</returns>
         private static string GenerarId()
         {
             string str = new string(string.Format("T{0:00}", ultimoId));
             ultimoId++;
             return str;
         }
-
+        /// <summary>
+        /// Instancia y hardcodea multiples telefonos y los añade al listado recibido como parametro;
+        /// </summary>
+        /// <param name="lista">Listado de dispositivos al cual añadir los telefonos</param>
         internal static void HardcodearTelefonos(List<Dispositivo> lista)
         {
             string[] marca = { "Panasonic", "Telecom", "Alcatel", "T&T", "Entel" };
@@ -60,6 +66,10 @@ namespace Entidades
                 }
             }
         }
+        /// <summary>
+        /// Muestra los datos de la instancia de Telefono 
+        /// </summary>
+        /// <returns>Datos del telefono en formato string</returns>
         public override string MostrarDispositivo()
         {
             StringBuilder telefonoStr = new StringBuilder();
@@ -70,7 +80,10 @@ namespace Entidades
             telefonoStr.AppendLine($"Estado: {Estado}");
             return telefonoStr.ToString();
         }
-
+        /// <summary>
+        /// Retorna la llamada re
+        /// </summary>
+        /// <returns></returns>
         public Llamada GetLlamada()
         {
             return llamada;

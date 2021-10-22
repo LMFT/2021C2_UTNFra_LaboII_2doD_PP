@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
+    /// <summary>
+    /// Contiene informacion sobre una operacion realizada en el cibercafe(alquiler de un disposiutivo)
+    /// </summary>
     public class Operacion
     {
         private int id;
         private Cliente cliente;
-        
         private double montoPercibido;
         private static int ultimoId = 1;
 
@@ -45,9 +47,10 @@ namespace Entidades
                 return montoPercibido;
             }
         }
-
-        
-
+        /// <summary>
+        /// Muestra los datos de la instancia de operacion actual
+        /// </summary>
+        /// <returns>Informacion ed la operacion en formato string</returns>
         public override string ToString()
         {
             StringBuilder operacion = new StringBuilder();

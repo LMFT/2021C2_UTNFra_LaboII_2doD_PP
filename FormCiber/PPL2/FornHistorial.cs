@@ -21,21 +21,29 @@ namespace PPL2
         {
             DesactivarDataGrids();
             InicializarDataGrids();
-            lblGanancias.Text += $" {CalcularGananciasTotales()}";
+            lblGanancias.Text += $" ${CalcularGananciasTotales()}";
             ClasificarGanancias(out double pc, out double telefono);
-            lblComputadoras.Text += $" {pc}";
-            lblTelefonos.Text += $" {telefono}";
+            lblComputadoras.Text += $" ${pc}";
+            lblTelefonos.Text += $" ${telefono}";
+            lblJuegos.Text += $" {ObtenerJuegoMasPedido()}";
+            lblSoftware.Text += $" {ObtenerSoftwareMasPedido()}";
+            lblPeriferico.Text += $" {ObtenerPerifericoMasPedido()}";
         }
-
+        /// <summary>
+        /// Ancla los distintos DataGridView
+        /// </summary>
         private void InicializarDataGrids()
         {
-            foreach(DataGridView dgv in this.Controls.OfType<DataGridView>())
+            foreach(DataGridView dgv in Controls.OfType<DataGridView>())
             {
                 dgv.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
             }
         }
         
-        //Lista de computadoras ordenadas por minutos de uso de forma descendente.
+        /// <summary>
+        /// Lista las computadoras, ordenadas por tiempo de uso
+        /// </summary>
+        /// <param name="historial">Historial de operaciones del cibercafe</param>
         private void ListarComputadorasPorTiempoDeUso(List<Operacion> historial)
         {
             dgvDispositivos.Rows.Clear();
@@ -49,14 +57,20 @@ namespace PPL2
             }
             dgvDispositivos.Show();
         }
-
+        /// <summary>
+        /// Añade un dispositivo al datagridview
+        /// </summary>
+        /// <param name="dispositivo"></param>
+        /// <param name="tiempoUso"></param>
         private void AgregarDispositivoADataGrid(Dispositivo dispositivo, double tiempoUso)
         {
             int index = dgvDispositivos.Rows.Add();
             DataGridViewRow fila = dgvDispositivos.Rows[index];
             fila.SetValues(dispositivo.ObtenerId(), tiempoUso);
         }
-
+        /// <summary>
+        /// Esconde los datagrid
+        /// </summary>
         private void DesactivarDataGrids()
         {
             foreach(DataGridView dgv in this.Controls.OfType<DataGridView>())
@@ -64,7 +78,12 @@ namespace PPL2
                 dgv.Hide();
             }
         }
-
+        /// <summary>
+        /// Calcula el tiempo de uso total de cada computadora
+        /// </summary>
+        /// <param name="lista">Listado de computadoras</param>
+        /// <param name="historial">Historial de operaciones previas</param>
+        /// <returns>Array que contiene el tiempo de uso de cada computadora, de forma paralela al listado de computadoras</returns>
         private double[] CalcularTiempoDeUso(List<Computadora> lista, List<Operacion> historial)
         {
             double[] tiempoUso = new double[lista.Count];
@@ -79,7 +98,11 @@ namespace PPL2
             }
             return tiempoUso;
         }
-
+        /// <summary>
+        /// Ordena un listado de computadoras en base al tiempo de uso total de cada una de ellas
+        /// </summary>
+        /// <param name="lista">Listado de computadoras a ordenar</param>
+        /// <param name="tiempoUso">Array que contiene el uso total de cada computadora</param>
         private void OrdenarComputadorasPorTiempoDeUso(List<Computadora> lista, double[] tiempoUso)
         {
             double auxDouble;
@@ -102,7 +125,10 @@ namespace PPL2
             }
         }
 
-        //Lista de cabinas ordenadas por minutos de uso de forma descendente.
+        /// <summary>
+        /// Muestra todo los telefonos, ordenados por tiempo de uso
+        /// </summary>
+        /// <param name="historial">Historial de operaciones previas</param>
         private void ListarTelefonosPorTiempoDeUso(List<Operacion> historial)
         {
             dgvDispositivos.Rows.Clear();
@@ -116,9 +142,12 @@ namespace PPL2
             }
             dgvDispositivos.Show();
         }
-
-        
-
+        /// <summary>
+        /// Calcula el tiempò de uso de cada telefono
+        /// </summary>
+        /// <param name="lista">Listado de telefonos</param>
+        /// <param name="historial">Historial de operaciones previas</param>
+        /// <returns>Array que contiene el uso total de cada telefono</returns>
         private double[] CalcularTiempoDeUso(List<Telefono> lista, List<Operacion> historial)
         {
             double[] tiempoUso = new double[lista.Count];
@@ -133,7 +162,11 @@ namespace PPL2
             }
             return tiempoUso;
         }
-
+        /// <summary>
+        /// Ordena el listado de telefonos por tiempo de uso
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <param name="tiempoUso"></param>
         private void OrdenarTelefonosPorTiempoDeUso(List<Telefono> lista, double[] tiempoUso)
         {
             double auxDouble;
@@ -155,17 +188,20 @@ namespace PPL2
                 }
             }
         }
-        //Ganancias totales y clasificadas por servicio (teléfono/computadora).
+        /// <summary>
+        /// Calcula el monto acumulado por todas las operaciones
+        /// </summary>
+        /// <returns>Ingresos totales por las operaciones del cibercafe</returns>
         private double CalcularGananciasTotales()
         {
-            double montoAcumulado = 0;
-            foreach(Operacion operacion in Cibercafe.GetHistorial())
-            {
-                montoAcumulado += operacion.Monto;
-            }
-            return montoAcumulado;
+            ClasificarGanancias(out double montoPc, out double montoTelefono);
+            return montoPc + montoTelefono;
         }
-
+        /// <summary>
+        /// Clasifica las ganancias segun el tipo de dispositivo asignado a cada operacion
+        /// </summary>
+        /// <param name="gananciaPc">Ganancia total obtenida por el alquiler de computadoras</param>
+        /// <param name="gananciaTelefono">Ganacia total obtenida por el alquiler de cabinas telefonicas</param>
         private void ClasificarGanancias (out double gananciaPc, out double gananciaTelefono)
         {
             gananciaPc = 0;
@@ -183,7 +219,9 @@ namespace PPL2
                 }
             }
         }
-        //Horas totales y la recaudación por tipo de llamada.
+        /// <summary>
+        /// Calcula el total de horas y minutos entre todas las llamadas realizadas, clasificadas por tipo (local, larga distancia o internacional)
+        /// </summary>
         private void MostrarInformacionLlamadas()
         {
             dgvTipoLlamada.Rows.Clear();
@@ -199,14 +237,24 @@ namespace PPL2
             }
             dgvTipoLlamada.Show();
         }
-
+        /// <summary>
+        /// Añade un tipo de llamada al datagrid
+        /// </summary>
+        /// <param name="horasTotales"></param>
+        /// <param name="minutosTotales"></param>
+        /// <param name="recaudaciones"></param>
         private void AgregarLlamadaADataGridView(double horasTotales, double minutosTotales, double recaudaciones)
         {
             int index = dgvTipoLlamada.Rows.Add();
             DataGridViewRow fila = dgvTipoLlamada.Rows[index];
             fila.SetValues((TipoLlamada)index, horasTotales, minutosTotales, recaudaciones);
         }
-
+        /// <summary>
+        /// Obtiene informacion de cada tipo de llamada (local, larga distancia o internacional)
+        /// </summary>
+        /// <param name="horasTotales"></param>
+        /// <param name="minutosTotales"></param>
+        /// <param name="recaudaciones"></param>
         private void CargarInformacionLlamadas(double[] horasTotales, double[] minutosTotales, double[] recaudaciones)
         {
             Telefono telefono;
@@ -226,7 +274,10 @@ namespace PPL2
                 }
             }
         }
-        //El software más pedido por los clientes.
+        /// <summary>
+        /// Obtiene el software mas pedido por los clientes
+        /// </summary>
+        /// <returns>Software con mayor cantidad de peticiones</returns>
         private string ObtenerSoftwareMasPedido()
         {
             Computadora pc;
@@ -253,7 +304,10 @@ namespace PPL2
             }
             return softwareMasPedido[peticiones.IndexOf(peticiones.Max())];
         }
-        //El periférico más pedido por los clientes.
+        /// <summary>
+        /// Obtiene el periferico mas pedido por los clientes
+        /// </summary>
+        /// <returns>Periferico con mayor cantidad de peticiones</returns>
         private string ObtenerPerifericoMasPedido()
         {
             Computadora pc;
@@ -280,7 +334,10 @@ namespace PPL2
             }
             return perifericoMasPedido[peticiones.IndexOf(peticiones.Max())];
         }
-        //El juego más pedido por los clientes.
+        /// <summary>
+        /// Obtiene el juego mas pedido por los clientes
+        /// </summary>
+        /// <returns>Juego con mayor cantidad de peticiones</returns>
         private string ObtenerJuegoMasPedido()
         {
             Computadora pc;
@@ -307,10 +364,12 @@ namespace PPL2
             }
             return juegoMasPedido[peticiones.IndexOf(peticiones.Max())];
         }
-
-        
-
-        private void btnMostrar_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Muestra un listado con todas las operaciones realizadas por el cliente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMostrarOperaciones_Click(object sender, EventArgs e)
         {
             DesactivarDataGrids();
             dgvOperaciones.Show();
@@ -325,29 +384,49 @@ namespace PPL2
                                 horaInicio, horaFin, operacion.Monto);
             }
         }
-
+        /// <summary>
+        /// Parsea la hora recibida como parametro a string, ignorando el componente de milisegundos
+        /// </summary>
+        /// <param name="hora">Hora a parsear</param>
+        /// <returns></returns>
         private string ParsearHora(DateTime hora)
         {
             string horaStr;
             horaStr = string.Format("{0:00}:{1:00}:{2:00}", hora.Hour, hora.Minute, hora.Second);
             return horaStr;
         }
-
+        /// <summary>
+        /// Muestra el listado de computadoras, ordenado por tiempo de uso
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnListarComputadora_Click(object sender, EventArgs e)
         {
             ListarComputadorasPorTiempoDeUso(Cibercafe.GetHistorial());
         }
-
+        /// <summary>
+        /// Muestra el listado de telefonos, ordenado por tiempo de uso
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnListarTelefono_Click(object sender, EventArgs e)
         {
             ListarTelefonosPorTiempoDeUso(Cibercafe.GetHistorial());
         }
-
+        /// <summary>
+        /// Muestra el listado de tipo de llamadas, con informacion sobre cada tipo (local, larga distancia o ionternacional)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLlamadas_Click(object sender, EventArgs e)
         {
             MostrarInformacionLlamadas();
         }
-
+        /// <summary>
+        /// Cierra el formulario del historial y vuelve al formulario principal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Close();

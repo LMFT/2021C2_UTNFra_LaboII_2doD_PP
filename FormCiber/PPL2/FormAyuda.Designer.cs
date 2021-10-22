@@ -37,6 +37,7 @@ namespace PPL2
             // 
             this.rtxtAyuda.Location = new System.Drawing.Point(12, 12);
             this.rtxtAyuda.Name = "rtxtAyuda";
+            this.rtxtAyuda.ReadOnly = true;
             this.rtxtAyuda.Size = new System.Drawing.Size(576, 324);
             this.rtxtAyuda.TabIndex = 0;
             this.rtxtAyuda.Text = "";
@@ -60,7 +61,7 @@ namespace PPL2
             this.Controls.Add(this.rtxtAyuda);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormAyuda";
-            this.Text = "Form2";
+            this.Text = "Ayuda";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
 

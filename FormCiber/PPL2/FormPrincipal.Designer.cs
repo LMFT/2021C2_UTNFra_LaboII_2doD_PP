@@ -377,7 +377,6 @@ namespace PPL2
             this.rbtnFraccion.TabStop = true;
             this.rbtnFraccion.Text = "Fraccion";
             this.rbtnFraccion.UseVisualStyleBackColor = true;
-            this.rbtnFraccion.CheckedChanged += new System.EventHandler(this.rbtnFraccion_CheckedChanged);
             // 
             // rbtnLibre
             // 
@@ -390,7 +389,6 @@ namespace PPL2
             this.rbtnLibre.TabStop = true;
             this.rbtnLibre.Text = "Libre";
             this.rbtnLibre.UseVisualStyleBackColor = true;
-            this.rbtnLibre.CheckedChanged += new System.EventHandler(this.rbtnLibre_CheckedChanged);
             // 
             // btnHistorial
             // 
