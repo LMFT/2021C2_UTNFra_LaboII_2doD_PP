@@ -8,7 +8,7 @@ using Elementos;
 
 namespace Entidades
 {
-    public class Cliente
+    public sealed class Cliente
     {
         private int dni;
         private int edad;
@@ -331,7 +331,6 @@ namespace Entidades
             this.dispositivoAsignado = dispositivo;
             this.horaInicio = horaInicio;
             dispositivo.CambiarEstado();
-            dispositivo.Cliente = this;
             if(dispositivo.GetType() == typeof(Telefono))
             {
                 Telefono tel = dispositivo as Telefono;

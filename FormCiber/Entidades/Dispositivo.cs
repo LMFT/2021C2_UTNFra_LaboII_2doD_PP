@@ -7,11 +7,10 @@ namespace Entidades
     /// </summary>
     public abstract class Dispositivo
     {
-        private string id;
-        private Estado estado;
-        private Cliente clienteActual;
-        private int tiempoFraccion;
-        private int fraccionesAsignadas;
+        protected string id;
+        protected Estado estado;
+        protected int tiempoFraccion;
+        protected int fraccionesAsignadas;
 
         public Dispositivo(string id, int tiempoFraccion)
         {
@@ -20,30 +19,19 @@ namespace Entidades
             this.tiempoFraccion = tiempoFraccion;
         }
 
-        protected string Id
+        public string Id
         {
             get
             {
                 return id;
             }
-            set
-            {
-                if(value is not null && value != String.Empty)
-                {
-                    id = value;
-                }
-            }
         }
 
-        internal Estado Estado
+        public Estado Estado
         {
             get
             {
                 return estado;
-            }
-            set
-            {
-                estado = value;
             }
         }
 
@@ -52,17 +40,6 @@ namespace Entidades
             get
             {
                 return tiempoFraccion;
-            }
-        }
-        internal Cliente Cliente
-        {
-            get
-            {
-                return clienteActual;
-            }
-            set 
-            {
-                clienteActual = value;
             }
         }
         /// <summary>
@@ -176,8 +153,7 @@ namespace Entidades
         /// </summary>
         public void Liberar()
         {
-            this.Estado = Estado.Libre;
-            this.Cliente = null;
+            this.estado = Estado.Libre;
         }
         /// <summary>
         /// Calcula el tiempo de uso de un dispositivo, en base a la cantidad de fracciones asignadas y el tiempo por fraccion

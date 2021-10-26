@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entidades.CajaRegistradora">
+    <Position X="9" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAEAAAAAgAAAAAAAAIBAgAAABAAAAAAAIAA=</HashCode>
+      <FileName>CajaRegistradora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Cibercafe">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAQAgAAAAgEAAAAAAAQBgAgAIAAAAAEQARABAAAMAA=</HashCode>
+      <FileName>Cibercafe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Cliente">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUMIAARABQAARCUwAIAnAAkQBJIBoAAAQIABRAQAqE=</HashCode>
+      <FileName>Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Computadora">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAEAgAAAEAAAABAAAAAAAAAQAAAAkAQAAIAAAAABA=</HashCode>
+      <FileName>Computadora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Dispositivo">
+    <Position X="4.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACiIAAAAAAADAAgACAAAgAAAwAAIAgRAAAAAAQAig=</HashCode>
+      <FileName>Dispositivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Llamada">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABAAAAAAAAAABAAhAAAAAAAAAAEABAAEAAAABAAQ=</HashCode>
+      <FileName>Llamada.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Operacion">
+    <Position X="13.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAACAAAAIgQAAAAAAAABAAAAAAgA=</HashCode>
+      <FileName>Operacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Telefono">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Entidades.Telefono.TipoTelefono" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Telefono.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACAAFAAgAAAQAAAAAAAAAAAAAQAAAAAAQQAAIAAAAAA=</HashCode>
+      <FileName>Telefono.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Entidades.Necesidad">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Entidades.Estado">
+    <Position X="15" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Entidades.TipoLlamada">
+    <Position X="15" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAQAACAAAA=</HashCode>
+      <FileName>Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

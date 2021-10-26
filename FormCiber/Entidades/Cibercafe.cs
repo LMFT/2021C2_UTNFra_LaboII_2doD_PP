@@ -13,6 +13,7 @@ namespace Entidades
     public static class Cibercafe
     {
         private static Queue<Cliente> colaClientes;
+        private static List<Cliente> clientesConDispositivo;
         private static CajaRegistradora caja;
         private static List<Dispositivo> dispositivos;
         private static List<Operacion> historial;
@@ -25,6 +26,7 @@ namespace Entidades
             dispositivos = GenerarDispositivos();
             historial = new List<Operacion>();
             caja = CajaRegistradora.InicializarCaja(10);
+            clientesConDispositivo = new List<Cliente>();
         }
         /// <summary>
         /// Genera una lista de dispositivos y la inicializa con los dispositivos hardcodeados del cibercafe
@@ -105,13 +107,30 @@ namespace Entidades
             return colaClientes.Peek();
         }
         /// <summary>
-        /// Retorna el proximo cliente de la cola y lo remueve de la misma
+        /// Retorna el proximo cliente de la cola de espera y lo remueve de la misma
         /// </summary>
         /// <returns>Siguiente cliente a atender</returns>
         public static Cliente AtenderCliente()
         {
             return colaClientes.Dequeue();
         }
+        /// <summary>
+        /// Añade al cliente recibido al listado de clientes con dispositivos asignados
+        /// </summary>
+        /// <param name="cliente">Cliente a añadir</param>
+        public static void AsignarDispositivo(Cliente cliente)
+        {
+            clientesConDispositivo.Add(cliente);
+        }
+        /// <summary>
+        /// Elimina al cliente recibido del listado de clientes con dispositivos asignados
+        /// </summary>
+        /// <param name="cliente">Cliente a eliminar</param>
+        public static void LiberarDispositivo(Cliente cliente)
+        {
+            clientesConDispositivo.Remove(cliente);
+        }
+
         /// <summary>
         /// Genera y añade un nuevo cliente a la cola
         /// </summary>
@@ -170,11 +189,11 @@ namespace Entidades
         /// </returns>
         public static Cliente ObtenerClientePorDispositivo(Dispositivo dispositivo)
         {
-            foreach(Dispositivo d in dispositivos)
+            foreach(Cliente cliente in clientesConDispositivo)
             {
-                if (dispositivo is not null && d.Cliente is not null && d.Cliente == dispositivo.Cliente)
+                if (dispositivo is not null && cliente.Dispositivo == dispositivo)
                 {
-                    return d.Cliente;
+                    return cliente;
                 }
             }
             return null;

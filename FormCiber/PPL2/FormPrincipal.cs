@@ -268,7 +268,7 @@ namespace PPL2
                 Cliente cliente = Cibercafe.VerProximoCliente();
                 if(ValidarDispositivo(cliente))
                 {
-                    Cibercafe.AtenderCliente();
+                    
                     Asignar(cliente);
                     //Actualizo la interfaz para reflejar los cambios en el programa
                     ActualizarInterfaz();
@@ -299,7 +299,8 @@ namespace PPL2
         private void Asignar(Cliente cliente)
         {
             cliente.AsignarDispositivo(dispositivoActual);
-            if(rbtnFraccion.Checked)
+            Cibercafe.AsignarDispositivo(Cibercafe.AtenderCliente());
+            if (rbtnFraccion.Checked)
             {
                 DateTime horaFinalizacion = DateTime.Now;
                 dispositivoActual.Fracciones = (int)nudCantidadFracciones.Value;
