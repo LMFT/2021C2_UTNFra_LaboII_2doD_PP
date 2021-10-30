@@ -19,6 +19,8 @@ namespace Entidades
             this.tiempoFraccion = tiempoFraccion;
         }
 
+        public Dispositivo() { }
+
         public string Id
         {
             get
@@ -176,5 +178,11 @@ namespace Entidades
             }
             return false;
         }
+
+        public override string ToString()
+        {
+            return Id;
+        }
     }
 }
+

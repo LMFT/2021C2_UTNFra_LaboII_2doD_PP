@@ -18,13 +18,13 @@ namespace Entidades
             Disco,
             Teclado
         }
-        public Telefono(string id,string marca, TipoTelefono tipo) : base(id, 1)
+        public Telefono(string id, string marca, TipoTelefono tipo) : base(id, 1)
         {
             this.marca = marca;
             this.tipo = tipo;
         }
 
-        internal Llamada Llamada
+        public Llamada Llamada
         {
             get
             {
@@ -55,11 +55,11 @@ namespace Entidades
         internal static void HardcodearTelefonos(List<Dispositivo> lista)
         {
             string[] marca = { "Panasonic", "Telecom", "Alcatel", "T&T", "Entel" };
-            TipoTelefono[] tipo = { TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado, 
+            TipoTelefono[] tipo = { TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado, TipoTelefono.Teclado,
                                     TipoTelefono.Disco, };
-            if(lista is not null)
+            if (lista is not null)
             {
-                for(int i=0;i<5;i++)
+                for (int i = 0; i < 5; i++)
                 {
                     Telefono t = new Telefono(GenerarId(), marca[i], tipo[i]);
                     lista.Add(t);
@@ -80,15 +80,6 @@ namespace Entidades
             telefonoStr.AppendLine($"Estado: {Estado}");
             return telefonoStr.ToString();
         }
-        /// <summary>
-        /// Retorna la llamada re
-        /// </summary>
-        /// <returns></returns>
-        public Llamada GetLlamada()
-        {
-            return llamada;
-        }
 
-        
-    }
+    }       
 }

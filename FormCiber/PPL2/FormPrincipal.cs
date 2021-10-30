@@ -13,7 +13,7 @@ namespace PPL2
     public partial class FormCiber : Form
     {
         private Dispositivo dispositivoActual;
-        private Button botonSeleccionado;
+        //private Button botonSeleccionado;
         Dictionary<Button, string> botonera;
         public FormCiber()
         {
@@ -29,7 +29,7 @@ namespace PPL2
         private void Form1_Load(object sender, EventArgs e)
         {
             SetearFecha();
-            rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
+            rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().MostrarCliente();
             botonera = InicializarBotones();
             CambiarColorBotones(Cibercafe.VerProximoCliente());
         }
@@ -41,12 +41,11 @@ namespace PPL2
         private void btnPc1_Click(object sender, EventArgs e)
         {
             dispositivoActual = Cibercafe.ObtenerDispositivo("C01");
-            if(dispositivoActual is not null)
+            if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc1;
             }
-            
+
         }
         /// <summary>
         /// Selecciona la computadora con el ID C02
@@ -59,7 +58,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc2;
             }
         }
         /// <summary>
@@ -73,7 +71,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc3;
             }
         }
         /// <summary>
@@ -87,7 +84,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc4;
             }
         }
         /// <summary>
@@ -101,7 +97,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc5;
             }
         }
         /// <summary>
@@ -115,7 +110,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc6;
             }
         }
         /// <summary>
@@ -129,7 +123,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc7;
             }
         }
         /// <summary>
@@ -143,7 +136,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc8;
             }
         }
         /// <summary>
@@ -157,7 +149,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc9;
             }
         }
         /// <summary>
@@ -171,7 +162,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnPc10;
             }
         }
         /// <summary>
@@ -185,7 +175,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnT1;
             }
         }
         /// <summary>
@@ -199,7 +188,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnT2;
             }
         }
         /// <summary>
@@ -213,7 +201,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnT3;
             }
         }
         /// <summary>
@@ -227,7 +214,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnT4;
             }
         }
         /// <summary>
@@ -241,7 +227,6 @@ namespace PPL2
             if (dispositivoActual is not null)
             {
                 rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-                botonSeleccionado = btnT5;
             }
         }
         /// <summary>
@@ -262,25 +247,53 @@ namespace PPL2
         /// <param name="e"></param>
         private void btnAsignar_Click(object sender, EventArgs e)
         {
-            if(dispositivoActual is not null && dispositivoActual.ObtenerEstado() == Estado.Libre)
+            if (dispositivoActual is not null && dispositivoActual.ObtenerEstado() == Estado.Libre)
             {
-                 
+
                 Cliente cliente = Cibercafe.VerProximoCliente();
-                if(ValidarDispositivo(cliente))
+                switch (cliente.ValidarDispositivo(dispositivoActual))
                 {
-                    
-                    Asignar(cliente);
-                    //Actualizo la interfaz para reflejar los cambios en el programa
-                    ActualizarInterfaz();
-                    MessageBox.Show("El dispositivo se asignó correctamente", "Dispositivo asignado", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    case 0:
+                        //Todo OK
+                        Asignar(cliente);
+                        break;
+                    case -1:
+                        //PC no cumple requerimientos
+                        MessageBox.Show("Esta computadora no cuenta con el software o perifericos requeridos por el cliente",
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case -2:
+                        //Dispositivo que el cliente no necesita
+                        MessageBox.Show("El cliente no requiere este tipo de dispositivo", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case -3:
+                        //Dispositivo ocupado
+                        MessageBox.Show("Este dispositivo se encuentra ocupado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case -4:
+                        //No hay dispositivo seleccionado
+                        MessageBox.Show("No se ha seleccionado ningun dispositivo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                 }
             }
-            else
+        }
+
+        private void Asignar(Cliente cliente)
+        {
+            if (dispositivoActual.GetType() == typeof(Telefono))
             {
-                MessageBox.Show("Este dispositivo se encuentra ocupado o no se ha seleccionado ningun dispositivo",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!IngresarLlamada(dispositivoActual as Telefono))
+                {
+                    MessageBox.Show("Se cancelo el ingreso de la llamada", "Asignación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
+            Cibercafe.Asignar(cliente, dispositivoActual, rbtnFraccion.Checked, (int)nudCantidadFracciones.Value);
+            ActualizarInterfaz();
+            MessageBox.Show("El dispositivo se asignó correctamente", "Dispositivo asignado", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
         /// <summary>
         /// Actualiza la interfaz de la aplicacion tras asignar un dispositivo
@@ -288,69 +301,9 @@ namespace PPL2
         private void ActualizarInterfaz()
         {
             rtxtInfoDispositivo.Text = dispositivoActual.MostrarDispositivo();
-            rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().ToString();
+            rtxtProximoCliente.Text = Cibercafe.VerProximoCliente().MostrarCliente();
             CambiarColorBotones(Cibercafe.VerProximoCliente());
             SetearFecha();
-        }
-        /// <summary>
-        /// Asigna el dispositivo al cliente y, en caso de ser solicitado por fraccion, realiza el cobro
-        /// </summary>
-        /// <param name="cliente"></param>
-        private void Asignar(Cliente cliente)
-        {
-            cliente.AsignarDispositivo(dispositivoActual);
-            Cibercafe.AsignarDispositivo(Cibercafe.AtenderCliente());
-            if (rbtnFraccion.Checked)
-            {
-                DateTime horaFinalizacion = DateTime.Now;
-                dispositivoActual.Fracciones = (int)nudCantidadFracciones.Value;
-                horaFinalizacion.AddSeconds(dispositivoActual.TiempoUso());
-                Cobrar(cliente);
-                return;
-
-                
-            }
-            dispositivoActual.Fracciones = 0;
-        }
-        /// <summary>
-        /// Valida que la computadora seleccionada cuente con los requisitos del cliente
-        /// </summary>
-        /// <param name="cliente"></param>
-        /// <returns>True si la computadora cuenta con los requisitos, de lo contrario false</returns>
-        private bool ValidarComputadora(Cliente cliente)
-        {
-            return cliente ==(Computadora)dispositivoActual;
-        }
-        /// <summary>
-        /// Valida que el dispositivo seleccionado coincida con el dispositivo necesario para el cliente, y en caso de ser una 
-        /// computadora que la misma cuente con los requisitos del cliente (software/juegos y periferico
-        /// </summary>
-        /// <param name="cliente"></param>
-        /// <returns>True si el dispositivo coincide con los requisitos del cliente, de lo contrario false</returns>
-        private bool ValidarDispositivo(Cliente cliente)
-        {
-            if(cliente.Necesidad == Necesidad.Computadora && dispositivoActual.GetType() == typeof(Computadora))
-            {
-                if(ValidarComputadora(cliente))
-                {
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("Esta computadora no cuenta con el software o perifericos requeridos por el cliente",
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                if(cliente.Necesidad == Necesidad.Telefono && dispositivoActual.GetType() == typeof(Telefono))
-                {
-                    return true;
-                }
-            }
-            MessageBox.Show("El cliente no requiere este tipo de dispositivo", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
         }
         /// <summary>
         /// Setea la fecha actual en la barra de informacion
@@ -436,10 +389,9 @@ namespace PPL2
                 if(botonera.TryGetValue(btn, out string id))
                 {
                     Dispositivo dispositivo = Cibercafe.ObtenerDispositivo(id);
-                    if(cliente == dispositivo && dispositivo.ObtenerEstado() == Estado.Libre)
+                    if(cliente == dispositivo && dispositivo.Estado == Estado.Libre)
                     {
                         btn.BackColor = Color.LightGreen;
-
                     }
                     else
                     {
@@ -473,18 +425,10 @@ namespace PPL2
 
             if(cliente is not null && dispositivoActual.ObtenerEstado() == Estado.Ocupado)
             {
-                if(VerificarFraccion())
+                if(VerificarFraccion(cliente))
                 {
-                    if(TiempoLibre())
-                    {
-                        Cobrar(cliente);
-                    }
-                    else
-                    {
-                        dispositivoActual.Liberar();
-                    }
+                    Cibercafe.LiberarDispositivo(cliente);
                     MessageBox.Show($"Se ha finalizado el uso del dispositivo despues de {Math.Round(cliente.TiempoUso())} minutos.");
-                    
                     ActualizarInterfaz();
                 }
                 else
@@ -525,11 +469,15 @@ namespace PPL2
         /// </summary>
         /// <returns>True si el dispositivo se asigno como libre o si el tiempo de uso supera el tiempo asignado al cliente, de lo contrario
         /// false</returns>
-        private bool VerificarFraccion()
+        private bool VerificarFraccion(Cliente cliente)
         {
-            double tiempoUso = Cibercafe.ObtenerClientePorDispositivo(dispositivoActual).TiempoUso();
-            if(dispositivoActual.Fracciones == 0 || tiempoUso/dispositivoActual.TiempoFraccion >= dispositivoActual.Fracciones)
+            double tiempoUso = cliente.TiempoUso();
+            if(tiempoUso/dispositivoActual.TiempoFraccion >= dispositivoActual.Fracciones)
             {
+                if(TiempoLibre())
+                {
+                    Cobrar(cliente);
+                }
                 return true;
             }
             return false;
@@ -586,6 +534,22 @@ namespace PPL2
             #endregion
             FormAyuda frm = new FormAyuda(mensaje);
             frm.Show();
+        }
+        /// <summary>
+        /// Abre el formulario de ingreso de llamadas para cargar el numero al cual llamará el cliente
+        /// </summary>
+        /// <param name="telefono">Telefono al cual se le asignará la llamada a realizar</param>
+        /// <returns>Retorna true si se ingresó correctamente una llamada, de lo contrario false</returns>
+        private bool IngresarLlamada(Telefono telefono)
+        {
+            FrmLlamada frm = new FrmLlamada();
+            frm.ShowDialog();
+            if(frm.Llamada is not null)
+            {
+                telefono.Llamada = frm.Llamada;
+                return true;
+            }
+            return false;
         }
     }
 }

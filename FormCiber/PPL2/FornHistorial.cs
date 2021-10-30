@@ -263,7 +263,7 @@ namespace PPL2
                 telefono = operacion.Cliente.GetDispositivo() as Telefono;
                 if (telefono is not null)
                 {
-                    int index = (int)telefono.GetLlamada().Tipo;
+                    int index = (int)telefono.Llamada.Tipo;
                     minutosTotales[index] += operacion.Cliente.TiempoUso();
                     if(minutosTotales[index] >= 60)
                     {

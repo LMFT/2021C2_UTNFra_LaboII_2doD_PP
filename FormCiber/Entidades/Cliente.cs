@@ -20,7 +20,13 @@ namespace Entidades
         Dispositivo dispositivoAsignado;
         private DateTime horaInicio;
         private DateTime horaFinalizacion;
-
+        /// <summary>
+        /// Inicializa los valores de una instancia de cliente
+        /// </summary>
+        /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="apellido">Apellido del cliente</param>
+        /// <param name="necesidad">Dispositivo que necesita el cliente</param>
+        /// <param name="dni">Numero de DNI del cliente</param>
         public Cliente(string nombre, string apellido, Necesidad necesidad,int dni)
         {
             this.nombre = nombre;
@@ -33,12 +39,22 @@ namespace Entidades
                 GenerarSoftwareNecesario();
             }
         }
+        /// <summary>
+        /// Inicializa los valores de una instancia de cliente
+        /// </summary>
+        /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="apellido">Apellido del cliente</param>
+        /// <param name="necesidad">Dispositivo que necesita el cliente</param>
+        /// <param name="dni">Numero de DNI del cliente</param>
+        /// <param name="edad">Edad del cliente</param>
         public Cliente(string nombre, string apellido, Necesidad necesidad, int dni, int edad) : this(nombre, apellido, necesidad,dni)
         {
             this.edad = edad;
             
         }
-
+        /// <summary>
+        /// Retorna el nombre del cliente
+        /// </summary>
         public string Nombre
         {
             get
@@ -46,6 +62,9 @@ namespace Entidades
                 return nombre;
             }
         }
+        /// <summary>
+        /// Retorna el apellido del cliente
+        /// </summary>
         public string Apellido
         {
             get
@@ -53,13 +72,20 @@ namespace Entidades
                 return apellido;
             }
         }
+        /// <summary>
+        /// Retorna el numero de documento del cliente
+        /// </summary>
         public int Dni
         {
             get
             {
                 return dni;
             }
+
         }
+        /// <summary>
+        /// Retorna la edad del cliente
+        /// </summary>
         public int Edad
         {
             get
@@ -67,6 +93,9 @@ namespace Entidades
                 return edad;
             }
         }
+        /// <summary>
+        /// Retorna el tipo de dispositivo que necesita el cliente
+        /// </summary>
         public Necesidad Necesidad
         {
             get
@@ -74,7 +103,9 @@ namespace Entidades
                 return necesidad;
             }
         }
-
+        /// <summary>
+        /// Retorna la hora de inicio de uso del dispositivo asignado al cliente
+        /// </summary>
         public DateTime HoraInicio
         {
             get
@@ -82,6 +113,9 @@ namespace Entidades
                 return horaInicio;
             }
         }
+        /// <summary>
+        /// Retorna o setea el dispositivo asignado al cliente
+        /// </summary>
         internal Dispositivo Dispositivo
         {
             get
@@ -93,7 +127,9 @@ namespace Entidades
                 dispositivoAsignado = value;
             }
         }
-
+        /// <summary>
+        /// Retorna y setea el software necesario por el cliente
+        /// </summary>
         internal string SoftwareNecesario
         {
             get
@@ -108,7 +144,9 @@ namespace Entidades
                 }
             }
         }
-
+        /// <summary>
+        /// Retorna y setea el periferico necesario por el cliente
+        /// </summary>
         internal string PerifericoNecesario
         {
             get
@@ -123,7 +161,9 @@ namespace Entidades
                 }
             }
         }
-
+        /// <summary>
+        /// Retorna la hora de finalizacion de uso del dispositivo asignadfo al cliente
+        /// </summary>
         public DateTime HoraFinalizacion
         {
             get
@@ -219,23 +259,10 @@ namespace Entidades
         /// <param name="cliente">Cliente a añadir</param>
         /// <param name="cola">Queue de clientes</param>
         /// <returns>Queue con el cliente añadido</returns>
-        public static Queue<Cliente> operator +(Cliente cliente, Queue<Cliente> cola)
-        {
-            if(cliente != cola)
-            {
-                cola.Enqueue(cliente);
-            }
-            return cola;
-        }
-        /// <summary>
-        /// Añade al cliente recibido como parametro a la queue recibida como parametro en caso de que la última no lo contenga
-        /// </summary>
-        /// <param name="cliente">Cliente a añadir</param>
-        /// <param name="cola">Queue de clientes</param>
-        /// <returns>Queue con el cliente añadido</returns>
         public static Queue<Cliente> operator +(Queue<Cliente> cola, Cliente cliente)
         {
-            return cliente + cola;
+            cola.Enqueue(cliente);
+            return cola;
         }
         /// <summary>
         /// Verifica que el tipo de dispositivo sea compatible con la necesidad del cliente 
@@ -259,7 +286,11 @@ namespace Entidades
         {
             return !(c == d);
         }
-
+        /// <summary>
+        /// Valida que la instancia de cliente recibida como parametro posea el mismo numero de dni que la instancia actual que invoca al metodo
+        /// </summary>
+        /// <param name="obj">Objeto a comparar con la instancia actual</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Cliente c = obj as Cliente;
@@ -280,46 +311,28 @@ namespace Entidades
         /// <returns>Retorna la informacion del cliente en formato string</returns>
         public override string ToString()
         {
+            return $"{nombre} {apellido}";
+        }
+        /// <summary>
+        /// Muestra los datos asociados a la instancia de cliente 
+        /// </summary>
+        /// <returns>Un string formateado que contiene la informacion del cliente</returns>
+        public string MostrarCliente()
+        {
             StringBuilder clienteStr = new StringBuilder();
             clienteStr.AppendLine($"Nombre: {Nombre}");
             clienteStr.AppendLine($"Apellido: {Apellido}");
             clienteStr.AppendLine($"DNI: {Dni}");
             clienteStr.AppendLine($"Edad: {Edad}");
             clienteStr.AppendLine($"Necesidad: {necesidad}");
-            if(this.necesidad == Necesidad.Computadora)
+            if (this.necesidad == Necesidad.Computadora)
             {
                 clienteStr.AppendLine($"Software Necesario: {softwareNecesario}");
                 clienteStr.AppendLine($"Perifericos necesarios: {perifericoNecesario}");
             }
             return clienteStr.ToString();
         }
-        /// <summary>
-        /// Crea una queue de clientes y la hardcodea con 15 clientes iniciales
-        /// </summary>
-        /// <returns>Queue de clientes hardcodeada</returns>
-        public static Queue<Cliente> HardcodearClientes()
-        {
-            Queue<Cliente> cola = new Queue<Cliente>();
-            #region Datos hardcodeados de clientes
-            string[] nombres = {"Lucas","Javier","Carolina", "Guadalupe", "Laura", "Maximiliano", "Bianca", "Violeta", "Martin",
-                               "Facundo", "Diego", "Ezequiel", "Emanuel", "Alan", "Florencia" };
-            string[] apellidos = { "Steinbrenner", "Fernandez", "Perez", "Gozalvez", "Martinez", "Scarsi", "Carrizo", "Gonzalez",
-                                   "Albornoz", "Dotta", "Vietti", "Manriquez", "Cech", "Aspen", "Elbetti" };
-            int[] dni = { 12345678, 34521654, 34579157, 37789546, 26847591, 38859610, 42150369, 29684578, 35589214, 36458974, 30258965, 
-                40259036, 25099681, 26509856,  42567345};
-            int[] edades = { 29, 35, 49, 18, 16, 20, 21, 50, 30, 28, 45, 48, 49, 32, 15};
-            Necesidad[] necesidades = { Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
-                                        Necesidad.Telefono, Necesidad.Telefono, Necesidad.Computadora, Necesidad.Telefono, 
-                                        Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
-                                        Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora};
-            #endregion
-            for (int i=0;i<15;i++)
-            {
-                Cliente cliente = new Cliente(nombres[i], apellidos[i], necesidades[i], dni[i], edades[i]);
-                cola.Enqueue(cliente);
-            }
-            return cola;
-        }
+        
         /// <summary>
         /// Asigna el dispositivo recibido como parametro a la instancia actual de cliente, y setea la hora de inicio de uso
         /// al valor recibido como parametro
@@ -331,11 +344,6 @@ namespace Entidades
             this.dispositivoAsignado = dispositivo;
             this.horaInicio = horaInicio;
             dispositivo.CambiarEstado();
-            if(dispositivo.GetType() == typeof(Telefono))
-            {
-                Telefono tel = dispositivo as Telefono;
-                tel.Llamada = Llamada.GenerarLlamada();
-            }
         }
         /// <summary>
         /// Asigna el dispositivo recibido como parametro a la instancia actual de cliente y setea su hora de inicio de uso
@@ -367,7 +375,10 @@ namespace Entidades
         internal static Cliente GenerarCliente()
         {
             Cliente c = new Cliente(GenerarNombre(), GenerarApellido(), GenerarNecesidad(), GenerarDni(), GenerarEdad());
-            c.GenerarSoftwareYPerifericos();
+            if(c.necesidad == Necesidad.Computadora)
+            {
+                c.GenerarSoftwareYPerifericos();
+            }
             return c;
         }
         /// <summary>
@@ -387,7 +398,7 @@ namespace Entidades
         /// <returns>Nombre seleccionado aleatoriamente</returns>
         private static string GenerarNombre()
         {
-            return Persona.ObtenerNombre(Utilidades.GeneradorNumero.Generar(0, Persona.Nombres));
+            return Persona.ObtenerNombre(GeneradorNumero.Generar(0, Persona.Nombres));
         }
         /// <summary>
         /// Selecciona un apellido aleatorio del listado y lo retorna
@@ -395,7 +406,7 @@ namespace Entidades
         /// <returns>Apellido seleccionado aleatoriamente</returns>
         private static string GenerarApellido()
         {
-            return Persona.ObtenerApellido(Utilidades.GeneradorNumero.Generar(0, Persona.Apellidos));
+            return Persona.ObtenerApellido(GeneradorNumero.Generar(0, Persona.Apellidos));
         }
         /// <summary>
         /// Selecciona un numero de documento aleatorio y lo retorna
@@ -451,7 +462,7 @@ namespace Entidades
         /// <returns>Tiempo de uso del dispositivo asignado, expresado en segundos totales</returns>
         public double TiempoUso()
         {
-            return (horaFinalizacion - horaInicio).TotalSeconds;
+            return (DateTime.Now - horaInicio).TotalSeconds;
         }
         /// <summary>
         /// Calcula el tiempo restante de uso del dispositivo 
@@ -467,10 +478,54 @@ namespace Entidades
         /// </summary>
         internal void GenerarSoftwareYPerifericos()
         {
-            if (Necesidad == Necesidad.Computadora)
+            SoftwareNecesario = Software.ObtenerSoftware();
+            PerifericoNecesario = Periferico.ObtenerPeriferico();
+        }
+
+        /// <summary>
+        /// Valida que el dispositivo seleccionado coincida con el dispositivo necesario para el cliente, y en caso de ser una 
+        /// computadora que la misma cuente con los requisitos del cliente (software/juegos y periferico). Devuelve múltiples valores para determinar qué mensaje de errr mostrar
+        /// </summary>
+        /// <param name="dispositivoActual">Dispositivo a validar</param>
+        /// <returns>Retorna:   0 si el dispositido es valido
+        ///                     -1 si el dispositido es de tipo Computadora y no cuenta con los requisitos del cliente
+        ///                     -2 si el dispositido no es del tipo requerido por el cliente
+        ///                     -3 si el dispositido esta ocupado
+        ///                     -4 si el dispositido es nulo</returns>
+        public int ValidarDispositivo(Dispositivo dispositivoActual)
+        {
+            const int TODO_OK = 0;
+            const int PC_INVALIDA = -1;
+            const int DISPOSITIVO_INVALIDO = -2;
+            const int DISPOSITIVO_OCUPADO = -3;
+            const int DISPOSITIVO_NULO = -4;
+
+            if(dispositivoActual is null)
             {
-                SoftwareNecesario = Software.ObtenerSoftware();
-                PerifericoNecesario = Periferico.ObtenerPeriferico();
+                return DISPOSITIVO_NULO;
+            }
+            else
+            {
+                if(dispositivoActual.Estado == Estado.Ocupado)
+                {
+                    return DISPOSITIVO_OCUPADO;
+                }
+                else
+                {
+                    Computadora pc = dispositivoActual as Computadora;
+                    if (pc is not null && this != pc)
+                    {
+                        return PC_INVALIDA;
+                    }
+                    else
+                    {
+                        if(this != dispositivoActual)
+                        {
+                            return DISPOSITIVO_INVALIDO;
+                        }
+                        return TODO_OK;
+                    }
+                }
             }
         }
 

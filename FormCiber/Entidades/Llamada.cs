@@ -131,5 +131,28 @@ namespace Entidades
                 tipo = TipoLlamada.Internacional;
             }
         }
+        /// <summary>
+        /// Parsea los string recibidos a un numero telefonico, contando codigo de pais, area y el numero telefonico relativo a la misma
+        /// </summary>
+        /// <param name="codigoPaisStr">Codigo de pais asociado a la llamada</param>
+        /// <param name="codigoAreaStr">Codigo de area asociado a la llamada</param>
+        /// <param name="numeroStr">Numero de telefono asociado a la llamada</param>
+        /// <returns></returns>
+        public static Llamada ParsearLlamada(string codigoPaisStr, string codigoAreaStr, string numeroStr)
+        {
+            Llamada llamada = null;
+            if(int.TryParse(codigoAreaStr, out int codigoArea) && 
+                int.TryParse(codigoPaisStr, out int codigoPais) && 
+                int.TryParse(numeroStr, out int numero))
+            {
+                if(numero >= 100000 && numero < 100000000 && 
+                    codigoArea > 0 && codigoArea < 10000 &&
+                    codigoPais > 0 && codigoPais < 10000)
+                {
+                    llamada = new Llamada(numero, codigoArea, codigoPais);
+                }
+            }
+            return llamada;
+        }
     }
 }

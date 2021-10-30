@@ -63,11 +63,13 @@ namespace PPL2
             this.gpbTelefonos = new System.Windows.Forms.GroupBox();
             this.gpbComputadoras = new System.Windows.Forms.GroupBox();
             this.btnAyuda = new System.Windows.Forms.Button();
+            this.gpbAsignacion = new System.Windows.Forms.GroupBox();
             this.stbBarraInformacion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadFracciones)).BeginInit();
             this.gpbDispositivos.SuspendLayout();
             this.gpbTelefonos.SuspendLayout();
             this.gpbComputadoras.SuspendLayout();
+            this.gpbAsignacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPc5
@@ -84,7 +86,7 @@ namespace PPL2
             // 
             // rtxtInfoDispositivo
             // 
-            this.rtxtInfoDispositivo.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.rtxtInfoDispositivo.BackColor = System.Drawing.Color.Gainsboro;
             this.rtxtInfoDispositivo.Location = new System.Drawing.Point(12, 45);
             this.rtxtInfoDispositivo.Name = "rtxtInfoDispositivo";
             this.rtxtInfoDispositivo.ReadOnly = true;
@@ -262,7 +264,7 @@ namespace PPL2
             // 
             // rtxtProximoCliente
             // 
-            this.rtxtProximoCliente.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.rtxtProximoCliente.BackColor = System.Drawing.Color.Gainsboro;
             this.rtxtProximoCliente.Location = new System.Drawing.Point(559, 45);
             this.rtxtProximoCliente.Name = "rtxtProximoCliente";
             this.rtxtProximoCliente.ReadOnly = true;
@@ -273,8 +275,9 @@ namespace PPL2
             // lblDispositivo
             // 
             this.lblDispositivo.AutoSize = true;
+            this.lblDispositivo.BackColor = System.Drawing.SystemColors.Control;
             this.lblDispositivo.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDispositivo.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblDispositivo.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblDispositivo.Location = new System.Drawing.Point(12, 9);
             this.lblDispositivo.Name = "lblDispositivo";
             this.lblDispositivo.Size = new System.Drawing.Size(149, 28);
@@ -284,9 +287,9 @@ namespace PPL2
             // lblProximoCliente
             // 
             this.lblProximoCliente.AutoSize = true;
-            this.lblProximoCliente.BackColor = System.Drawing.Color.DimGray;
+            this.lblProximoCliente.BackColor = System.Drawing.SystemColors.Control;
             this.lblProximoCliente.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblProximoCliente.ForeColor = System.Drawing.Color.PeachPuff;
+            this.lblProximoCliente.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblProximoCliente.Location = new System.Drawing.Point(559, 9);
             this.lblProximoCliente.Name = "lblProximoCliente";
             this.lblProximoCliente.Size = new System.Drawing.Size(145, 28);
@@ -351,7 +354,7 @@ namespace PPL2
             // nudCantidadFracciones
             // 
             this.nudCantidadFracciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudCantidadFracciones.Location = new System.Drawing.Point(547, 332);
+            this.nudCantidadFracciones.Location = new System.Drawing.Point(112, 23);
             this.nudCantidadFracciones.Minimum = new decimal(new int[] {
             1,
             0,
@@ -370,7 +373,7 @@ namespace PPL2
             // 
             this.rbtnFraccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnFraccion.AutoSize = true;
-            this.rbtnFraccion.Location = new System.Drawing.Point(460, 332);
+            this.rbtnFraccion.Location = new System.Drawing.Point(21, 23);
             this.rbtnFraccion.Name = "rbtnFraccion";
             this.rbtnFraccion.Size = new System.Drawing.Size(70, 19);
             this.rbtnFraccion.TabIndex = 26;
@@ -382,7 +385,7 @@ namespace PPL2
             // 
             this.rbtnLibre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnLibre.AutoSize = true;
-            this.rbtnLibre.Location = new System.Drawing.Point(460, 384);
+            this.rbtnLibre.Location = new System.Drawing.Point(23, 56);
             this.rbtnLibre.Name = "rbtnLibre";
             this.rbtnLibre.Size = new System.Drawing.Size(51, 19);
             this.rbtnLibre.TabIndex = 27;
@@ -465,20 +468,30 @@ namespace PPL2
             this.btnAyuda.UseVisualStyleBackColor = true;
             this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
+            // gpbAsignacion
+            // 
+            this.gpbAsignacion.Controls.Add(this.rbtnFraccion);
+            this.gpbAsignacion.Controls.Add(this.rbtnLibre);
+            this.gpbAsignacion.Controls.Add(this.nudCantidadFracciones);
+            this.gpbAsignacion.Location = new System.Drawing.Point(447, 317);
+            this.gpbAsignacion.Name = "gpbAsignacion";
+            this.gpbAsignacion.Size = new System.Drawing.Size(232, 108);
+            this.gpbAsignacion.TabIndex = 32;
+            this.gpbAsignacion.TabStop = false;
+            this.gpbAsignacion.Text = "Asignar dispositivo por:";
+            // 
             // FormCiber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.DimGray;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 522);
+            this.Controls.Add(this.gpbAsignacion);
             this.Controls.Add(this.btnAyuda);
             this.Controls.Add(this.gpbDispositivos);
             this.Controls.Add(this.btnTerminarPrograma);
             this.Controls.Add(this.btnHistorial);
-            this.Controls.Add(this.rbtnLibre);
-            this.Controls.Add(this.rbtnFraccion);
-            this.Controls.Add(this.nudCantidadFracciones);
             this.Controls.Add(this.btnLiberar);
             this.Controls.Add(this.btnAsignar);
             this.Controls.Add(this.stbBarraInformacion);
@@ -498,6 +511,8 @@ namespace PPL2
             this.gpbDispositivos.ResumeLayout(false);
             this.gpbTelefonos.ResumeLayout(false);
             this.gpbComputadoras.ResumeLayout(false);
+            this.gpbAsignacion.ResumeLayout(false);
+            this.gpbAsignacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -539,6 +554,7 @@ namespace PPL2
         private System.Windows.Forms.GroupBox gpbTelefonos;
         private System.Windows.Forms.GroupBox gpbComputadoras;
         private System.Windows.Forms.Button btnAyuda;
+        private System.Windows.Forms.GroupBox gpbAsignacion;
     }
 }
 

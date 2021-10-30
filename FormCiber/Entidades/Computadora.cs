@@ -15,33 +15,51 @@ namespace Entidades
         private List<string> juegos;
         private Dictionary<string, string> especificaciones;
         private static int ultimoId;
-
+        /// <summary>
+        /// Inicializa el valor del campo estático ultimo ID para la generacion de dispositivos
+        /// </summary>
         static Computadora()
         {
             ultimoId = 0;
         }
-        public Computadora(string id, List<string> perifericos, Dictionary<string, string> especificaciones) : base(id, 30)
+        /// <summary>
+        /// Inicializa los valores iniciales de una instancia de computadora, seteando el ID, perifericos y especificaciones
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="perifericos"></param>
+        /// <param name="especificaciones"></param>
+        internal Computadora(string id, List<string> perifericos, Dictionary<string, string> especificaciones) : base(id, 30)
         {
             this.perifericos = perifericos;
             this.especificaciones = especificaciones;
         }
-        public Computadora(string id, List<string> perifericos, List<string> software, Dictionary<string, string> especificaciones)
-            : this(id, perifericos, especificaciones)
+
+        public Computadora(string id, List<string> software, List<string> perifericos, List<string> juegos,
+                          Dictionary<string, string> especificaciones) : this(id, perifericos, especificaciones)
         {
             this.software = software;
-        }
-        public Computadora(List<string> perifericos, string id, List<string> juegos, Dictionary<string, string> especificaciones) :
-            this(id, perifericos, especificaciones)
-        {
-            this.juegos = juegos;
-        }
-        public Computadora(string id, List<string> software, List<string> perifericos, List<string> juegos,
-                          Dictionary<string, string> especificaciones) : this(id, perifericos, software, especificaciones)
-        {
             this.juegos = juegos;
         }
 
-        public List<string> Software
+        public string this [char elemento, int index]
+        {
+            get 
+            { 
+                if(elemento == 's' && index >= 0 && index < software.Count)
+                {
+                    return software[index];
+                }
+                else
+                {
+                    if(elemento == 'j' && index >= 0 && index < juegos.Count)
+                    {
+                        return juegos[index];
+                    }
+                    return string.Empty;
+                }
+            }
+        }
+        internal List<string> Software
         {
             get
             {
@@ -141,6 +159,7 @@ namespace Entidades
                     listado.Add(pc);
                 }
             }
+
         }
         /// <summary>
         /// 

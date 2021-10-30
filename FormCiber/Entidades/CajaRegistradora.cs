@@ -69,6 +69,10 @@ namespace Entidades
                     montoBruto = CalcularCostoLlamada(cliente);
                 }
             }
+            if(cliente.Dispositivo.Estado == Estado.Ocupado)
+            {
+                cliente.Dispositivo.Liberar();
+            }
             return montoBruto;
         }
         /// <summary>

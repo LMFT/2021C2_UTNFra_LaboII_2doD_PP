@@ -12,7 +12,7 @@ namespace Entidades
     /// </summary>
     public static class Cibercafe
     {
-        private static Queue<Cliente> colaClientes;
+        private static Queue<Cliente> clientesEnEspera;
         private static List<Cliente> clientesConDispositivo;
         private static CajaRegistradora caja;
         private static List<Dispositivo> dispositivos;
@@ -22,7 +22,7 @@ namespace Entidades
         /// </summary>
         static Cibercafe()
         {
-            colaClientes = Cliente.HardcodearClientes();
+            clientesEnEspera = HardcodearClientes();
             dispositivos = GenerarDispositivos();
             historial = new List<Operacion>();
             caja = CajaRegistradora.InicializarCaja(10);
@@ -104,7 +104,7 @@ namespace Entidades
         /// <returns>Datos del proximo cliente</returns>
         public static Cliente VerProximoCliente()
         {
-            return colaClientes.Peek();
+            return clientesEnEspera.Peek();
         }
         /// <summary>
         /// Retorna el proximo cliente de la cola de espera y lo remueve de la misma
@@ -112,7 +112,7 @@ namespace Entidades
         /// <returns>Siguiente cliente a atender</returns>
         public static Cliente AtenderCliente()
         {
-            return colaClientes.Dequeue();
+            return clientesEnEspera.Dequeue();
         }
         /// <summary>
         /// Añade al cliente recibido al listado de clientes con dispositivos asignados
@@ -129,6 +129,7 @@ namespace Entidades
         public static void LiberarDispositivo(Cliente cliente)
         {
             clientesConDispositivo.Remove(cliente);
+            cliente.Dispositivo.Liberar();
         }
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace Entidades
         {
             if(c is not null)
             {
-                colaClientes += c;
+                clientesEnEspera += c;
                 return true;
             }
             return false;
@@ -160,7 +161,7 @@ namespace Entidades
         {
             get
             {
-                return colaClientes;
+                return clientesEnEspera;
             }
         }
         /// <summary>
@@ -199,17 +200,6 @@ namespace Entidades
             return null;
         }
         /// <summary>
-        /// Obtiene el cliente asignado a un dispositivo a partir del ID del dispositivo
-        /// </summary>
-        /// <param name="id">ID del dispositivo a buscar</param>
-        /// <returns>Cliente asignado al dispositivo recibido como parámetro o null si el dispositivo esta libre, no existe en la lista
-        ///  o el ID pasado como parámetro no esta asociado a ningun dispositivo</returns>
-        public static Cliente ObtenerClientePorDispositivo(string id)
-        {
-            Dispositivo d = Cibercafe.ObtenerDispositivo(id);
-            return ObtenerClientePorDispositivo(d);
-        }
-        /// <summary>
         /// Cambia el estado del dispositivo y calcula el monto a cobrar en base a la hora de finalizacion del dispositivo recibida como 
         /// parametro
         /// </summary>
@@ -221,7 +211,7 @@ namespace Entidades
         {
             if(cliente is not null && cliente.Dispositivo is not null && cliente.Dispositivo.Estado == Estado.Ocupado)
             {
-                cliente.Dispositivo.CambiarEstado();
+               
                 return caja.Cobrar(cliente, horaFinalizacion);
             }
             return 0;
@@ -234,6 +224,7 @@ namespace Entidades
         /// se encuentra libre</returns>
         public static double Cobrar(Cliente cliente)
         {
+            
             return Cobrar(cliente, DateTime.Now);
         }
         /// <summary>
@@ -274,7 +265,60 @@ namespace Entidades
             Cliente cliente = Cliente.GenerarCliente();
             DateTime horaInicio = DateTime.Now.RestarTiempo();
             Cibercafe.AsignarDispositivoAleatorio(cliente, horaInicio);
+            Telefono t = cliente.Dispositivo as Telefono;
+            if (t is not null)
+            {
+                t.Llamada = Llamada.GenerarLlamada();
+            }
             return cliente;
+        }
+
+        /// <summary>
+        /// Asigna el dispositivo al cliente y, en caso de ser solicitado por fraccion, realiza el cobro
+        /// </summary>
+        /// <param name="cliente"></param>
+        public static void Asignar(Cliente cliente, Dispositivo dispositivoActual, bool tiempoLibre, int cantidadFracciones)
+        {
+            cliente.AsignarDispositivo(dispositivoActual);
+            Cibercafe.AsignarDispositivo(Cibercafe.AtenderCliente());
+            if (tiempoLibre && cantidadFracciones > 0)
+            {
+                dispositivoActual.Fracciones = cantidadFracciones;
+                DateTime horaFinalizacion = DateTime.Now;
+                horaFinalizacion.AddSeconds(dispositivoActual.TiempoUso());
+                Cobrar(cliente, horaFinalizacion);
+                return;
+            }
+            else
+            {
+                dispositivoActual.Fracciones = 0;
+            }
+        }
+
+        /// <summary>
+        /// Crea una queue de clientes y la hardcodea con 15 clientes iniciales
+        /// </summary>
+        /// <returns>Queue de clientes hardcodeada</returns>
+        public static Queue<Cliente> HardcodearClientes()
+        {
+            Queue<Cliente> cola = new Queue<Cliente>();
+            string[] nombres = {"Lucas","Javier","Carolina", "Guadalupe", "Laura", "Maximiliano", "Bianca", "Violeta", "Martin",
+                               "Facundo", "Diego", "Ezequiel", "Emanuel", "Alan", "Florencia" };
+            string[] apellidos = { "Steinbrenner", "Fernandez", "Perez", "Gozalvez", "Martinez", "Scarsi", "Carrizo", "Gonzalez",
+                                   "Albornoz", "Dotta", "Vietti", "Manriquez", "Cech", "Aspen", "Elbetti" };
+            int[] dni = { 12345678, 34521654, 34579157, 37789546, 26847591, 38859610, 42150369, 29684578, 35589214, 36458974, 30258965,
+                40259036, 25099681, 26509856,  42567345};
+            int[] edades = { 29, 35, 49, 18, 16, 20, 21, 50, 30, 28, 45, 48, 49, 32, 15 };
+            Necesidad[] necesidades = { Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
+                                        Necesidad.Telefono, Necesidad.Telefono, Necesidad.Computadora, Necesidad.Telefono,
+                                        Necesidad.Telefono, Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora,
+                                        Necesidad.Computadora, Necesidad.Computadora, Necesidad.Computadora};
+            for (int i = 0; i < 15; i++)
+            {
+                Cliente cliente = new Cliente(nombres[i], apellidos[i], necesidades[i], dni[i], edades[i]);
+                cola += cliente;
+            }
+            return cola;
         }
     }
 }
