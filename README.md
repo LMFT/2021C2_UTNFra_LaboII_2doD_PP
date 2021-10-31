@@ -14,6 +14,7 @@ Presentarse brevemente. Contar su experiencia programando y lo que significó pa
 La aplicación permite simular el control de un cibercafé, permitiendo habilitar dispositivos (computadoras y telefonos), finalizar su uso y calcula los diversos montos a cobrar en base al tiempo de uso. La misma tambien informa al usuario de los requisitos del cliente, y destaca los dispositivos que cumplen los requisitos del mismo utilizando un código de colores para informar a simple vista qué dispositivos cumplen con estos requisitos, así como su estado actual
 
 ## Diagrama de clases
+![Diagrama de clases del proyecto](https://user-images.githubusercontent.com/67986002/139592323-ea0c71a1-601f-4db3-8478-9b954151affe.png)
 
 
 ## Justificación técnica
